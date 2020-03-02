@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html>
+<head hexo-theme='https://volantis.js.org/#0.9.4'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 页面元数据 -->
+  
+    <title>Python, Cython绘制美妙绝伦的Mandelbrot集, 曼德博集分形图案 - Python,C/C++ Club</title>
+  
+    <meta name="keywords" content="Python,Mandelbrot,分形数学,曼德博集,Cython">
+  
+  
+    <meta name="description" content="上世纪60-70年代，美籍数学家曼德博 - Benoit B. Mandelbrot几乎单枪匹马的创立了一个新的数学分支，即分形几何学 - fractal geometry。这个新的数学分支有助于人类探索物理现象背后的数学规律，分形混沌之旋风，横扫数学、理化、生物、大气、海洋以至社会学科，在音乐、美术领域也产生了...">
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+    
+      <meta name='theme-color' content='#FFFFFF'>
+    
+      <meta name='msapplication-TileColor' content='#1BC3FB'>
+    
+      <meta name='msapplication-config' content='https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicons/browserconfig.xml'>
+    
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css">
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+
+  
+
+  
+  <link rel="shortcut icon" type='image/x-icon' href="https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicon.ico">
+  
+
+  
+
+  <!-- import link -->
+  
+  
+  <link rel='shortcut icon' type='image/x-icon' href='https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicon.ico'>
+  <link rel='icon' type='image/x-icon' sizes='32x32' href='https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicons/favicon-32x32.png'>
+  <link rel='apple-touch-icon' type='image/png' sizes='180x180' href='https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicons/apple-touch-icon.png'>
+  <link rel='mask-icon' color='#1BC3FB' href='https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicons/safari-pinned-tab.svg'>
+  <link rel='manifest' href='https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicons/site.webmanifest'>
+  
+
+  
+    
+<link rel="stylesheet" href="/style.css">
+
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  <div class="cover-wrapper">
+    <cover class='cover post half'>
+      
+        
+  <p class="title ">Codelearn</p>
+  
+    <p class="subtitle ">分享Python,C/C++相关的技术文章, 海洋饼干叔叔@重庆大学</p>
+  
+
+
+  <div class="m_search">
+    <form name="searchform" class="form u-search-form">
+      <i class="icon fas fa-search fa-fw"></i>
+      <input type="text" class="input u-search-input" placeholder="搜索文档" />
+    </form>
+  </div>
+
+<div class='menu navigation'>
+  <ul class='h-list'>
+    
+      
+        <li>
+          <a class="nav home "
+            href="/2020/03/notice/"
+            
+            
+            id="202003notice">
+            <i class='fas fa-bullhorn fa-fw'></i>&nbsp;公告
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home "
+            href="/"
+            
+            
+            id="home">
+            <i class='fas fa-globe-asia fa-fw'></i>&nbsp;主页
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home "
+            href="http://www.bilibili.com/video/av34586138/"
+            
+            
+            id="http:www.bilibili.comvideoav34586138">
+            <i class='fas fa-book fa-fw'></i>&nbsp;从C到C++
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home "
+            href="http://www.bilibili.com/video/av34409478"
+            
+              rel="external nofollow noopener noreferrer"
+            
+            
+              target="_blank"
+            
+            id="http:www.bilibili.comvideoav34409478">
+            <i class='fas fa-book fa-fw'></i>&nbsp;Python编程基础及应用
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home "
+            href="/2020/03/thanks/"
+            
+            
+            id="202003thanks">
+            <i class='fas fa-handshake fa-fw'></i>&nbsp;鸣谢
+          </a>
+        </li>
+      
+    
+  </ul>
+</div>
+
+      
+    </cover>
+    <header class="l_header nav-blur">
+  <div id="loading-bar-wrapper">
+    <div id="loading-bar"></div>
+  </div>
+	<div class='wrapper'>
+		<div class="nav-main container container--flex">
+      
+        <a class="logo flat-box" target="_self" href='/' >
+          
+            
+              CODELEARN <sup style='color:#2196f3'>0.9.4</sup>
+            
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='h-list'>
+          
+  					
+  						<li>
+								<a class="nav flat-box" href="/getting-started/"
+                  
+                  
+                  id="getting-started">
+									<i class='fas fa-flag fa-fw'></i>&nbsp;公告
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/"
+                  
+                  
+                  id="home">
+									<i class='fas fa-globe-asia fa-fw'></i>&nbsp;主页
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/theme-settings/"
+                  
+                  
+                  id="theme-settings">
+									<i class='fas fa-palette fa-fw'></i>&nbsp;下载
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/page-settings/"
+                  
+                  
+                  id="page-settings">
+									<i class='fas fa-file-alt fa-fw'></i>&nbsp;图书
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/tag-plugins/"
+                  
+                  
+                  id="tag-plugins">
+									<i class='fas fa-pen-alt fa-fw'></i>&nbsp;MOOC
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/advanced-settings/"
+                  
+                  
+                  id="advanced-settings">
+									<i class='fas fa-flask fa-fw'></i>&nbsp;致谢
+								</a>
+							</li>
+      			
+      		
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="搜索文档" />
+        </form>
+      </div>
+
+			<ul class='switcher h-list'>
+				
+					<li class='s-search'><a class="fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li class='s-menu'><a class="fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a></li>
+			</ul>
+		</div>
+
+		<div class='nav-sub container container--flex'>
+			<a class="logo flat-box"></a>
+			<ul class='switcher h-list'>
+				<li class='s-comment'><a class="flat-btn fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li class='s-toc'><a class="flat-btn fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+			</ul>
+		</div>
+	</div>
+</header>
+	<aside class="menu-phone white-box">
+    <header>
+		<nav class="menu navigation">
+      <ul>
+        
+          
+            <li>
+							<a class="nav flat-box" href="/getting-started/"
+                
+                
+                id="getting-started">
+								<i class='fas fa-flag fa-fw'></i>&nbsp;公告
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/"
+                
+                
+                id="home">
+								<i class='fas fa-globe-asia fa-fw'></i>&nbsp;主页
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/theme-settings/"
+                
+                
+                id="theme-settings">
+								<i class='fas fa-palette fa-fw'></i>&nbsp;下载
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/page-settings/"
+                
+                
+                id="page-settings">
+								<i class='fas fa-file-alt fa-fw'></i>&nbsp;图书
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/tag-plugins/"
+                
+                
+                id="tag-plugins">
+								<i class='fas fa-pen-alt fa-fw'></i>&nbsp;MOOC
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/advanced-settings/"
+                
+                
+                id="advanced-settings">
+								<i class='fas fa-flask fa-fw'></i>&nbsp;致谢
+							</a>
+            </li>
+          
+       
+      </ul>
+		</nav>
+    </header>
+	</aside>
+<script>setLoadingBarProgress(40);</script>
+
+  </div>
+
+
+  <div class="l_body">
+    <div class='body-wrapper'>
+      
+
+<div class='l_main'>
+  
+
+  
+    <article id="post" class="post white-box   article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class='meta'>
+    
+    
+    <div class="meta" id="header-meta">
+      
+        
+  
+    <h1 class="title">
+      <a href="/2019/01/python-mandelbrot/">
+        Python, Cython绘制美妙绝伦的Mandelbrot集, 曼德博集分形图案
+      </a>
+    </h1>
+  
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+<div class='new-meta-item author'>
+  <a href="https://codelearn.club" rel="nofollow">
+    <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/avatar/avatar.png">
+    <p>海洋饼干叔叔</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/categories/Python/%E5%88%86%E5%BD%A2/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>Python&nbsp;/&nbsp;数学之美&nbsp;/&nbsp;分形</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-edit" aria-hidden="true"></i>
+    <p>发布于：2019年1月19日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          
+          <p>上世纪60-70年代，美籍数学家曼德博 - Benoit B. Mandelbrot几乎单枪匹马的创立了一个新的数学分支，即分形几何学 - fractal geometry。这个新的数学分支有助于人类探索物理现象背后的数学规律，分形混沌之旋风，横扫数学、理化、生物、大气、海洋以至社会学科，在音乐、美术领域也产生了一定的影响。</p>
+<p>分形艺术 - fractal art不同于普通的电脑绘画，它利用分形几何学和计算机强大的运算能力，将数学公式反复迭代运算，再结合作者的审美及艺术性的塑造，从而将抽象神秘的数学公式变成一幅幅精美绝伦的艺术画作。</p>
+<a id="more"></a>
+
+
+
+<blockquote>
+<p>版权声明</p>
+<p>本文<strong>可以</strong>在互联网上自由转载，但必须：注明出处(作者：海洋饼干叔叔)并包含指向本页面的链接。</p>
+<p>本文<strong>不可以</strong>以纸质出版为目的进行改编、摘抄。</p>
+</blockquote>
+<p>本文配套在线视频： <a href="https://www.bilibili.com/video/av34409478/?p=45" target="_blank" rel="noopener">https://www.bilibili.com/video/av34409478/?p=45</a></p>
+<iframe width="100%" height="480" src="//player.bilibili.com/player.html?aid=34409478&cid=67547857&page=45" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+
+
+<h2 id="1-Mandelbrot集"><a href="#1-Mandelbrot集" class="headerlink" title="1. Mandelbrot集"></a>1. Mandelbrot集</h2><h3 id="1-1-定义"><a href="#1-1-定义" class="headerlink" title="1.1 定义"></a>1.1 定义</h3><p>​    说明：阅读Mandelbrot集相关内容需要一点复数及复平面的知识，缺乏相关背景知识的读者可以略过，不影响后续内容的理解。</p>
+<p>​    Mandelbrot(曼德布洛特)集是在复平面上构成分形图案的点的集合。它可以用下述复二次多项式定义：<br>$$<br>f_{c}(z)=z^{2}+c<br>$$<br>​    这里的c = x + yi是一个复数，如果把实部x和虚部y视为复平面上的横纵坐标的话，那么c对应该复平面上的一个点。从z=0开始，反复应用上述二次多项式进行迭代计算，z值将不断变化，其或者延伸至无限大，或者停留在有限半径的圆内部。如果是后者，我们称参数c导致了不发散的迭代z序列，此时，c点属于Mandelbrot集合，否则不属于。</p>
+<h3 id="1-2-计算"><a href="#1-2-计算" class="headerlink" title="1.2 计算"></a>1.2 计算</h3><p>​    计算机显然没有办法进行无穷尽的计算才确认c所导致的迭代z值是否发散，所以我们简单地计算c点的逃逸时间  - 也就是经过多少轮迭代计算，z值的模超过2。在绘图过程中，该逃逸时间将作为c点在平面上的颜色。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getEscapeTime</span><span class="params">(c)</span>:</span></span><br><span class="line">    <span class="string">"计算参数c的逃逸时间，该逃逸时间将用作点的颜色"</span></span><br><span class="line">    z = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">100</span>):</span><br><span class="line">        <span class="keyword">if</span> abs(z) &gt; <span class="number">2</span>:</span><br><span class="line">            <span class="keyword">return</span> i</span><br><span class="line">        z = z*z + c</span><br><span class="line">    <span class="keyword">return</span> i</span><br></pre></td></tr></table></figure>
+
+<p>​    如代码所示，abs(z)用于计算复数的模，在该代码中，逃逸时间最大为100-1 = 99。同时，应注意到，Python原生支持复数运算，z*z + c就是在复数之间的运算，其代码与普通实数间的运算没有什么不同。</p>
+<p>​    接下来，就可以计算Mandelbrot集合了。广义的Mandelbrot集合是个无穷大的复平面，显然，我们只可能画其中一小块。下述代码计算以(xCenter,yCenter)为中心点，semiWidth为半宽的正方形区域内的Mandelbrot集。这个正方形区域x坐标范围为xCenter±semiWidth，y坐标范围为yCenter±semiWidth。考虑到计算机只能计算离散点，所以该正方形区域将被分成N*N个点进行计算。当N=600时，下述函数的结果矩阵就是一个600x600的图像，矩形元素值代表该点的颜色。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">computeMandelbrot</span><span class="params">(xCenter,yCenter,semiWidth,N)</span>:</span></span><br><span class="line">    xFrom,xTo,yFrom,yTo = xCenter-semiWidth,xCenter+semiWidth,\</span><br><span class="line">                          yCenter-semiWidth,yCenter+semiWidth</span><br><span class="line">    y,x = np.ogrid[yFrom:yTo:N*<span class="number">1j</span>,xFrom:xTo:N*<span class="number">1j</span>]</span><br><span class="line">    c = x + y*<span class="number">1j</span></span><br><span class="line">    print(<span class="string">"c.shape:"</span>,c.shape,<span class="string">"x.shape:"</span>,x.shape,<span class="string">"y.shape:"</span>,y.shape)</span><br><span class="line">    <span class="keyword">return</span> np.frompyfunc(getEscapeTime,<span class="number">1</span>,<span class="number">1</span>)(c).astype(np.float)</span><br></pre></td></tr></table></figure>
+
+<p>​    上述代码的理解并不容易，需要先从多维数据np.ndarray的广播运算开始。对于复杂的问题，做一点小规模的模拟运算可以帮助理解。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">y,x = np.ogrid[<span class="number">1</span>:<span class="number">4</span>:<span class="number">4j</span>,<span class="number">1</span>:<span class="number">3</span>:<span class="number">3j</span>]</span><br><span class="line">print(<span class="string">"y="</span>)</span><br><span class="line">print(y)</span><br><span class="line">print(<span class="string">"x="</span>,x)</span><br><span class="line">print(<span class="string">"shape of y:"</span>,y.shape,<span class="string">"shape of x:"</span>,x.shape)</span><br></pre></td></tr></table></figure>
+
+<p>执行如果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">y&#x3D;</span><br><span class="line">[[1.]</span><br><span class="line"> [2.]</span><br><span class="line"> [3.]</span><br><span class="line"> [4.]]</span><br><span class="line">x&#x3D; [[1. 2. 3.]]</span><br><span class="line">shape of y: (4, 1) shape of x: (1, 3)</span><br></pre></td></tr></table></figure>
+
+<p>​    np.ogrid是一个特殊对象，它使用切片元组作为下标，专门用于生成用来广播的数组。1:4:4j有点类似于np.linspace(1,4,4)，用于生成从1到4（含4）的有4个元素的等差数列，这里的j并不表示复数，只是一种表达形式。可以看到，ogrid生成的y是一个4行1列的二维数组，x则是一个1行3列的二维数组。其值见上。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">z = y*<span class="number">1j</span></span><br><span class="line">print(<span class="string">"z = y*1j ="</span>,z)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">z &#x3D; y*1j &#x3D; [[0.+1.j]</span><br><span class="line"> [0.+2.j]</span><br><span class="line"> [0.+3.j]</span><br><span class="line"> [0.+4.j]]</span><br></pre></td></tr></table></figure>
+
+<p>​    y*1j是把复数1j同y里的每一个元素相乘，并返回相同形状（维度)的数组。由于numpy模块并不是Python的原生内容，所以这里的*号并不是普通意义的Python乘法，它事实上是一个被重载的操作符函数，这个函数位于numpy模块，是用C语言书写的。可见，y*1j的结果元素的实部全是0，虚部则等于原元素值乘以1j。</p>
+<p>​    再来看看x + z会得到什么，注意这里的z就是y*1j的结果。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">c = x + z</span><br><span class="line">print(c)</span><br><span class="line">print(<span class="string">"shape of c:"</span>,c.shape)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[[1.+1.j 2.+1.j 3.+1.j]</span><br><span class="line"> [1.+2.j 2.+2.j 3.+2.j]</span><br><span class="line"> [1.+3.j 2.+3.j 3.+3.j]</span><br><span class="line"> [1.+4.j 2.+4.j 3.+4.j]]</span><br><span class="line">shape of c: (4, 3)</span><br></pre></td></tr></table></figure>
+
+<p>​    x是一个1行3列的二维数组，z = y*1j是一个4行1列的二维数组。两者相加事实上也是实际的被重载的numpy模块内的操作符函数，该函数将两个数组的对应元素相加。问题来了，两个数组的形状/维度不同，如何确定元素间的对应性呢？ numpy进行了所谓“广播”运算，结果数组c将取x,z的各轴的最大值，其结果维度为(4,3)也就是4行3列。对于c的各个元素，比如c[3][2]为例，其值应等于x[3][2] + z[3][2]，由于x[3][2]并不存在，广播规则取x[0][2] = 3代替；同样地，z[3][2]也不存在，广播规则取z[3][0] = 0. + 4.j代替；所以，c[3][2] = 3 + 0. + 4.j = 3. + 4.j。请注意，结果元素的实部来自于x数组，虚部来自于z数组，也就是y*1j的结果数组。</p>
+<p>​    这里所述的“广播规则”是指当输入数组的某个轴的长度为1时，取值时均取该轴的下标0值。比如x[3][2]，由于x数组的0轴长度为1，故x[3][2]的0轴下标改取0，即x[0][2]。</p>
+<p>​    请读者再次观察c数组内的复数，把它看作一幅图像，从上向下，虚部的值在等差递增；从左向右，实部的值在等差递增。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">xFrom,xTo,yFrom,yTo = xCenter-semiWidth,xCenter+semiWidth,\</span><br><span class="line">                      yCenter-semiWidth,yCenter+semiWidth</span><br><span class="line">y,x = np.ogrid[yFrom:yTo:N*<span class="number">1j</span>,xFrom:xTo:N*<span class="number">1j</span>]</span><br><span class="line">c = x + y*<span class="number">1j</span></span><br></pre></td></tr></table></figure>
+
+<p>​    现在这段程序容易理解了，它使用与上述解读过程相同的方法把以(xCenter,yCenter)为中心点，semiWidth为半径的复平面正方形区域等分成了N行N列，多维数组c的维度即为(N,N)。c中的元素为复数，其实部在xFrom至xTo之间等差横向变化，其虚部在yFrom至yTo间等差纵向变化。</p>
+<p>​    再来看函数最后一行代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> np.frompyfunc(getEscapeTime,<span class="number">1</span>,<span class="number">1</span>)(c).astype(np.float)</span><br></pre></td></tr></table></figure>
+
+<p>​    getEscapeTime(c)是之前已经定义好的一个Python语言函数，它接受一个复数参数c并计算返回这个复数参数对应的逃逸时间。np.frompyfunc()函数将二维数组c中的复数元素逐一交给getEscapeTime()进行计算，得到一个与c形状相同的结果数组。c里有多少个元素，getEscapeTime()函数就会执行多少次。执行这个结果数组的astype函数将结果数组中的元素全部转换成np.float类型。上述参数1,1表示getEscapeTime()函数接受1个参数，返回1个结果元素。</p>
+<p>​    综上，computeMandelbrot()函数最后返回了一个N行N列的二维数组，数组元素为np.float类型，表明了该点的逃逸时间；而元素所在的行列编号则间接表示了元素点在结果图像/复平面中的坐标。</p>
+<h3 id="1-3-绘图"><a href="#1-3-绘图" class="headerlink" title="1.3 绘图"></a>1.3 绘图</h3><p>​    我们使用matplotlib绘制了Mandelbrot集的局部。左图的中心点c = 0.27322626 + 0.595153338j, 正方形半宽为0.2；右图的中心点与左图相同，半宽为0.2<sup>3</sup>，相当于把左图放大了25倍。</p>
+<p><img src="/images/1544678021516.png" alt="1544678021516"></p>
+<p>​    接下来分析代码。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> cm</span><br><span class="line">...</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">drawMandelbrot</span><span class="params">(ax,xCenter,yCenter,semiWidth,N,cmap)</span>:</span></span><br><span class="line">    <span class="string">"(xCenter,yCenter)-中心点，semiWidth-矩形半宽，N*N像素."</span></span><br><span class="line">    ax.set_axis_off()</span><br><span class="line">    ds = computeMandelbrot(xCenter,yCenter,semiWidth,N)</span><br><span class="line">    ax.imshow(ds,cmap=cmap) <span class="comment">#在子图-ax上绘制图像，ds是计算而得的二维数组，其元素为逃逸时间</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">refresh</span><span class="params">()</span>:</span></span><br><span class="line">    c = cm.get_cmap(para.cmaps[para.idxColorMap%len(para.cmaps)])</span><br><span class="line">    drawMandelbrot(para.ax0, para.x, para.y,</span><br><span class="line">                   semiWidth=<span class="number">0.2</span>, N=<span class="number">600</span>,cmap=c)</span><br><span class="line">    drawMandelbrot(para.ax1, para.x, para.y,</span><br><span class="line">                   semiWidth=<span class="number">0.2</span> ** <span class="number">3</span>, N=<span class="number">600</span>,cmap=c)</span><br><span class="line">    para.fig.canvas.draw()				<span class="comment">#要求图-Fig重绘</span></span><br></pre></td></tr></table></figure>
+
+<p>​    pyplot中的图称为figure，图内包含一个或者多个子图-axes。drawMandelbrot()函数负责在子图上计算并画出Mandelbrot集图像。ax.set_axis_off()隐藏了子图的坐标，然后计算得到N*N像素的结果图像数组ds，接着使用ax.imshow()函数将ds在子图上画出来。该函数将ds二维数据视为一幅二维图像，ds内的每一个元素则对应图像中的一个像素点。imshow()函数内的cmap函数对应一个颜色映射对象，该对象负责把元素的值（就是复数c的逃逸时间）转换成对应的颜色。</p>
+<p>​    refresh()函数则两次调用drawMandelbrot()函数画出左子图-ax0和右子图-ax1。注意，两次绘图的中心点坐标是一样的，区别是半宽不同，一个是0.2，一个是0.2<sup>3</sup>。matplotlib中的cm负责管理颜色映射对象，通过cm.get_cmap()函数可以通过字符串类型的名称比如’rainbow’获得对应的颜色映射对象。para.fig.canvas.draw()函数则通知图/fig重绘。这里，我们看到一个名为para的对象，下述代码做出了解释。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> pyplot <span class="keyword">as</span> plt</span><br><span class="line">...</span><br><span class="line"><span class="comment">#操作者通过按上下箭头改变图像描绘颜色</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">on_key_release</span><span class="params">(event)</span>:</span>	<span class="comment">#按键松开勾子函数</span></span><br><span class="line">    <span class="keyword">if</span> event.key == <span class="string">'up'</span>:</span><br><span class="line">        para.idxColorMap+=<span class="number">1</span></span><br><span class="line">    <span class="keyword">elif</span> event.key == <span class="string">'down'</span>:</span><br><span class="line">        para.idxColorMap-=<span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    refresh()</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Para</span>:</span>	<span class="comment">#一个仅有名字的Para类用于存储全局参数</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">para = Para()</span><br><span class="line">para.x, para.y = <span class="number">0.27322626</span>, <span class="number">0.595153338</span></span><br><span class="line">para.idxColorMap = <span class="number">0</span></span><br><span class="line">para.cmaps = [<span class="string">'flag'</span>, <span class="string">'prism'</span>, <span class="string">'ocean'</span>, <span class="string">'gist_earth'</span>, <span class="string">'terrain'</span>, <span class="string">'gist_stern'</span>,</span><br><span class="line">         <span class="string">'gnuplot'</span>, <span class="string">'gnuplot2'</span>, <span class="string">'CMRmap'</span>, <span class="string">'cubehelix'</span>, <span class="string">'brg'</span>,<span class="string">'gist_rainbow'</span>,</span><br><span class="line">         <span class="string">'rainbow'</span>, <span class="string">'jet'</span>, <span class="string">'nipy_spectral'</span>, <span class="string">'gist_ncar'</span>]</span><br><span class="line">para.fig = plt.figure(figsize=(<span class="number">12</span>,<span class="number">6</span>),dpi=<span class="number">100</span>)</span><br><span class="line">para.fig.canvas.mpl_connect(<span class="string">'key_release_event'</span>,on_key_release)</span><br><span class="line">plt.subplots_adjust(<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0.0</span>,<span class="number">0</span>)</span><br><span class="line">para.ax0 = plt.subplot(<span class="number">121</span>)</span><br><span class="line">para.ax1 = plt.subplot(<span class="number">122</span>)</span><br><span class="line">refresh()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<p>​    考虑到阅读本章的读者可能并不具备面向对象程序设计的知识背景，所以本章尽量避免自定义类。但作者又非常不喜欢数量过多的全局变量。作者定义了一个仅有名字的Para类并实例化了一个para对象，其中将存储那里跨函数被使用的“全局”变量。这样，理论上，全部变量只有一个，那就是para。</p>
+<p>​    plt.figure()函数创建了一个长12英寸，宽6英寸的图-figure，注意dpi/每英寸点数被设定为100，这意味着图长1200像素，宽600像素。</p>
+<p>​    para.fig.canvas.mpl_connect()函数将按键弹起事件与on_key_release()函数相关联，即图-figure处于活动状态时，操作者按下一个键并松开时，on_key_release(event)函数将被执行，event参数包括了事件的相关信息：比如事件的类型，哪个键被松开等等。这个on_key_release()函数与特定事件相绑定，俗称“勾子函数” - hook function。</p>
+<p>​    plt.subplots_adjust()函数调整了子图间的间距和边距，使得整个显示窗口被充分利用。</p>
+<p>​    plt.subplot(121)在当前图-figure对象内创建了一个子图-axes，并存于para.ax0。121参数被该函数以非常特别的方式处理，它表示将当前图的可见区域分成1行2列，在其中1号位置创建一个子图，即结果中的左子图。同理，plt.subplot(122)将当前图的可见区域分成1行2列，在其中2号位置创建一个子图，即结果中的右子图。</p>
+<p>​    refresh()函数将计算并画出两个子图。plt.show()则把窗口显示出来。</p>
+<p>​    接下来，我们研究一下勾子函数on_key_release(event)。这个函数使得操作者按上下箭头可以改变当前图像颜色并重绘。para.cmaps列表存储了一系列可用的映射对象的名称，para.idxColorMap则记录了当前使用的映射对象在para.cmaps列表中的下标。on_key_release(event)函数判断event对应的按键类型，如果是up，para.idxColorMap+1，如果是down, para.idxColorMap-1。on_key_release()函数通过调用refresh()函数再实现图的重绘，在refresh函数内部，para.idxColorMap以len(para.cmaps)取模后再使用。这是因为，para.idxColorMap的加减没有进行越界检查，para.idxColorMap可能为负数，也可能为超过para.cmaps长度的正数，取模可以保证获得合法的下标。</p>
+<p>​    需要提醒读者的是，一幅子图有600*600 = 36万个像素，两幅子图有72万个像素。每个像素的计算都会调用一次getEscapeTime()函数，而这个函数是Python语言写的，并且里面要进行不超过100次的循环运算，执行速度很慢。所以读者运行出界面后，按上下箭头时不要太心急，按一下后要等刷新结束再按下一次。</p>
+<h2 id="2-Cython加速Mandelbrot集"><a href="#2-Cython加速Mandelbrot集" class="headerlink" title="2. Cython加速Mandelbrot集"></a>2. Cython加速Mandelbrot集</h2><p>​    用纯Python语言写就的Mandelbrot集绘图程序速度太慢了！ 但Python是所谓的胶水语言，可以很方便地通过C或者其它语言来书写扩展库，numpy, scipy, matploblib都是这些扩展库的杰出代表。</p>
+<p>​    至少有两个途径可以加速Mandelbrot集的计算速度。方法1是直接用C语言书写计算逃逸时间的函数，然后使用mingw、g++或者Visual C++编译器将其编译成目标模块，然后在Python语言里调用。这非常麻烦，因为函数的参数需要手工解析，还需要记忆和使用大量的Python API。</p>
+<p>​    方法2则是Cython。Cython在语法上基本与Python相同，同时又允许直接定义和调用C语言函数、定义变量类型等功能。Cython的编译器会把Cython的源程序编译成C语言程序，再经由C语言编译器编译成Python模块。由于Python解释器本身也是由C语言写就，并经由C语言编译器编译的，所以Cython里可以很方便地访问Python类型对象。</p>
+<h3 id="2-1-环境准备"><a href="#2-1-环境准备" class="headerlink" title="2.1  环境准备"></a>2.1  环境准备</h3><p>​    世界发展得太快，当读者阅读本书时，下述信息或许已经过时。</p>
+<p>​    作者使用的是Windows 10环境下的64位的Python3.7解释器，    所以作者安装了微软的Visual Studio社区版的”使用C++的桌面开发”部分，其中包括了VC 2017 version 15.9 v14.16以及相关的Windows SDK。该软件可以从 <a href="https://visualstudio.microsoft.com" target="_blank" rel="noopener">https://visualstudio.microsoft.com</a> 获得。请注意，Visual Studio是一个非常宠大的IDE软件，除上述必要部分之外的请不要选择，否则非常耗时而且占据硬盘空间。 </p>
+<p>​    如果读者使用的是Linux, 则系统自带的gcc编译通常足够使用。Linux下Cython代码的编译过程与下述过程相当，但细节或有区别。</p>
+<p>​    读者还需要安装Cython模块，在Windows命令行或者Linux终端中运行pip install cython即可。</p>
+<h3 id="2-2-重写逃逸时间计算函数"><a href="#2-2-重写逃逸时间计算函数" class="headerlink" title="2.2 重写逃逸时间计算函数"></a>2.2 重写逃逸时间计算函数</h3><p>​    在PyCharm中新建一个文件(New-&gt;File)，命名为MandelbrotComp.pyx。其内为Cython代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">def getEscapeTime(complex c):</span><br><span class="line">    &quot;计算参数c的逃逸时间，该逃逸速度将用作点的颜色&quot;</span><br><span class="line">    cdef complex z &#x3D; 0</span><br><span class="line">    cdef int i</span><br><span class="line">    for i in range(255):</span><br><span class="line">        if z.real * z.real + z.imag*z.imag &gt; 4:</span><br><span class="line">            return i</span><br><span class="line">        z &#x3D; z*z + c</span><br><span class="line">    return i</span><br></pre></td></tr></table></figure>
+
+<p>​    可以看到，上述代码与之前纯Python写的getEscapeTime()函数主要有如下的不同：</p>
+<p>​    首先，所有的变量/对象都有类型声明，大部分通过cdef关键字定义。c,z的类型为complex，i的类型为int。强类型是C/C++的特点，也是C/C++可以编译出高效机器码的必要条件。</p>
+<p>​    第二，我们没有再使用abs来计算复数z的模，这可能有两个原因：1). 原生C语言没有用于复数求模的abs()函数，沿用abs()函数很可能会导致该模块再次内部调用Python的abs()函数；2). 复数的求模运算需要求平方根，而平方根的求解运算代价较高。而且，平方根的求解在此处是不必要的，我们直接求z的实部和虚部的平方之和，再比较其是否大于4事实上等价于比较z的模是否大于2。</p>
+<h3 id="2-3-编译为扩展模块"><a href="#2-3-编译为扩展模块" class="headerlink" title="2.3 编译为扩展模块"></a>2.3 编译为扩展模块</h3><p>​    按照Cython文档的建议，我们准备了一个setup.py文件，其内容如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> distutils.core <span class="keyword">import</span> setup</span><br><span class="line"><span class="keyword">from</span> Cython.Build <span class="keyword">import</span> cythonize</span><br><span class="line"></span><br><span class="line">setup(name=<span class="string">'Mandelbrot Computation'</span>,</span><br><span class="line">      ext_modules=cythonize(<span class="string">"MandelbrotComp.pyx"</span>))</span><br></pre></td></tr></table></figure>
+
+<p>请注意，setup.py与MandelbrotComp.pyx以及预期使用该扩展块的Mandelbrot绘图程序均在同一目录下。然后通过Windows开始菜单进入”适用于VS 2017的x64本机工具命令提示”，通过cd命令切换至setup.py及MandelbrotComp.pyx所在目录。再执行python setup.py build_ext –inplace命令。</p>
+<p>​    如下图所示，需要说明的是，下图事实上是个黑黑的终端界面，cd等命令可以追溯到40年前的DOS操作系统，也就是Windows操作系统的前身。该命令提示界面与普通Windows命令行的主要区别在于通过执行vcvarsall.bat批处理命令， 该界面内对环境变量Path进行了临时设置，以确保VC编译器-cl.exe，以及相关的C语言头文件，库文件可以被找到。读者不要在普通的Windows命令行下做下述工作，setup.py会报告找不到编译器或者C语言头文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">适用于VS2017的x64本机工具命令提示</span><br><span class="line">**********************************************************************</span><br><span class="line">** Visual Studio 2017 Developer Command Prompt v15.9.4</span><br><span class="line">** Copyright (c) 2017 Microsoft Corporation</span><br><span class="line">**********************************************************************</span><br><span class="line">[vcvarsall.bat] Environment initialized for: &#39;x64&#39;</span><br><span class="line"></span><br><span class="line">C:\Program Files (x86)\Microsoft Visual Studio\2017\Community&gt;d:</span><br><span class="line"></span><br><span class="line">D:\&gt;cd Python</span><br><span class="line"></span><br><span class="line">D:\Python&gt;cd MathBeauty</span><br><span class="line"></span><br><span class="line">D:\Python\MathBeauty&gt;python setup.py build_ext --inplace</span><br></pre></td></tr></table></figure>
+
+<p>​    一切顺利的话，上述命令将报告“已完成代码的生成”。此时，可以在PyCharm里看到代码目录下多出来两个文件，其中一个名为MandelbrotComp.c。这是由Cython编译MandelbrotComp.pyx生成的C语言程序，作者抄出来一个小片段：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (__pyx_t_1 = <span class="number">0</span>; __pyx_t_1 &lt; <span class="number">0x64</span>; __pyx_t_1+=<span class="number">1</span>) &#123;</span><br><span class="line">  __pyx_v_i = __pyx_t_1;</span><br><span class="line">  __pyx_t_2 = ((((__Pyx_CREAL(__pyx_v_z) * __Pyx_CREAL(__pyx_v_z)) + (__Pyx_CIMAG(__pyx_v_z) * __Pyx_CIMAG(__pyx_v_z))) &gt; <span class="number">4.0</span>) != <span class="number">0</span>);</span><br><span class="line">  <span class="keyword">if</span> (__pyx_t_2) &#123;</span><br><span class="line">    __Pyx_XDECREF(__pyx_r);</span><br><span class="line">    __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_i); <span class="keyword">if</span> (unlikely(!__pyx_t_3)) __PYX_ERR(<span class="number">0</span>, <span class="number">7</span>, __pyx_L1_error)</span><br><span class="line">    __Pyx_GOTREF(__pyx_t_3);</span><br><span class="line">    __pyx_r = __pyx_t_3;</span><br><span class="line">    __pyx_t_3 = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">goto</span> __pyx_L0;</span><br><span class="line">  &#125;</span><br><span class="line">  __pyx_v_z = __Pyx_c_sum_double(__Pyx_c_prod_double(__pyx_v_z, __pyx_v_z), __pyx_v_c);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​    由于是机器“写”出来的C代码，特别难理解。作者找到了那个从0到100(不含100)的循环，0x64是十六进制，它就是十进制的100。    </p>
+<p>​    另外一个生成出来的文件名为MandelbrotComp.cp37-win_amd64.pyd。读者的Python版本或者操作系统如果与作者的不同，该名称或有差异。这个文件就是编译好的Python扩展模块。</p>
+<h3 id="2-4-调用扩展模块"><a href="#2-4-调用扩展模块" class="headerlink" title="2.4  调用扩展模块"></a>2.4  调用扩展模块</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> MandelbrotComp <span class="keyword">import</span> getEscapeTime</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">computeMandelbrot</span><span class="params">(xCenter,yCenter,semiWidth,N)</span>:</span></span><br><span class="line">    xFrom,xTo,yFrom,yTo = xCenter-semiWidth,xCenter+semiWidth,\</span><br><span class="line">                          yCenter-semiWidth,yCenter+semiWidth</span><br><span class="line">    y,x = np.ogrid[yFrom:yTo:N*<span class="number">1j</span>,xFrom:xTo:N*<span class="number">1j</span>]</span><br><span class="line">    c = x + y*<span class="number">1j</span></span><br><span class="line">    print(<span class="string">"c.shape:"</span>,c.shape,<span class="string">"x.shape:"</span>,x.shape,<span class="string">"y.shape:"</span>,y.shape)</span><br><span class="line">    <span class="keyword">return</span> np.frompyfunc(getEscapeTime,<span class="number">1</span>,<span class="number">1</span>)(c).astype(np.float)</span><br></pre></td></tr></table></figure>
+
+<p>​    上述pyd文件与绘图代码在同一目录下。使用该扩展模块与使用其它模块没有什么不同。from MandelbrotComp import getEscapeTime导入了该模块并引用了函数名。np.frompyfunc()则函数则直接使用该函数对象。此时，当numpy的C程序将c二维数组中的元素逐一交给getEscapeTime()函数计算时，该函数由于是C语言编写，其执行速度有了质的提升。读者可以运行随书代码中的InteractiveMandelbrot.py，体会一下速度变化。</p>
+<p>​    需要说明的是，如果读者使用的不是Windows，那么InteractiveMandelbrot.py无法直接运行。C语言的编译结果与硬件平台(Intel x86或者ARM体系结构)、操作系统等有关。在Windows下编译的机器代码是无法在Linux下直接运行的。读者需要重新编译MandelbrotComp.pyx文件为扩展模块。</p>
+<h3 id="2-5-交互Mandelbrot绘图"><a href="#2-5-交互Mandelbrot绘图" class="headerlink" title="2.5 交互Mandelbrot绘图"></a>2.5 交互Mandelbrot绘图</h3><p>​    作者随书提供了一个名为InteractiveMandelbrot.py的文件，该绘图程序提供了交互功能。操作者除了可以使用上下箭头来改变绘图颜色之外，还可以使用鼠标的左右键来放大/缩小图像。按下Esc键，则图像还原。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">para.semiWidth &#x3D; 1.5</span><br><span class="line">para.figWidth,para.figHeight &#x3D; 700,700</span><br><span class="line">para.fig.canvas.mpl_connect(&#39;button_release_event&#39;,on_button_release)</span><br></pre></td></tr></table></figure>
+
+<p>​    为了实现上述功能，作者在para对象增加了figWidth, figHeight以表示绘图窗口的像素宽度和高度。para.semiWidth则表明当前的绘图半宽。当该绘图半宽变小，则相当于图像被放大。</p>
+<p>​    当鼠标按键被松开时，on_button_release()勾子函数被调用。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">on_button_release</span><span class="params">(event)</span>:</span></span><br><span class="line">    para.x = (para.x - para.semiWidth) + <span class="number">2</span>*para.semiWidth*event.xdata/para.figWidth</span><br><span class="line">    para.y = (para.y - para.semiWidth) + <span class="number">2</span>*para.semiWidth*event.ydata/para.figHeight</span><br><span class="line">    <span class="keyword">if</span> event.button == <span class="number">1</span>:</span><br><span class="line">        para.semiWidth /= <span class="number">3.0</span></span><br><span class="line">    <span class="keyword">elif</span> event.button == <span class="number">3</span>:</span><br><span class="line">        para.semiWidth *= <span class="number">3.0</span></span><br><span class="line">    refresh()</span><br></pre></td></tr></table></figure>
+
+<p>​    该函数首先借助于para.figWidth, figHeight, 鼠标点击坐标event.xdata, event.ydata等信息重新计算了新的绘图中心点para.x, para.y。</p>
+<p>​    如果是鼠标左键弹起(event.button==1)，则减少绘图半宽-para.semiWidth，放大图像。否则增大绘图半宽，缩小图像。refresh()函数则负责重绘，绘图中心点以及半宽从para.x, para.y, para.semiWidth取值。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">on_key_release</span><span class="params">(event)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> event.key == <span class="string">'up'</span>:</span><br><span class="line">        para.idxColorMap+=<span class="number">1</span></span><br><span class="line">    <span class="keyword">elif</span> event.key == <span class="string">'down'</span>:</span><br><span class="line">        para.idxColorMap-=<span class="number">1</span></span><br><span class="line">    <span class="keyword">elif</span> event.key == <span class="string">'escape'</span>:</span><br><span class="line">        para.x, para.y = <span class="number">-0.5</span>, <span class="number">0.0</span></span><br><span class="line">        para.semiWidth = <span class="number">1.5</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    refresh()</span><br></pre></td></tr></table></figure>
+
+<p>​    在on_key_release()勾子函数内，’escape’键弹起时，恢复para.x, para.y, para.semiWidth的初值并重绘，图像还原成初始状态。</p>
+<p>​    下面是中心点为(-0.5, 0.0)，半宽为1.5的“全局”图像（图1）以及不同轮次放大的局部图像。</p>
+<table>
+<thead>
+<tr>
+<th><img src="/images/1544793655367.png" alt="1544793655367"></th>
+<th><img src="/images/1544793692464.png" alt="1544793692464"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="/images/1544793717781.png" alt="1544793717781"></td>
+<td><img src="/images/1544793754240.png" alt="1544793754240"></td>
+</tr>
+</tbody></table>
+
+          
+        </div>
+        
+          <br>
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Python/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;<p>Python</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Mandelbrot/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;<p>Mandelbrot</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E5%88%86%E5%BD%A2%E6%95%B0%E5%AD%A6/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;<p>分形数学</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E6%9B%BC%E5%BE%B7%E5%8D%9A%E9%9B%86/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;<p>曼德博集</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Cython/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;<p>Cython</p></a></div>
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+              <section class="prev">
+                <span class="art-item-left">
+                  <h4>
+                    <a href="/2019/01/imagesconcatenate/" rel="prev" title="使用numpy进行9宫格图像拼接">
+                      <i class="fas fa-chevron-left" aria-hidden="true"></i>
+                      
+                        使用numpy进行9宫格图像拼接
+                      
+                    </a>
+                  </h4>
+                  
+                    
+                    <h6 class="tags">
+                      &nbsp;<a class="tag" href="/tags/Python/"><i class="fas fa-tag" aria-hidden="true"></i> Python</a> <a class="tag" href="/tags/numpy/"><i class="fas fa-tag" aria-hidden="true"></i> numpy</a> <a class="tag" href="/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/"><i class="fas fa-tag" aria-hidden="true"></i> 图像处理</a> <a class="tag" href="/tags/OpenCV/"><i class="fas fa-tag" aria-hidden="true"></i> OpenCV</a>
+                    </h6>
+                  
+                </span>
+              </section>
+            
+            
+              <section class="next">
+                <span class="art-item-right" aria-hidden="true">
+                  <h4>
+                    <a href="/2019/01/python-buildtree/" rel="prev" title="实践 - 使用Python画一棵递归分形树">
+                      
+                        实践 - 使用Python画一棵递归分形树
+                      
+                      <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                    </a>
+                  </h4>
+                  
+                    
+                    <h6 class="tags">
+                      <a class="tag" href="/tags/Python/"><i class="fas fa-tag" aria-hidden="true"></i> Python</a> <a class="tag" href="/tags/%E5%88%86%E5%BD%A2%E6%95%B0%E5%AD%A6/"><i class="fas fa-tag" aria-hidden="true"></i> 分形数学</a> <a class="tag" href="/tags/%E9%80%92%E5%BD%92/"><i class="fas fa-tag" aria-hidden="true"></i> 递归</a> <a class="tag" href="/tags/%E6%A0%91/"><i class="fas fa-tag" aria-hidden="true"></i> 树</a> <a class="tag" href="/tags/Tkinter/"><i class="fas fa-tag" aria-hidden="true"></i> Tkinter</a>&nbsp;
+                    </h6>
+                  
+                </span>
+              </section>
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+  <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX","TeX"],
+      linebreaks: { automatic:true },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: { autoNumber: "AMS" },
+      noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+      Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+  });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += (all[i].SourceElement().parentNode.className ? ' ' : '') + 'has-jax';
+    }
+  });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+
+  <script>
+    window.subData = {
+      title: 'Python, Cython绘制美妙绝伦的Mandelbrot集, 曼德博集分形图案',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+    
+      
+      
+
+<section class="widget grid  widget-blur desktop mobile">
+  
+  <header>
+    
+      <i class="fas fa-map-signs fa-fw" aria-hidden="true"></i><span class='name'>文档导航</span>
+    
+  </header>
+
+
+  <div class='content'>
+    <ul class="grid navigation">
+      
+        <li><a class="flat-box" title="/categories/Python/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97/" href="/categories/Python/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97/"
+          
+          
+          id="categoriesPythonE7A791E5ADA6E8AEA1E7AE97">
+          
+            <i class="fas fa-question-circle fa-fw" aria-hidden="true"></i>
+          
+          科学计算
+        </a></li>
+      
+        <li><a class="flat-box" title="/categories/Python/" href="/categories/Python/"
+          
+          
+          id="categoriesPython">
+          
+            <i class="fas fa-play-circle fa-fw" aria-hidden="true"></i>
+          
+          Python
+        </a></li>
+      
+        <li><a class="flat-box" title="/categories/C-C/" href="/categories/C-C/"
+          
+          
+          id="categoriesC-C">
+          
+            <i class="fas fa-handshake fa-fw" aria-hidden="true"></i>
+          
+          C/C++
+        </a></li>
+      
+        <li><a class="flat-box" title="/news/archives/" href="/news/archives/"
+          
+          
+          id="newsarchives">
+          
+            <i class="fas fa-file-archive fa-fw" aria-hidden="true"></i>
+          
+          资源下载
+        </a></li>
+      
+        <li><a class="flat-box" title="https://github.com/xaoxuu/hexo-theme-volantis/" href="https://github.com/xaoxuu/hexo-theme-volantis/"
+          
+            rel="external nofollow noopener noreferrer"
+          
+          
+            target="_blank"
+          
+          id="https:github.comxaoxuuhexo-theme-volantis">
+          
+            <i class="fas fa-file-code fa-fw" aria-hidden="true"></i>
+          
+          MOOC
+        </a></li>
+      
+        <li><a class="flat-box" title="https://github.com/xaoxuu/hexo-theme-volantis/releases/" href="https://github.com/xaoxuu/hexo-theme-volantis/releases/"
+          
+            rel="external nofollow noopener noreferrer"
+          
+          
+            target="_blank"
+          
+          id="https:github.comxaoxuuhexo-theme-volantisreleases">
+          
+            <i class="fas fa-clipboard-list fa-fw" aria-hidden="true"></i>
+          
+          图书订购
+        </a></li>
+      
+    </ul>
+  </div>
+</section>
+
+    
+  
+    
+      
+      
+
+<section class="widget text  widget-blur desktop">
+  
+  <header>
+    
+      <a href='https://codelearn.club/'><i class="fab fa-github fa-fw" aria-hidden="true"></i><span class='name'>点个赞吧</span></a>
+    
+  </header>
+
+
+  <div class='content'>
+    
+      <p>您的赞对我来说很重要，如果本网站的技术文章有帮到您，希望能够给下面的视频收藏点赞支持一下。</p>
+
+    
+      <p><a href="https://github.com/xaoxuu/ProHUD" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/proj/prohud/logo.png" height="50px"></a></p>
+
+    
+      <p><a href="https://github.com/xaoxuu/ValueX" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/proj/valuex/logo.png" height="50px"></a></p>
+
+    
+  </div>
+</section>
+
+    
+  
+    
+      
+      
+
+<section class="widget qrcode  widget-blur desktop">
+  
+  <header>
+    
+      <i class="fas fa-mobile fa-fw" aria-hidden="true"></i><span class='name'>手机观看</span>
+    
+  </header>
+
+
+  <div class='content article-entry'>
+    
+      
+        <img src='https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/qrcode/wiki_volantis.png'
+        >
+      
+    
+  </div>
+</section>
+
+    
+  
+    
+      
+      
+
+
+  <section class="widget toc-wrapper  widget-blur desktop mobile">
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Mandelbrot集"><span class="toc-text">1. Mandelbrot集</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-定义"><span class="toc-text">1.1 定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-计算"><span class="toc-text">1.2 计算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-绘图"><span class="toc-text">1.3 绘图</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Cython加速Mandelbrot集"><span class="toc-text">2. Cython加速Mandelbrot集</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-环境准备"><span class="toc-text">2.1  环境准备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-重写逃逸时间计算函数"><span class="toc-text">2.2 重写逃逸时间计算函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-编译为扩展模块"><span class="toc-text">2.3 编译为扩展模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-调用扩展模块"><span class="toc-text">2.4  调用扩展模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-交互Mandelbrot绘图"><span class="toc-text">2.5 交互Mandelbrot绘图</span></a></li></ol></li></ol>
+    </div>
+  </section>
+
+
+    
+  
+</aside>
+
+
+  
+  <footer class="clearfix ">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+              <a href="mailto:chenbo@cqu.edu.cn"
+                class="social fas fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://codelearn.club"
+                class="social fab fa-github flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://music.163.com/#/user/home?id=63035382"
+                class="social fas fa-headphones-alt flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+        </div>
+      
+    
+      
+        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+      
+    
+      
+        本站使用
+        <a href="https://volantis.js.org/" target="_blank" class="codename">CodeLearn</a>
+        作为主题
+        
+          ，
+          总访问量为
+          <span id="busuanzi_value_site_pv"><i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span>
+          次
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="https://codelearn.club">Copyright © 2018-2020 海洋饼干叔叔</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+<script>setLoadingBarProgress(80);</script>
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+
+
+  <script>
+    
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/" || "/";
+    if (!ROOT.endsWith('/')) ROOT += '/';
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@1.6.4/js/instant_page.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js" async></script>
+
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+  
+  
+  
+    
+<script src="//cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+
+    <script type="text/javascript">
+      $(function(){
+        if ('') {
+          $('').backstretch(
+          ["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/41F215B9-261F-48B4-80B5-4E86E165259E.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/BBC19066-E176-47C2-9D22-48C81EE5DF6B.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/B18FCBB3-67FD-48CC-B4F3-457BA145F17A.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/00E0F0ED-9F1C-407A-9AA6-545649D919F4.jpeg"],
+          {
+            duration: "5000",
+            fade: "2500"
+          });
+        } else {
+          $.backstretch(
+          ["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/41F215B9-261F-48B4-80B5-4E86E165259E.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/BBC19066-E176-47C2-9D22-48C81EE5DF6B.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/B18FCBB3-67FD-48CC-B4F3-457BA145F17A.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/00E0F0ED-9F1C-407A-9AA6-545649D919F4.jpeg"],
+          {
+            duration: "5000",
+            fade: "2500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+  
+<script src="/js/search.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@1.6.4/js/comment_typing.js"></script>
+
+
+
+<!-- 复制 -->
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  let COPY_SUCCESS = "复制成功";
+  let COPY_FAILURE = "复制失败";
+  /*页面载入完成后，创建复制按钮*/
+  !function (e, t, a) {
+    /* code */
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '  <i class="fa fa-copy"></i><span>复制</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+
+      clipboard.on('success', function(e) {
+        //您可以加入成功提示
+        console.info('Action:', e.action);
+        console.info('Text:', e.text);
+        console.info('Trigger:', e.trigger);
+        success_prompt(COPY_SUCCESS);
+        e.clearSelection();
+      });
+      clipboard.on('error', function(e) {
+        //您可以加入失败提示
+        console.error('Action:', e.action);
+        console.error('Trigger:', e.trigger);
+        fail_prompt(COPY_FAILURE);
+      });
+    }
+    initCopyCode();
+
+  }(window, document);
+
+  /**
+   * 弹出式提示框，默认1.5秒自动消失
+   * @param message 提示信息
+   * @param style 提示样式，有alert-success、alert-danger、alert-warning、alert-info
+   * @param time 消失时间
+   */
+  var prompt = function (message, style, time)
+  {
+      style = (style === undefined) ? 'alert-success' : style;
+      time = (time === undefined) ? 1500 : time*1000;
+      $('<div>')
+          .appendTo('body')
+          .addClass('alert ' + style)
+          .html(message)
+          .show()
+          .delay(time)
+          .fadeOut();
+  };
+
+  // 成功提示
+  var success_prompt = function(message, time)
+  {
+      prompt(message, 'alert-success', time);
+  };
+
+  // 失败提示
+  var fail_prompt = function(message, time)
+  {
+      prompt(message, 'alert-danger', time);
+  };
+
+  // 提醒
+  var warning_prompt = function(message, time)
+  {
+      prompt(message, 'alert-warning', time);
+  };
+
+  // 信息提示
+  var info_prompt = function(message, time)
+  {
+      prompt(message, 'alert-info', time);
+  };
+
+</script>
+
+
+
+
+<!-- fancybox -->
+
+  <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let LAZY_LOAD_IMAGE = "";
+  $(".article-entry").find("fancybox").find("img").each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      /* 图片采用懒加载处理时,
+       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
+       * 那么此处将原本的属性名src替换为对应属性名data-original,
+       * 修改如下
+       */
+       if (LAZY_LOAD_IMAGE) {
+         $(element).attr("href", $(this).attr("data-original"));
+       }
+      $(this).wrap(element);
+  });
+</script>
+
+
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+</body>
+</html>

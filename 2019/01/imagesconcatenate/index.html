@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html>
+<head hexo-theme='https://volantis.js.org/#0.9.4'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 页面元数据 -->
+  
+    <title>使用numpy进行9宫格图像拼接 - Python,C/C++ Club</title>
+  
+    <meta name="keywords" content="Python,numpy,图像处理,OpenCV">
+  
+  
+    <meta name="description" content="本节内容要用到opencv-python模块，请先行安装。本例程中使用到的图片保存在pictures子目录下。本例的任务是要将9张JPG格式图片按三行三列拼接成下述九宫格。">
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+    
+      <meta name='theme-color' content='#FFFFFF'>
+    
+      <meta name='msapplication-TileColor' content='#1BC3FB'>
+    
+      <meta name='msapplication-config' content='https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicons/browserconfig.xml'>
+    
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css">
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+
+  
+
+  
+  <link rel="shortcut icon" type='image/x-icon' href="https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicon.ico">
+  
+
+  
+
+  <!-- import link -->
+  
+  
+  <link rel='shortcut icon' type='image/x-icon' href='https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicon.ico'>
+  <link rel='icon' type='image/x-icon' sizes='32x32' href='https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicons/favicon-32x32.png'>
+  <link rel='apple-touch-icon' type='image/png' sizes='180x180' href='https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicons/apple-touch-icon.png'>
+  <link rel='mask-icon' color='#1BC3FB' href='https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicons/safari-pinned-tab.svg'>
+  <link rel='manifest' href='https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicons/site.webmanifest'>
+  
+
+  
+    
+<link rel="stylesheet" href="/style.css">
+
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  <div class="cover-wrapper">
+    <cover class='cover post half'>
+      
+        
+  <p class="title ">Codelearn</p>
+  
+    <p class="subtitle ">分享Python,C/C++相关的技术文章, 海洋饼干叔叔@重庆大学</p>
+  
+
+
+  <div class="m_search">
+    <form name="searchform" class="form u-search-form">
+      <i class="icon fas fa-search fa-fw"></i>
+      <input type="text" class="input u-search-input" placeholder="搜索文档" />
+    </form>
+  </div>
+
+<div class='menu navigation'>
+  <ul class='h-list'>
+    
+      
+        <li>
+          <a class="nav home "
+            href="/2020/03/notice/"
+            
+            
+            id="202003notice">
+            <i class='fas fa-bullhorn fa-fw'></i>&nbsp;公告
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home "
+            href="/"
+            
+            
+            id="home">
+            <i class='fas fa-globe-asia fa-fw'></i>&nbsp;主页
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home "
+            href="http://www.bilibili.com/video/av34586138/"
+            
+            
+            id="http:www.bilibili.comvideoav34586138">
+            <i class='fas fa-book fa-fw'></i>&nbsp;从C到C++
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home "
+            href="http://www.bilibili.com/video/av34409478"
+            
+              rel="external nofollow noopener noreferrer"
+            
+            
+              target="_blank"
+            
+            id="http:www.bilibili.comvideoav34409478">
+            <i class='fas fa-book fa-fw'></i>&nbsp;Python编程基础及应用
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home "
+            href="/2020/03/thanks/"
+            
+            
+            id="202003thanks">
+            <i class='fas fa-handshake fa-fw'></i>&nbsp;鸣谢
+          </a>
+        </li>
+      
+    
+  </ul>
+</div>
+
+      
+    </cover>
+    <header class="l_header nav-blur">
+  <div id="loading-bar-wrapper">
+    <div id="loading-bar"></div>
+  </div>
+	<div class='wrapper'>
+		<div class="nav-main container container--flex">
+      
+        <a class="logo flat-box" target="_self" href='/' >
+          
+            
+              CODELEARN <sup style='color:#2196f3'>0.9.4</sup>
+            
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='h-list'>
+          
+  					
+  						<li>
+								<a class="nav flat-box" href="/getting-started/"
+                  
+                  
+                  id="getting-started">
+									<i class='fas fa-flag fa-fw'></i>&nbsp;公告
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/"
+                  
+                  
+                  id="home">
+									<i class='fas fa-globe-asia fa-fw'></i>&nbsp;主页
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/theme-settings/"
+                  
+                  
+                  id="theme-settings">
+									<i class='fas fa-palette fa-fw'></i>&nbsp;下载
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/page-settings/"
+                  
+                  
+                  id="page-settings">
+									<i class='fas fa-file-alt fa-fw'></i>&nbsp;图书
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/tag-plugins/"
+                  
+                  
+                  id="tag-plugins">
+									<i class='fas fa-pen-alt fa-fw'></i>&nbsp;MOOC
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/advanced-settings/"
+                  
+                  
+                  id="advanced-settings">
+									<i class='fas fa-flask fa-fw'></i>&nbsp;致谢
+								</a>
+							</li>
+      			
+      		
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="搜索文档" />
+        </form>
+      </div>
+
+			<ul class='switcher h-list'>
+				
+					<li class='s-search'><a class="fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li class='s-menu'><a class="fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a></li>
+			</ul>
+		</div>
+
+		<div class='nav-sub container container--flex'>
+			<a class="logo flat-box"></a>
+			<ul class='switcher h-list'>
+				<li class='s-comment'><a class="flat-btn fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li class='s-toc'><a class="flat-btn fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+			</ul>
+		</div>
+	</div>
+</header>
+	<aside class="menu-phone white-box">
+    <header>
+		<nav class="menu navigation">
+      <ul>
+        
+          
+            <li>
+							<a class="nav flat-box" href="/getting-started/"
+                
+                
+                id="getting-started">
+								<i class='fas fa-flag fa-fw'></i>&nbsp;公告
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/"
+                
+                
+                id="home">
+								<i class='fas fa-globe-asia fa-fw'></i>&nbsp;主页
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/theme-settings/"
+                
+                
+                id="theme-settings">
+								<i class='fas fa-palette fa-fw'></i>&nbsp;下载
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/page-settings/"
+                
+                
+                id="page-settings">
+								<i class='fas fa-file-alt fa-fw'></i>&nbsp;图书
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/tag-plugins/"
+                
+                
+                id="tag-plugins">
+								<i class='fas fa-pen-alt fa-fw'></i>&nbsp;MOOC
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/advanced-settings/"
+                
+                
+                id="advanced-settings">
+								<i class='fas fa-flask fa-fw'></i>&nbsp;致谢
+							</a>
+            </li>
+          
+       
+      </ul>
+		</nav>
+    </header>
+	</aside>
+<script>setLoadingBarProgress(40);</script>
+
+  </div>
+
+
+  <div class="l_body">
+    <div class='body-wrapper'>
+      
+
+<div class='l_main'>
+  
+
+  
+    <article id="post" class="post white-box   article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class='meta'>
+    
+    
+    <div class="meta" id="header-meta">
+      
+        
+  
+    <h1 class="title">
+      <a href="/2019/01/imagesconcatenate/">
+        使用numpy进行9宫格图像拼接
+      </a>
+    </h1>
+  
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+<div class='new-meta-item author'>
+  <a href="https://codelearn.club" rel="nofollow">
+    <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/avatar/avatar.png">
+    <p>海洋饼干叔叔</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/categories/Python/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>Python&nbsp;/&nbsp;图像处理</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-edit" aria-hidden="true"></i>
+    <p>发布于：2019年1月20日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          
+          <p>本节内容要用到opencv-python模块，请先行安装。本例程中使用到的图片保存在pictures子目录下。本例的任务是要将9张JPG格式图片按三行三列拼接成下述九宫格。</p>
+<a id="more"></a>
+
+
+
+<blockquote>
+<p>版权声明</p>
+<p>本文<strong>可以</strong>在互联网上自由转载，但必须：注明出处(作者：海洋饼干叔叔)并包含指向本页面的链接。</p>
+<p>本文<strong>不可以</strong>以纸质出版为目的进行改编、摘抄。</p>
+</blockquote>
+<p>本文配套在线视频： <a href="https://www.bilibili.com/video/av34409478/?p=49" target="_blank" rel="noopener">https://www.bilibili.com/video/av34409478/?p=49</a></p>
+<iframe width="100%" height="480" src="//player.bilibili.com/player.html?aid=34409478&cid=68505528&page=49" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+### 微实践：九宫格图像拼接
+
+<p>本节内容要用到opencv-python模块，请先行安装。本例程中使用到的图片保存在pictures子目录下。本例的任务是要将9张JPG格式图片按三行三列拼接成下述九宫格。</p>
+<p><img src="/images/3x3_0.jpg" alt=""></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#pictures9.py</span></span><br><span class="line"><span class="keyword">import</span> glob</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> cv2 <span class="keyword">import</span> imread,imwrite			<span class="comment">#cv2来自OpenCV-Python扩展库</span></span><br><span class="line"></span><br><span class="line">imgs,heights,widths = [],[],[]</span><br><span class="line"><span class="keyword">for</span> f <span class="keyword">in</span> glob.glob(<span class="string">"pictures/*.jpg"</span>):</span><br><span class="line">    img = imread(f,<span class="number">-1</span>)</span><br><span class="line">    print(<span class="string">"original:"</span>,img.shape)</span><br><span class="line">    h,w = img.shape[:<span class="number">2</span>]</span><br><span class="line">    heights.append(h)</span><br><span class="line">    widths.append(w)</span><br><span class="line">    imgs.append(img)</span><br></pre></td></tr></table></figure>
+
+<p>控制台输出:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">original: (960, 1280, 3)</span><br><span class="line">...</span><br><span class="line">original: (793, 1280, 3)</span><br><span class="line">...</span><br><span class="line">original: (960, 1280, 3)</span><br></pre></td></tr></table></figure>
+
+<p>glob.glob(“pictures/*.jpg”)返回一个序列，该序列包括当前目录之pictures子目录下的所有扩展名为jpg的图片文件的文件名(含路径)。读者可以在上述循环中加上print(f)把这些文件名打出来看看。</p>
+<p>imread()函数来自opencv-python扩展库，它读取一个图片，并返回一个多维数组。我们打印了这些多维数组的形状，典型如(960,1280,3)：它表示对应图片高960个像素，宽1280个像素，每个像素由3个值构成，分别表示该像素红、绿、蓝三个通道的颜色值。请读者注意，本例中的9张图片的高度值并不相等。</p>
+<p>img.shape[:2]取出了图像/多维数组的高度和宽度，分别赋值给h和w。所有的图片高、宽均存入heights、widths列表备用。所有的图片/多维数组均存入imgs列表备用。</p>
+<p>显然，(960,1280)的图片尺寸对于九宫格拼接而言太大了，需要分别提取缩略图。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#pictures9.py</span></span><br><span class="line"><span class="comment">#制作缩略图，纵横向每3个像素抽一个</span></span><br><span class="line">minHeight = min(heights)</span><br><span class="line">minWidth = min(widths)</span><br><span class="line"><span class="keyword">for</span> i,x <span class="keyword">in</span> enumerate(imgs):</span><br><span class="line">    imgs[i] = x[:minHeight:<span class="number">3</span>,:minWidth:<span class="number">3</span>,:]</span><br><span class="line">    print(<span class="string">"thumbnail:"</span>,imgs[i].shape)</span><br><span class="line"></span><br><span class="line"><span class="comment">#横向沿轴1拼接</span></span><br><span class="line">img = np.concatenate(imgs,<span class="number">1</span>)</span><br><span class="line">print(<span class="string">"concatenated by axis1:"</span>,img.shape)</span><br><span class="line">imwrite(<span class="string">"concatenated_1.jpg"</span>,img)</span><br></pre></td></tr></table></figure>
+
+<p>控制台输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">thumbnail: (265, 427, 3)</span><br><span class="line">...</span><br><span class="line">thumbnail: (265, 427, 3)</span><br><span class="line">concatenated by axis1: (265, 3843, 3)</span><br></pre></td></tr></table></figure>
+
+<p>我们首先获得了全部图像的最小高度 - min(heights)和最小宽度 - min(widths)。然后，遍历并逐一使用多维数组的切片下标语法提取缩略图：横纵向都从每3个像素中抽1个像素。根据打印出来的值，我们可以看到，所有的缩略图都是265 x 427个像素。</p>
+<p>接下来，我们使用np.concatenate()函数将imgs列表中的9张图沿1轴拼接（横向拼接）至img。根据打印的结果，横向拼接后的图片尺寸为265 x 3843。imwrite()则将img存至文件”concatenated_1.jpg”。读者可以在项目目录中找到这个照片，如下：</p>
+<p><img src="/images/concatenated_1.jpg" alt=""></p>
+<p>下述代码及其执行结果可以帮助读者理解concatenate()函数的作用：可以看到，对于二维数组而言，沿0轴拼接相当于纵向延长数组，沿1轴拼接则相当于横向延长数组。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#con.py</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">a = np.array([[<span class="number">1</span>,<span class="number">2</span>],[<span class="number">3</span>,<span class="number">4</span>]])</span><br><span class="line">b = np.array([[<span class="number">11</span>,<span class="number">22</span>],[<span class="number">33</span>,<span class="number">44</span>]])</span><br><span class="line">print(<span class="string">"a=\n"</span>,a)</span><br><span class="line">print(<span class="string">"b=\n"</span>,b)</span><br><span class="line"></span><br><span class="line">c = np.concatenate([a,b],<span class="number">0</span>)  <span class="comment">#沿0轴拼接，纵向延长</span></span><br><span class="line">print(<span class="string">"np.concatenate([a,b],0)=\n"</span>,c)</span><br><span class="line">c = np.concatenate([a,b],<span class="number">1</span>)  <span class="comment">#沿1轴拼接，横向延长</span></span><br><span class="line">print(<span class="string">"np.concatenate([a,b],1)=\n"</span>,c)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">a&#x3D;</span><br><span class="line"> [[1 2]</span><br><span class="line"> [3 4]]</span><br><span class="line">b&#x3D;</span><br><span class="line"> [[11 22]</span><br><span class="line"> [33 44]]</span><br><span class="line">np.concatenate([a,b],0)&#x3D;</span><br><span class="line"> [[ 1  2]</span><br><span class="line"> [ 3  4]</span><br><span class="line"> [11 22]</span><br><span class="line"> [33 44]]</span><br><span class="line">np.concatenate([a,b],1)&#x3D;</span><br><span class="line"> [[ 1  2 11 22]</span><br><span class="line"> [ 3  4 33 44]]</span><br></pre></td></tr></table></figure>
+
+<p>借助于concatenate()函数，我们可以先将图片0-2横向拼接，再将图片3-5横向拼接，接着再将图片6-8横向拼接。最后再将拼接结果纵向拼接，即得3x3的九宫格：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#pictures9.py</span></span><br><span class="line"><span class="comment">#方法1</span></span><br><span class="line">img0 = np.concatenate(imgs[:<span class="number">3</span>],<span class="number">1</span>)			<span class="comment">#沿1轴横向拼接</span></span><br><span class="line">img1 = np.concatenate(imgs[<span class="number">3</span>:<span class="number">6</span>],<span class="number">1</span>)</span><br><span class="line">img2 = np.concatenate(imgs[<span class="number">6</span>:],<span class="number">1</span>)</span><br><span class="line">img9 = np.concatenate([img0,img1,img2],<span class="number">0</span>)   <span class="comment">#沿0轴纵向拼接</span></span><br><span class="line">print(<span class="string">"3x3_0, shape:"</span>,img9.shape)</span><br><span class="line">imwrite(<span class="string">"3x3_0.jpg"</span>,img9)</span><br></pre></td></tr></table></figure>
+
+<p>控制台输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3x3_0, shape: (795, 1281, 3)</span><br></pre></td></tr></table></figure>
+
+<p>上述3x3_0.jpg应该与本例开始处的图片相同，该文件也存入了当前项目目录，读者自行查证。除了上面这个方法外，下面这个方法也可以达到相同的效果，但真的很难理解。在下述代码中，img1.swapaxes(1,2)将img1的1轴与2轴进行了交换。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#方法2</span></span><br><span class="line">img = np.concatenate(imgs,<span class="number">0</span>)				      <span class="comment">#将9图沿0轴纵向拼</span></span><br><span class="line">img1 = img.reshape(<span class="number">3</span>,<span class="number">3</span>,<span class="number">265</span>,<span class="number">427</span>,<span class="number">3</span>)                 <span class="comment">#改变形状至5维数组</span></span><br><span class="line">img9 = img1.swapaxes(<span class="number">1</span>,<span class="number">2</span>).reshape(<span class="number">795</span>,<span class="number">1281</span>,<span class="number">3</span>)	  <span class="comment">#1轴和2轴交换，再改变形状</span></span><br><span class="line">print(<span class="string">"3x3_1, shape:"</span>,img9.shape)</span><br><span class="line">imwrite(<span class="string">"3x3_1.jpg"</span>,img9)</span><br></pre></td></tr></table></figure>
+
+<p>控制台输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3x3_1, shape: (795, 1281, 3)</span><br></pre></td></tr></table></figure>
+
+<p>读者可以查证3x3_1.jpg的最终效果。</p>
+<p>读者可以试着执行下述代码来观察轴交换的效果：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#swapaxes.py</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">a = np.array([[<span class="number">1</span>,<span class="number">2</span>],[<span class="number">3</span>,<span class="number">4</span>]])</span><br><span class="line">print(<span class="string">"a=\n"</span>,a)</span><br><span class="line">print(<span class="string">"a.swapaxes(0,1):\n"</span>,a.swapaxes(<span class="number">0</span>,<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">b = np.array([[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>],[<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>]])</span><br><span class="line">print(<span class="string">"b=\n"</span>,b)</span><br><span class="line">print(<span class="string">"b.reshape(2,2,2)=\n"</span>,b.reshape(<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>))</span><br><span class="line">print(<span class="string">"b.reshape(2,2,2).swapaxes(1,2))=\n"</span>,b.reshape(<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>).swapaxes(<span class="number">1</span>,<span class="number">2</span>))</span><br></pre></td></tr></table></figure>
+
+<p>​    </p>
+<p>与多维数组操作有关的函数列表如下： </p>
+<table>
+<thead>
+<tr>
+<th>函数名</th>
+<th>作用</th>
+<th>函数名</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>concatenate()</td>
+<td>拼接多个数组</td>
+<td>vstack/hstack()</td>
+<td>沿0/1轴拼接数组</td>
+</tr>
+<tr>
+<td>column_stack()</td>
+<td>按列连接多个一维数组</td>
+<td>split,array_split()</td>
+<td>将数组分为多段</td>
+</tr>
+<tr>
+<td>transpose()</td>
+<td>重设轴的顺序</td>
+<td>swapaxes()</td>
+<td>交换两个轴的顺序</td>
+</tr>
+</tbody></table>
+
+          
+        </div>
+        
+          <br>
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Python/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;<p>Python</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/numpy/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;<p>numpy</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;<p>图像处理</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/OpenCV/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;<p>OpenCV</p></a></div>
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+              <section class="prev">
+                <span class="art-item-left">
+                  <h4>
+                    <a href="/2019/02/pynamebinding/" rel="prev" title="深入理解Python的数据类型及名字绑定">
+                      <i class="fas fa-chevron-left" aria-hidden="true"></i>
+                      
+                        深入理解Python的数据类型及名字绑定
+                      
+                    </a>
+                  </h4>
+                  
+                    
+                    <h6 class="tags">
+                      &nbsp;<a class="tag" href="/tags/Python/"><i class="fas fa-tag" aria-hidden="true"></i> Python</a> <a class="tag" href="/tags/%E5%90%8D%E5%AD%97%E7%BB%91%E5%AE%9A/"><i class="fas fa-tag" aria-hidden="true"></i> 名字绑定</a>
+                    </h6>
+                  
+                </span>
+              </section>
+            
+            
+              <section class="next">
+                <span class="art-item-right" aria-hidden="true">
+                  <h4>
+                    <a href="/2019/01/python-mandelbrot/" rel="prev" title="Python, Cython绘制美妙绝伦的Mandelbrot集, 曼德博集分形图案">
+                      
+                        Python, Cython绘制美妙绝伦的Mandelbrot集, 曼德博集分形图案
+                      
+                      <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                    </a>
+                  </h4>
+                  
+                    
+                    <h6 class="tags">
+                      <a class="tag" href="/tags/Python/"><i class="fas fa-tag" aria-hidden="true"></i> Python</a> <a class="tag" href="/tags/Mandelbrot/"><i class="fas fa-tag" aria-hidden="true"></i> Mandelbrot</a> <a class="tag" href="/tags/%E5%88%86%E5%BD%A2%E6%95%B0%E5%AD%A6/"><i class="fas fa-tag" aria-hidden="true"></i> 分形数学</a> <a class="tag" href="/tags/%E6%9B%BC%E5%BE%B7%E5%8D%9A%E9%9B%86/"><i class="fas fa-tag" aria-hidden="true"></i> 曼德博集</a> <a class="tag" href="/tags/Cython/"><i class="fas fa-tag" aria-hidden="true"></i> Cython</a>&nbsp;
+                    </h6>
+                  
+                </span>
+              </section>
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+  <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX","TeX"],
+      linebreaks: { automatic:true },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: { autoNumber: "AMS" },
+      noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+      Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+  });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += (all[i].SourceElement().parentNode.className ? ' ' : '') + 'has-jax';
+    }
+  });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+
+  <script>
+    window.subData = {
+      title: '使用numpy进行9宫格图像拼接',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+    
+      
+      
+
+<section class="widget grid  widget-blur desktop mobile">
+  
+  <header>
+    
+      <i class="fas fa-map-signs fa-fw" aria-hidden="true"></i><span class='name'>文档导航</span>
+    
+  </header>
+
+
+  <div class='content'>
+    <ul class="grid navigation">
+      
+        <li><a class="flat-box" title="/categories/Python/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97/" href="/categories/Python/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97/"
+          
+          
+          id="categoriesPythonE7A791E5ADA6E8AEA1E7AE97">
+          
+            <i class="fas fa-question-circle fa-fw" aria-hidden="true"></i>
+          
+          科学计算
+        </a></li>
+      
+        <li><a class="flat-box" title="/categories/Python/" href="/categories/Python/"
+          
+          
+          id="categoriesPython">
+          
+            <i class="fas fa-play-circle fa-fw" aria-hidden="true"></i>
+          
+          Python
+        </a></li>
+      
+        <li><a class="flat-box" title="/categories/C-C/" href="/categories/C-C/"
+          
+          
+          id="categoriesC-C">
+          
+            <i class="fas fa-handshake fa-fw" aria-hidden="true"></i>
+          
+          C/C++
+        </a></li>
+      
+        <li><a class="flat-box" title="/news/archives/" href="/news/archives/"
+          
+          
+          id="newsarchives">
+          
+            <i class="fas fa-file-archive fa-fw" aria-hidden="true"></i>
+          
+          资源下载
+        </a></li>
+      
+        <li><a class="flat-box" title="https://github.com/xaoxuu/hexo-theme-volantis/" href="https://github.com/xaoxuu/hexo-theme-volantis/"
+          
+            rel="external nofollow noopener noreferrer"
+          
+          
+            target="_blank"
+          
+          id="https:github.comxaoxuuhexo-theme-volantis">
+          
+            <i class="fas fa-file-code fa-fw" aria-hidden="true"></i>
+          
+          MOOC
+        </a></li>
+      
+        <li><a class="flat-box" title="https://github.com/xaoxuu/hexo-theme-volantis/releases/" href="https://github.com/xaoxuu/hexo-theme-volantis/releases/"
+          
+            rel="external nofollow noopener noreferrer"
+          
+          
+            target="_blank"
+          
+          id="https:github.comxaoxuuhexo-theme-volantisreleases">
+          
+            <i class="fas fa-clipboard-list fa-fw" aria-hidden="true"></i>
+          
+          图书订购
+        </a></li>
+      
+    </ul>
+  </div>
+</section>
+
+    
+  
+    
+      
+      
+
+<section class="widget text  widget-blur desktop">
+  
+  <header>
+    
+      <a href='https://codelearn.club/'><i class="fab fa-github fa-fw" aria-hidden="true"></i><span class='name'>点个赞吧</span></a>
+    
+  </header>
+
+
+  <div class='content'>
+    
+      <p>您的赞对我来说很重要，如果本网站的技术文章有帮到您，希望能够给下面的视频收藏点赞支持一下。</p>
+
+    
+      <p><a href="https://github.com/xaoxuu/ProHUD" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/proj/prohud/logo.png" height="50px"></a></p>
+
+    
+      <p><a href="https://github.com/xaoxuu/ValueX" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/proj/valuex/logo.png" height="50px"></a></p>
+
+    
+  </div>
+</section>
+
+    
+  
+    
+      
+      
+
+<section class="widget qrcode  widget-blur desktop">
+  
+  <header>
+    
+      <i class="fas fa-mobile fa-fw" aria-hidden="true"></i><span class='name'>手机观看</span>
+    
+  </header>
+
+
+  <div class='content article-entry'>
+    
+      
+        <img src='https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/qrcode/wiki_volantis.png'
+        >
+      
+    
+  </div>
+</section>
+
+    
+  
+    
+      
+      
+
+
+
+    
+  
+</aside>
+
+
+  
+  <footer class="clearfix ">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+              <a href="mailto:chenbo@cqu.edu.cn"
+                class="social fas fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://codelearn.club"
+                class="social fab fa-github flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://music.163.com/#/user/home?id=63035382"
+                class="social fas fa-headphones-alt flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+        </div>
+      
+    
+      
+        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+      
+    
+      
+        本站使用
+        <a href="https://volantis.js.org/" target="_blank" class="codename">CodeLearn</a>
+        作为主题
+        
+          ，
+          总访问量为
+          <span id="busuanzi_value_site_pv"><i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span>
+          次
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="https://codelearn.club">Copyright © 2018-2020 海洋饼干叔叔</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+<script>setLoadingBarProgress(80);</script>
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+
+
+  <script>
+    
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/" || "/";
+    if (!ROOT.endsWith('/')) ROOT += '/';
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@1.6.4/js/instant_page.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js" async></script>
+
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+  
+  
+  
+    
+<script src="//cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+
+    <script type="text/javascript">
+      $(function(){
+        if ('') {
+          $('').backstretch(
+          ["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/41F215B9-261F-48B4-80B5-4E86E165259E.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/BBC19066-E176-47C2-9D22-48C81EE5DF6B.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/B18FCBB3-67FD-48CC-B4F3-457BA145F17A.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/00E0F0ED-9F1C-407A-9AA6-545649D919F4.jpeg"],
+          {
+            duration: "5000",
+            fade: "2500"
+          });
+        } else {
+          $.backstretch(
+          ["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/41F215B9-261F-48B4-80B5-4E86E165259E.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/BBC19066-E176-47C2-9D22-48C81EE5DF6B.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/B18FCBB3-67FD-48CC-B4F3-457BA145F17A.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/00E0F0ED-9F1C-407A-9AA6-545649D919F4.jpeg"],
+          {
+            duration: "5000",
+            fade: "2500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+  
+<script src="/js/search.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@1.6.4/js/comment_typing.js"></script>
+
+
+
+<!-- 复制 -->
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  let COPY_SUCCESS = "复制成功";
+  let COPY_FAILURE = "复制失败";
+  /*页面载入完成后，创建复制按钮*/
+  !function (e, t, a) {
+    /* code */
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '  <i class="fa fa-copy"></i><span>复制</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+
+      clipboard.on('success', function(e) {
+        //您可以加入成功提示
+        console.info('Action:', e.action);
+        console.info('Text:', e.text);
+        console.info('Trigger:', e.trigger);
+        success_prompt(COPY_SUCCESS);
+        e.clearSelection();
+      });
+      clipboard.on('error', function(e) {
+        //您可以加入失败提示
+        console.error('Action:', e.action);
+        console.error('Trigger:', e.trigger);
+        fail_prompt(COPY_FAILURE);
+      });
+    }
+    initCopyCode();
+
+  }(window, document);
+
+  /**
+   * 弹出式提示框，默认1.5秒自动消失
+   * @param message 提示信息
+   * @param style 提示样式，有alert-success、alert-danger、alert-warning、alert-info
+   * @param time 消失时间
+   */
+  var prompt = function (message, style, time)
+  {
+      style = (style === undefined) ? 'alert-success' : style;
+      time = (time === undefined) ? 1500 : time*1000;
+      $('<div>')
+          .appendTo('body')
+          .addClass('alert ' + style)
+          .html(message)
+          .show()
+          .delay(time)
+          .fadeOut();
+  };
+
+  // 成功提示
+  var success_prompt = function(message, time)
+  {
+      prompt(message, 'alert-success', time);
+  };
+
+  // 失败提示
+  var fail_prompt = function(message, time)
+  {
+      prompt(message, 'alert-danger', time);
+  };
+
+  // 提醒
+  var warning_prompt = function(message, time)
+  {
+      prompt(message, 'alert-warning', time);
+  };
+
+  // 信息提示
+  var info_prompt = function(message, time)
+  {
+      prompt(message, 'alert-info', time);
+  };
+
+</script>
+
+
+
+
+<!-- fancybox -->
+
+  <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let LAZY_LOAD_IMAGE = "";
+  $(".article-entry").find("fancybox").find("img").each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      /* 图片采用懒加载处理时,
+       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
+       * 那么此处将原本的属性名src替换为对应属性名data-original,
+       * 修改如下
+       */
+       if (LAZY_LOAD_IMAGE) {
+         $(element).attr("href", $(this).attr("data-original"));
+       }
+      $(this).wrap(element);
+  });
+</script>
+
+
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+</body>
+</html>

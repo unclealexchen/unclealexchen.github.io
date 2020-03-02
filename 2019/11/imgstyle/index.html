@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html>
+<head hexo-theme='https://volantis.js.org/#0.9.4'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 页面元数据 -->
+  
+    <title>人工智能的味道 - 图像风格迁移 - Python,C/C++ Club</title>
+  
+    <meta name="keywords" content="Python,图像风格迁移,深度学习,DNN">
+  
+  
+    <meta name="description" content="22. 人工智能的味道 - 图像风格迁移Python是人工智能编程的首选语言，至少当作者在键盘上敲下这行话时，这是事实。作为一本Python基础入门性质的教科书，本书无法就Python在人工智能与深度学习中的应用展开深入讨论。要理解深度学习的内部细节，需要复杂的数学知识。不过作为应用层面的开发者，读者或者不需要理...">
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+    
+      <meta name='theme-color' content='#FFFFFF'>
+    
+      <meta name='msapplication-TileColor' content='#1BC3FB'>
+    
+      <meta name='msapplication-config' content='https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicons/browserconfig.xml'>
+    
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css">
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+
+  
+
+  
+  <link rel="shortcut icon" type='image/x-icon' href="https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicon.ico">
+  
+
+  
+
+  <!-- import link -->
+  
+  
+  <link rel='shortcut icon' type='image/x-icon' href='https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicon.ico'>
+  <link rel='icon' type='image/x-icon' sizes='32x32' href='https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicons/favicon-32x32.png'>
+  <link rel='apple-touch-icon' type='image/png' sizes='180x180' href='https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicons/apple-touch-icon.png'>
+  <link rel='mask-icon' color='#1BC3FB' href='https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicons/safari-pinned-tab.svg'>
+  <link rel='manifest' href='https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicons/site.webmanifest'>
+  
+
+  
+    
+<link rel="stylesheet" href="/style.css">
+
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  <div class="cover-wrapper">
+    <cover class='cover post half'>
+      
+        
+  <p class="title ">Codelearn</p>
+  
+    <p class="subtitle ">分享Python,C/C++相关的技术文章, 海洋饼干叔叔@重庆大学</p>
+  
+
+
+  <div class="m_search">
+    <form name="searchform" class="form u-search-form">
+      <i class="icon fas fa-search fa-fw"></i>
+      <input type="text" class="input u-search-input" placeholder="搜索文档" />
+    </form>
+  </div>
+
+<div class='menu navigation'>
+  <ul class='h-list'>
+    
+      
+        <li>
+          <a class="nav home "
+            href="/2020/03/notice/"
+            
+            
+            id="202003notice">
+            <i class='fas fa-bullhorn fa-fw'></i>&nbsp;公告
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home "
+            href="/"
+            
+            
+            id="home">
+            <i class='fas fa-globe-asia fa-fw'></i>&nbsp;主页
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home "
+            href="http://www.bilibili.com/video/av34586138/"
+            
+            
+            id="http:www.bilibili.comvideoav34586138">
+            <i class='fas fa-book fa-fw'></i>&nbsp;从C到C++
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home "
+            href="http://www.bilibili.com/video/av34409478"
+            
+              rel="external nofollow noopener noreferrer"
+            
+            
+              target="_blank"
+            
+            id="http:www.bilibili.comvideoav34409478">
+            <i class='fas fa-book fa-fw'></i>&nbsp;Python编程基础及应用
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home "
+            href="/2020/03/thanks/"
+            
+            
+            id="202003thanks">
+            <i class='fas fa-handshake fa-fw'></i>&nbsp;鸣谢
+          </a>
+        </li>
+      
+    
+  </ul>
+</div>
+
+      
+    </cover>
+    <header class="l_header nav-blur">
+  <div id="loading-bar-wrapper">
+    <div id="loading-bar"></div>
+  </div>
+	<div class='wrapper'>
+		<div class="nav-main container container--flex">
+      
+        <a class="logo flat-box" target="_self" href='/' >
+          
+            
+              CODELEARN <sup style='color:#2196f3'>0.9.4</sup>
+            
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='h-list'>
+          
+  					
+  						<li>
+								<a class="nav flat-box" href="/getting-started/"
+                  
+                  
+                  id="getting-started">
+									<i class='fas fa-flag fa-fw'></i>&nbsp;公告
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/"
+                  
+                  
+                  id="home">
+									<i class='fas fa-globe-asia fa-fw'></i>&nbsp;主页
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/theme-settings/"
+                  
+                  
+                  id="theme-settings">
+									<i class='fas fa-palette fa-fw'></i>&nbsp;下载
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/page-settings/"
+                  
+                  
+                  id="page-settings">
+									<i class='fas fa-file-alt fa-fw'></i>&nbsp;图书
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/tag-plugins/"
+                  
+                  
+                  id="tag-plugins">
+									<i class='fas fa-pen-alt fa-fw'></i>&nbsp;MOOC
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/advanced-settings/"
+                  
+                  
+                  id="advanced-settings">
+									<i class='fas fa-flask fa-fw'></i>&nbsp;致谢
+								</a>
+							</li>
+      			
+      		
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="搜索文档" />
+        </form>
+      </div>
+
+			<ul class='switcher h-list'>
+				
+					<li class='s-search'><a class="fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li class='s-menu'><a class="fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a></li>
+			</ul>
+		</div>
+
+		<div class='nav-sub container container--flex'>
+			<a class="logo flat-box"></a>
+			<ul class='switcher h-list'>
+				<li class='s-comment'><a class="flat-btn fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li class='s-toc'><a class="flat-btn fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+			</ul>
+		</div>
+	</div>
+</header>
+	<aside class="menu-phone white-box">
+    <header>
+		<nav class="menu navigation">
+      <ul>
+        
+          
+            <li>
+							<a class="nav flat-box" href="/getting-started/"
+                
+                
+                id="getting-started">
+								<i class='fas fa-flag fa-fw'></i>&nbsp;公告
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/"
+                
+                
+                id="home">
+								<i class='fas fa-globe-asia fa-fw'></i>&nbsp;主页
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/theme-settings/"
+                
+                
+                id="theme-settings">
+								<i class='fas fa-palette fa-fw'></i>&nbsp;下载
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/page-settings/"
+                
+                
+                id="page-settings">
+								<i class='fas fa-file-alt fa-fw'></i>&nbsp;图书
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/tag-plugins/"
+                
+                
+                id="tag-plugins">
+								<i class='fas fa-pen-alt fa-fw'></i>&nbsp;MOOC
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/advanced-settings/"
+                
+                
+                id="advanced-settings">
+								<i class='fas fa-flask fa-fw'></i>&nbsp;致谢
+							</a>
+            </li>
+          
+       
+      </ul>
+		</nav>
+    </header>
+	</aside>
+<script>setLoadingBarProgress(40);</script>
+
+  </div>
+
+
+  <div class="l_body">
+    <div class='body-wrapper'>
+      
+
+<div class='l_main'>
+  
+
+  
+    <article id="post" class="post white-box   article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class='meta'>
+    
+    
+    <div class="meta" id="header-meta">
+      
+        
+  
+    <h1 class="title">
+      <a href="/2019/11/imgstyle/">
+        人工智能的味道 - 图像风格迁移
+      </a>
+    </h1>
+  
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+<div class='new-meta-item author'>
+  <a href="https://codelearn.club" rel="nofollow">
+    <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/avatar/avatar.png">
+    <p>海洋饼干叔叔</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/categories/Python/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>Python&nbsp;/&nbsp;人工智能</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-edit" aria-hidden="true"></i>
+    <p>发布于：2019年11月7日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          
+          <h2 id="22-人工智能的味道-图像风格迁移"><a href="#22-人工智能的味道-图像风格迁移" class="headerlink" title="22. 人工智能的味道 - 图像风格迁移"></a>22. 人工智能的味道 - 图像风格迁移</h2><p>Python是人工智能编程的首选语言，至少当作者在键盘上敲下这行话时，这是事实。作为一本Python基础入门性质的教科书，本书无法就Python在人工智能与深度学习中的应用展开深入讨论。要理解深度学习的内部细节，需要复杂的数学知识。不过作为应用层面的开发者，读者或者不需要理解深度学习复杂的数学细节，简单借助于开源的工具包和模型，也可以享受到人工智能的益处。本章通过图像风格迁移这个示例，让读者尝尝人工智能的味道。</p>
+<a id="more"></a>
+
+
+
+<blockquote>
+<p>版权声明</p>
+<p>本文<strong>可以</strong>在互联网上自由转载，但必须：注明出处(作者：海洋饼干叔叔)并包含指向本页面的链接。</p>
+<p>本文<strong>不可以</strong>以纸质出版为目的进行改编、摘抄。</p>
+</blockquote>
+<h3 id="22-1-图像风格迁移"><a href="#22-1-图像风格迁移" class="headerlink" title="22.1 图像风格迁移"></a>22.1 图像风格迁移</h3><p><img src="/images/1559818000723.png" alt="1559818000723"></p>
+<p>将上图中左上角图像的“风格”提取出来，应用到左下角的“原图”上，生成右方的图像，就是图像风格迁移的研究内容。 艺术风格是什么，即便在艺术家的视角看，也是见人见智的。显然不太可能从数学上准确地定义并求出图像的风格。到底怎么把一个缺乏明确数学定义的概念变成可以执行的程序，是困扰图像风格迁移的研究者的主要问题。</p>
+<p>在将人工神经网络和深度学习应用于图像风格迁移之前，人们的主要思路就是分析某一种风格的图像，比如把毕加索画的全部画作进行统计分析，如小波分析，通过建立统计模型，然后迭代改变要做迁移的图像，让它更好地符合统计模型。这种方法有一个很大的缺点：一个程序只能做某一种风格或场景的图像风格迁移。</p>
+<p>2015年，Gatsys等人在论文A Neural Algorithm for Artistic Style中首次将人工神经网络用于图像风格迁移，斯坦福大学的李飞飞和她的学生Justin Johnson等人于2016年进一步改进了算法，提高了图像风格迁移的速度。本章示例程序中图像风格迁移就是以Justin Johnson等人训练的深度神经网络模型为基础的。</p>
+<h3 id="22-2-深度神经网络"><a href="#22-2-深度神经网络" class="headerlink" title="22.2 深度神经网络"></a>22.2 深度神经网络</h3><p>人工智能是一个研究了很多年的课题。它有众多的学派，其中符号学派将机器学习看作逆向演绎，联结学派对大脑进行逆向分析和模拟，进化学派在计算机上模拟生物进化，贝叶斯学派认为学习是一种概率推理形式，理论根基在于统计学。其中，联结学派的主要工具就是人工神经网络，人工神经网络模拟了大脑神经元和神经元间突触连接的结构和工作方式。而深度神经网络又是人工神经网络的一种。</p>
+<p><img src="/images/1559827722696.png" alt="1559827722696"></p>
+<p>上图展示了一个深度神经网络(Deep Neural Network) - DNN的示意图。图中的节点称之为神经元，神经元之间的连线模拟了人类大脑中脑细胞之间的突触连接。可以简单地认为，每个神经元具备计算或者是信号处理的功能，它通过突触从别的神经元获取输入，经过计算/处理后再通过突触向其它神经元输出信号。我们已知，大脑细胞之间的每个突触连接，其离子通道的导电能力是有差异的。与之对应，神经网络神经元之间的连接权重参数用来表征该连接的重要程度。</p>
+<p>神经元的层次，数量，神经元之间的连接关系可以称为神经网络的结构。突触连接的权重、偏倚等信息则称为神经网络的参数。为满足特定任务的需要，比如在各种图片或者视频中识别出猫，工程师会设计特定的神经网络结构，并将大量经过标注的资料图片（图片中有猫的位置被人工标记）输入神经网络的输入层，通过神经网络的计算，从输出层获得识别结果，然后根据识别错误反向修改神经网络内部的参数，经过多次迭代后，神经网络的内部参数被修正到即便对于标注资料外的图片，神经网络也能识别出猫的程度。这一过程称为神经网络的训练。训练的结果称为模型，它包括了神经网络的结构以及内部参数。</p>
+<p>猫长什么模样，在数学上很难精确定义。我们可以认为，上述神经网络的训练过程有点类似于人类学习的过程，经过训练的神经网络模型包括了“何种模式的图像是猫”的知识。这种知识虽然说不清道不明，但在实践中却非常有效。</p>
+<p>同理，将梵高的星空等相似风格的画作作为数据集，也可以对深度神经网络进行训练，训练所得的模型包含了这类画作的”风格是什么“以及”如何把另一幅图片变成这种风格”的知识。本章的示例程序就是借助于Justin Johnson等人训练好的图像风格迁移网络模型，对图片进行风格应用的。在调入模型，创建好深度神经网络后，将图片”输入“给图像风格迁移网络，该网络会进行一系列的迭代计算，其输出就是应用了对应风格的被修改过的图片。</p>
+<h3 id="22-3-程序解读"><a href="#22-3-程序解读" class="headerlink" title="22.3 程序解读"></a>22.3 程序解读</h3><p>本章的示例程序包含在目录C22_StyleTransfer当中，主程序为StyleTransfer.py。子目录images用于存储风格迁移的输入图片，models子目录用于存储风格图片及对应的图像风格迁移网络模型文件。其中，模型文件需要读者自行下载，详情请见Readme.txt。</p>
+<p>该程序需要用到opencv-python以及matplotlib库。opencv是著名的C++语言编写的计算机视觉及图像处理工具包，本程序中，主要用它来读取、转换图片以及进行图像风格迁移网络的计算。matplotlib在本程序中用于交互和图片显示。</p>
+<h4 id="22-3-1-程序的使用"><a href="#22-3-1-程序的使用" class="headerlink" title="22.3.1 程序的使用"></a>22.3.1 程序的使用</h4><p>先下载并将模型文件(扩展名为.t7)存入models子目录。在Visual Source Code中打开StyleTransfer目录，打开StyleTransfer.py并运行即可。按上下方向键可以切换图片，按左右方向键则可以切换风格模型。如本章开始的样图所示，左上角是风格图片，左下角是原图，右边则是风格迁移的结果图片。由于风格迁移网络的计算量很大，所以切换图片或者风格时反应较慢。</p>
+<h4 id="22-3-2-数据结构"><a href="#22-3-2-数据结构" class="headerlink" title="22.3.2 数据结构"></a>22.3.2 数据结构</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.idxImage = <span class="number">0</span>   <span class="comment">#当前被风格迁移的图片在images列表中的下标</span></span><br><span class="line">        self.idxModel = <span class="number">0</span>   <span class="comment">#当前使用的模型文件在models列表中的下标</span></span><br><span class="line">        self.images = glob.glob(<span class="string">"images/*.jpg"</span>)  </span><br><span class="line">        self.paintings,self.models = [],[] </span><br><span class="line">        t = glob.glob(<span class="string">"models/*.jpg"</span>)</span><br><span class="line">        <span class="keyword">for</span> x <span class="keyword">in</span> t:</span><br><span class="line">            m = x[:<span class="number">-3</span>] + <span class="string">"t7"</span>       <span class="comment">#模型文件的扩展名为.t7, 基本名与对应的风格图片相同</span></span><br><span class="line">            <span class="keyword">if</span> os.path.exists(m):   <span class="comment">#仅在风格图片及模型文件同时存在时，将二者加入列表</span></span><br><span class="line">                self.paintings.append(x)</span><br><span class="line">                self.models.append(m)</span><br></pre></td></tr></table></figure>
+
+<p>为了避免过多的全部变量污染名字空间，作者把相关信息组织在App类型中。</p>
+<table>
+<thead>
+<tr>
+<th>数据成员</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>- images: 包含images子目录内全部jpg图片文件路径的列表，形如[‘images\1.jpg’, ‘images\2.jpg’, ‘images\3.jpg’]。<br>- paintings: 包含models子目录风格图片路径的列表，形如[‘models\candy.jpg’, ‘models\composition_vii.jpg’,…]。<br>- models: 包含models子目录内模型文件路径的列表，形如[‘models\candy.t7’, ‘models\composition_vii.t7’,…]。 paintings与models列表内的风格图片与模型是一一对应的，且文件基本名相同，仅扩展名不同。<br>- idxImage: 当前被风络迁移的内容图片在images列表中的下标。<br>- idxModel: 当前使用的模型文件在models列表中的下标。</td>
+</tr>
+</tbody></table>
+<p>glob.glob(“images/*.jpg”)  遍历images子目录，找出其中的全部jpg文件，生成一个包含全部jpg文件路径字符串的列表。上述图像风格迁移网络的模型文件的扩展名为.t7，这是PyTorch的数据保存格式。而PyTorch是Facebook的深度学习开源工具包，具体一点可以把PyTorch看做加入了GPU 支持的numpy，同时也可以看成一个拥有自动求导功能的强大的深度神经网络。</p>
+<h4 id="22-3-3-风格迁移"><a href="#22-3-3-风格迁移" class="headerlink" title="22.3.3 风格迁移"></a>22.3.3 风格迁移</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2 <span class="keyword">as</span> cv    <span class="comment">#导入opencv库</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span>:</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">styleTransfer</span><span class="params">(self)</span>:</span></span><br><span class="line">        net = cv.dnn.readNetFromTorch(self.models[self.idxModel]) <span class="comment">#cv2.dnn_Net</span></span><br><span class="line">        net.setPreferableBackend(cv.dnn.DNN_BACKEND_OPENCV) <span class="comment">#设置计算后台类型</span></span><br><span class="line">        inImg = cv.imread(self.images[self.idxImage]) <span class="comment">#读取输入的内容图片</span></span><br><span class="line">        inp = cv.dnn.blobFromImage(inImg, <span class="number">1.0</span>, (inImg.shape[<span class="number">1</span>],inImg.shape[<span class="number">0</span>]),</span><br><span class="line">                              (<span class="number">103.939</span>, <span class="number">116.779</span>, <span class="number">123.68</span>), swapRB=<span class="literal">False</span>, crop=<span class="literal">False</span>)</span><br><span class="line">        net.setInput(inp)</span><br><span class="line">        outImg = net.forward()</span><br><span class="line">        outImg = outImg.reshape(<span class="number">3</span>, outImg.shape[<span class="number">2</span>], outImg.shape[<span class="number">3</span>])</span><br><span class="line">        outImg[<span class="number">0</span>] += <span class="number">103.939</span></span><br><span class="line">        outImg[<span class="number">1</span>] += <span class="number">116.779</span></span><br><span class="line">        outImg[<span class="number">2</span>] += <span class="number">123.68</span></span><br><span class="line">        outImg /= <span class="number">255</span></span><br><span class="line">        outImg = outImg.transpose(<span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> inImg, outImg</span><br></pre></td></tr></table></figure>
+
+<p>类App的styleTransfer()函数应用当前的图像风格迁移网络模型将当前内容图片风格迁移成输出图片。函数返回的inImg即为输入的内容图片，outImg则为输出图片，两者都是numpy三维数组。</p>
+<p>读者可能会感到诧异，如此复杂的功能居然只有这么少的代码。是的，当你站在前人的肩膀上，只是调库（调用别人开发好的库）时，就是这么简单。</p>
+<table>
+<thead>
+<tr>
+<th>代码说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>- net = cv.dnn.readNetFromTorch() - 加载Torch格式的配置网络及其参数。执行后，net的类型为cv2.dnn_net，是一个深度神经网络。<br>- cv.imread()函数用于读取图像文件，其返回一个numpy的三维数组，其维度依次为图像的像素高，图像的像素宽，像素颜色通道数（通常为3）。<br> - 接下来，blobFromImage将inImg进行转换，变成深度神经网络所接受的数据格式；net.setupInput(inp)则把转换后的数据设定为神经网络的输入; net.forward()则应用神经网络进行计算，并在其输出层得到输出图像outImg；outImg也是一个numpy多维数组，其维度与数据格式与常规的图像有所不同；所以后续代码对其进行了一些格式变换。<br>- 最后，函数返回inImg-输入图像, outImg-输出图像两个用于表示图像的多维数组。</td>
+</tr>
+</tbody></table>
+<h4 id="22-3-4-图像显示与刷新"><a href="#22-3-4-图像显示与刷新" class="headerlink" title="22.3.4 图像显示与刷新"></a>22.3.4 图像显示与刷新</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span>:</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">refresh</span><span class="params">(self,fig,axStyle,axIn,axOut)</span>:</span></span><br><span class="line">        print(<span class="string">"Style tranfering..."</span>)</span><br><span class="line">        self.idxImage = self.idxImage % len(self.images)</span><br><span class="line">        self.idxModel = self.idxModel % len(self.models)</span><br><span class="line">        inImg, outImg = self.styleTransfer()</span><br><span class="line">        print(<span class="string">"Rendering..."</span>)</span><br><span class="line">        styleImg = cv.imread(self.paintings[self.idxModel])</span><br><span class="line">        axStyle.imshow(cv.cvtColor(styleImg,cv.COLOR_BGR2RGB))</span><br><span class="line">        axIn.imshow(cv.cvtColor(inImg, cv.COLOR_BGR2RGB))</span><br><span class="line">        axOut.imshow(cv.cvtColor(outImg, cv.COLOR_BGR2RGB))</span><br><span class="line">        fig.canvas.draw()</span><br></pre></td></tr></table></figure>
+
+<p>函数refresh()负责对当前内容图像进行风格迁移运算，并将风格风像，内容图像，迁移后的输出图像显示在对应的子图(Axes)中。其中，axStyle用于显示风格图像，axIn显示内容图像，axOut用于显示输出图像。</p>
+<p>self.idxImage和self.idxModel分别对len(self.images)和len(self.models)进行求模，目的是防止列表的越界访问（后续代码中，切换图片和风格时没有进行越界限制）。</p>
+<p>axStyle/axIn/axOut.imshow()负责将图像显示在子图中。请注意，在显示之前，还应用cv.cvtColor()函数进行了一次图像格式转换，这是因为OpenCV中的图像其颜色通道顺序为BGR，即三维数组第三维中下标0对应蓝色，下标1对应绿色,下标2对应红色；而Matplotlib中，图像的颜色通道顺序为RGB，为了能正确显示，交换一下颜色通道顺序。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">fig = plt.figure(figsize=(<span class="number">12</span>,<span class="number">6</span>))</span><br><span class="line">axStyle = plt.subplot(<span class="number">231</span>)			</span><br><span class="line">axIn = plt.subplot(<span class="number">234</span>)</span><br><span class="line">axOut = plt.subplot2grid((<span class="number">2</span>,<span class="number">3</span>),(<span class="number">0</span>,<span class="number">1</span>),rowspan=<span class="number">2</span>,colspan=<span class="number">2</span>)</span><br><span class="line">plt.subplots_adjust(<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>)	<span class="comment">#设置子图间的间距为0</span></span><br><span class="line"><span class="keyword">for</span> ax <span class="keyword">in</span> (axStyle,axIn,axOut):</span><br><span class="line">    ax.set_axis_off()				<span class="comment">#子图不显示坐标轴</span></span><br><span class="line">app.refresh(fig,axStyle,axIn,axOut)	<span class="comment">#刷新显示 </span></span><br><span class="line">fig.canvas.mpl_connect(<span class="string">'key_release_event'</span>,on_key_release)  <span class="comment">#连接键盘事件响应函数</span></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<p>我们在matplotlib中创建1个图和3个子图。plt.subplot(231)将图的可视区域等分成2行3列，然后在第1个区域创建一个子图。同理，plt.subplot(234)将图的可视区域等分成2行3列，然后在第4个区域（即第2行的第1个区域)创建子图。上述第1个区域，第4个区域是从1开始计数的。</p>
+<p>plt.subplot2grid()也是将图的可视区域分成2行3列，然后在第0行的第1列开始创建子图，子图横向占2列，纵向占两行。这里的第0行，第1列从0开始计数，显然，这里的计数方式跟subplot()函数不同。读者不必为此感到困惑，这没有为什么。作者将此差异视作matplotlib设计者犯下的一个小错误，如果全部保持相同的计数规则，对于使用者而言，可能可容易理解一些。</p>
+<p>fig.canvas.connect()函数连接键盘松开事件至on_key_release()函数， 当读者松开(release)键盘按键时，on_key_release()函数将被调用执行。</p>
+<h4 id="22-3-5-交互响应"><a href="#22-3-5-交互响应" class="headerlink" title="22.3.5 交互响应"></a>22.3.5 交互响应</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">on_key_release</span><span class="params">(event)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> event.key == <span class="string">'up'</span>:</span><br><span class="line">        app.idxImage-=<span class="number">1</span></span><br><span class="line">    <span class="keyword">elif</span> event.key == <span class="string">'down'</span>:</span><br><span class="line">        app.idxImage+=<span class="number">1</span></span><br><span class="line">    <span class="keyword">elif</span> event.key == <span class="string">'left'</span>:</span><br><span class="line">        app.idxModel-=<span class="number">1</span></span><br><span class="line">    <span class="keyword">elif</span> event.key == <span class="string">'right'</span>:</span><br><span class="line">        app.idxModel+=<span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    app.refresh(fig,axStyle,axIn,axOut)</span><br></pre></td></tr></table></figure>
+
+<p>on_key_release()函数响应按键松开事件。如果是上-up, 下-down键，修改idxImage切换内容图片；如果是左(left)，右(right)键，修改idxModel切换图像风格迁移网络模型。最后，调用app.refresh()函数进行风格迁移和界面刷新。</p>
+<h3 id="22-4-小结"><a href="#22-4-小结" class="headerlink" title="22.4 小结"></a>22.4 小结</h3><p>下图是重庆大学虎溪校区图书馆及其在云湖上的倒影经过风格迁移后的效果。</p>
+<p><img src="/images/1559813765575.png" alt="1559813765575"></p>
+<p>现实中很多类似的计算问题，人类无法对相关概念进行准确的数学定义。比如：什么是图像的风格？ 何种形式的图像模式是一只猫？ 在乳腺X片里，什么样的图像可能是恶性的结节？ 在这种情况下，使用经过标注的数据集来训练神经网络，经过训练的神经网络从数据集中学习了相关的知识。这些知识包含在神经网络的内部参数中。即便这种知识的表达和真正的数学含义有些说不清，道不明，但我们仍然可以应用这些经过训练的神经网络来解决各种现实问题。</p>
+
+          
+        </div>
+        
+          <br>
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Python/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;<p>Python</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E5%9B%BE%E5%83%8F%E9%A3%8E%E6%A0%BC%E8%BF%81%E7%A7%BB/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;<p>图像风格迁移</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;<p>深度学习</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/DNN/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;<p>DNN</p></a></div>
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+              <section class="prev">
+                <span class="art-item-left">
+                  <h4>
+                    <a href="/2020/01/hanoirsc/" rel="prev" title="“实践 - 搬金盘的婆罗门”项目中的图片及音乐资源">
+                      <i class="fas fa-chevron-left" aria-hidden="true"></i>
+                      
+                        “实践 - 搬金盘的婆罗门”项目中的图片及音乐资源
+                      
+                    </a>
+                  </h4>
+                  
+                    
+                    <h6 class="tags">
+                      &nbsp;<a class="tag" href="/tags/Python/"><i class="fas fa-tag" aria-hidden="true"></i> Python</a>
+                    </h6>
+                  
+                </span>
+              </section>
+            
+            
+              <section class="next">
+                <span class="art-item-right" aria-hidden="true">
+                  <h4>
+                    <a href="/2019/11/scipy/" rel="prev" title="浅尝则止 - SciPy科学计算">
+                      
+                        浅尝则止 - SciPy科学计算
+                      
+                      <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                    </a>
+                  </h4>
+                  
+                    
+                    <h6 class="tags">
+                      <a class="tag" href="/tags/Python/"><i class="fas fa-tag" aria-hidden="true"></i> Python</a>&nbsp;
+                    </h6>
+                  
+                </span>
+              </section>
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+  <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX","TeX"],
+      linebreaks: { automatic:true },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: { autoNumber: "AMS" },
+      noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+      Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+  });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += (all[i].SourceElement().parentNode.className ? ' ' : '') + 'has-jax';
+    }
+  });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+
+  <script>
+    window.subData = {
+      title: '人工智能的味道 - 图像风格迁移',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+    
+      
+      
+
+<section class="widget grid  widget-blur desktop mobile">
+  
+  <header>
+    
+      <i class="fas fa-map-signs fa-fw" aria-hidden="true"></i><span class='name'>文档导航</span>
+    
+  </header>
+
+
+  <div class='content'>
+    <ul class="grid navigation">
+      
+        <li><a class="flat-box" title="/categories/Python/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97/" href="/categories/Python/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97/"
+          
+          
+          id="categoriesPythonE7A791E5ADA6E8AEA1E7AE97">
+          
+            <i class="fas fa-question-circle fa-fw" aria-hidden="true"></i>
+          
+          科学计算
+        </a></li>
+      
+        <li><a class="flat-box" title="/categories/Python/" href="/categories/Python/"
+          
+          
+          id="categoriesPython">
+          
+            <i class="fas fa-play-circle fa-fw" aria-hidden="true"></i>
+          
+          Python
+        </a></li>
+      
+        <li><a class="flat-box" title="/categories/C-C/" href="/categories/C-C/"
+          
+          
+          id="categoriesC-C">
+          
+            <i class="fas fa-handshake fa-fw" aria-hidden="true"></i>
+          
+          C/C++
+        </a></li>
+      
+        <li><a class="flat-box" title="/news/archives/" href="/news/archives/"
+          
+          
+          id="newsarchives">
+          
+            <i class="fas fa-file-archive fa-fw" aria-hidden="true"></i>
+          
+          资源下载
+        </a></li>
+      
+        <li><a class="flat-box" title="https://github.com/xaoxuu/hexo-theme-volantis/" href="https://github.com/xaoxuu/hexo-theme-volantis/"
+          
+            rel="external nofollow noopener noreferrer"
+          
+          
+            target="_blank"
+          
+          id="https:github.comxaoxuuhexo-theme-volantis">
+          
+            <i class="fas fa-file-code fa-fw" aria-hidden="true"></i>
+          
+          MOOC
+        </a></li>
+      
+        <li><a class="flat-box" title="https://github.com/xaoxuu/hexo-theme-volantis/releases/" href="https://github.com/xaoxuu/hexo-theme-volantis/releases/"
+          
+            rel="external nofollow noopener noreferrer"
+          
+          
+            target="_blank"
+          
+          id="https:github.comxaoxuuhexo-theme-volantisreleases">
+          
+            <i class="fas fa-clipboard-list fa-fw" aria-hidden="true"></i>
+          
+          图书订购
+        </a></li>
+      
+    </ul>
+  </div>
+</section>
+
+    
+  
+    
+      
+      
+
+<section class="widget text  widget-blur desktop">
+  
+  <header>
+    
+      <a href='https://codelearn.club/'><i class="fab fa-github fa-fw" aria-hidden="true"></i><span class='name'>点个赞吧</span></a>
+    
+  </header>
+
+
+  <div class='content'>
+    
+      <p>您的赞对我来说很重要，如果本网站的技术文章有帮到您，希望能够给下面的视频收藏点赞支持一下。</p>
+
+    
+      <p><a href="https://github.com/xaoxuu/ProHUD" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/proj/prohud/logo.png" height="50px"></a></p>
+
+    
+      <p><a href="https://github.com/xaoxuu/ValueX" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/proj/valuex/logo.png" height="50px"></a></p>
+
+    
+  </div>
+</section>
+
+    
+  
+    
+      
+      
+
+<section class="widget qrcode  widget-blur desktop">
+  
+  <header>
+    
+      <i class="fas fa-mobile fa-fw" aria-hidden="true"></i><span class='name'>手机观看</span>
+    
+  </header>
+
+
+  <div class='content article-entry'>
+    
+      
+        <img src='https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/qrcode/wiki_volantis.png'
+        >
+      
+    
+  </div>
+</section>
+
+    
+  
+    
+      
+      
+
+
+  <section class="widget toc-wrapper  widget-blur desktop mobile">
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#22-人工智能的味道-图像风格迁移"><span class="toc-text">22. 人工智能的味道 - 图像风格迁移</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#22-1-图像风格迁移"><span class="toc-text">22.1 图像风格迁移</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#22-2-深度神经网络"><span class="toc-text">22.2 深度神经网络</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#22-3-程序解读"><span class="toc-text">22.3 程序解读</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#22-3-1-程序的使用"><span class="toc-text">22.3.1 程序的使用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#22-3-2-数据结构"><span class="toc-text">22.3.2 数据结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#22-3-3-风格迁移"><span class="toc-text">22.3.3 风格迁移</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#22-3-4-图像显示与刷新"><span class="toc-text">22.3.4 图像显示与刷新</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#22-3-5-交互响应"><span class="toc-text">22.3.5 交互响应</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#22-4-小结"><span class="toc-text">22.4 小结</span></a></li></ol></li></ol>
+    </div>
+  </section>
+
+
+    
+  
+</aside>
+
+
+  
+  <footer class="clearfix ">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+              <a href="mailto:chenbo@cqu.edu.cn"
+                class="social fas fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://codelearn.club"
+                class="social fab fa-github flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://music.163.com/#/user/home?id=63035382"
+                class="social fas fa-headphones-alt flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+        </div>
+      
+    
+      
+        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+      
+    
+      
+        本站使用
+        <a href="https://volantis.js.org/" target="_blank" class="codename">CodeLearn</a>
+        作为主题
+        
+          ，
+          总访问量为
+          <span id="busuanzi_value_site_pv"><i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span>
+          次
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="https://codelearn.club">Copyright © 2018-2020 海洋饼干叔叔</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+<script>setLoadingBarProgress(80);</script>
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+
+
+  <script>
+    
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/" || "/";
+    if (!ROOT.endsWith('/')) ROOT += '/';
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@1.6.4/js/instant_page.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js" async></script>
+
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+  
+  
+  
+    
+<script src="//cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+
+    <script type="text/javascript">
+      $(function(){
+        if ('') {
+          $('').backstretch(
+          ["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/41F215B9-261F-48B4-80B5-4E86E165259E.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/BBC19066-E176-47C2-9D22-48C81EE5DF6B.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/B18FCBB3-67FD-48CC-B4F3-457BA145F17A.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/00E0F0ED-9F1C-407A-9AA6-545649D919F4.jpeg"],
+          {
+            duration: "5000",
+            fade: "2500"
+          });
+        } else {
+          $.backstretch(
+          ["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/41F215B9-261F-48B4-80B5-4E86E165259E.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/BBC19066-E176-47C2-9D22-48C81EE5DF6B.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/B18FCBB3-67FD-48CC-B4F3-457BA145F17A.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/00E0F0ED-9F1C-407A-9AA6-545649D919F4.jpeg"],
+          {
+            duration: "5000",
+            fade: "2500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+  
+<script src="/js/search.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@1.6.4/js/comment_typing.js"></script>
+
+
+
+<!-- 复制 -->
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  let COPY_SUCCESS = "复制成功";
+  let COPY_FAILURE = "复制失败";
+  /*页面载入完成后，创建复制按钮*/
+  !function (e, t, a) {
+    /* code */
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '  <i class="fa fa-copy"></i><span>复制</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+
+      clipboard.on('success', function(e) {
+        //您可以加入成功提示
+        console.info('Action:', e.action);
+        console.info('Text:', e.text);
+        console.info('Trigger:', e.trigger);
+        success_prompt(COPY_SUCCESS);
+        e.clearSelection();
+      });
+      clipboard.on('error', function(e) {
+        //您可以加入失败提示
+        console.error('Action:', e.action);
+        console.error('Trigger:', e.trigger);
+        fail_prompt(COPY_FAILURE);
+      });
+    }
+    initCopyCode();
+
+  }(window, document);
+
+  /**
+   * 弹出式提示框，默认1.5秒自动消失
+   * @param message 提示信息
+   * @param style 提示样式，有alert-success、alert-danger、alert-warning、alert-info
+   * @param time 消失时间
+   */
+  var prompt = function (message, style, time)
+  {
+      style = (style === undefined) ? 'alert-success' : style;
+      time = (time === undefined) ? 1500 : time*1000;
+      $('<div>')
+          .appendTo('body')
+          .addClass('alert ' + style)
+          .html(message)
+          .show()
+          .delay(time)
+          .fadeOut();
+  };
+
+  // 成功提示
+  var success_prompt = function(message, time)
+  {
+      prompt(message, 'alert-success', time);
+  };
+
+  // 失败提示
+  var fail_prompt = function(message, time)
+  {
+      prompt(message, 'alert-danger', time);
+  };
+
+  // 提醒
+  var warning_prompt = function(message, time)
+  {
+      prompt(message, 'alert-warning', time);
+  };
+
+  // 信息提示
+  var info_prompt = function(message, time)
+  {
+      prompt(message, 'alert-info', time);
+  };
+
+</script>
+
+
+
+
+<!-- fancybox -->
+
+  <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let LAZY_LOAD_IMAGE = "";
+  $(".article-entry").find("fancybox").find("img").each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      /* 图片采用懒加载处理时,
+       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
+       * 那么此处将原本的属性名src替换为对应属性名data-original,
+       * 修改如下
+       */
+       if (LAZY_LOAD_IMAGE) {
+         $(element).attr("href", $(this).attr("data-original"));
+       }
+      $(this).wrap(element);
+  });
+</script>
+
+
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+</body>
+</html>

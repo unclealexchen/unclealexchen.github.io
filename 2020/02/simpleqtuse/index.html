@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html>
+<head hexo-theme='https://volantis.js.org/#0.9.4'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 页面元数据 -->
+  
+    <title>Qt Creator的简单使用方法 - Python,C/C++ Club</title>
+  
+    <meta name="keywords" content="IDE">
+  
+  
+    <meta name="description" content="本文介绍使用Qt Creator进行C/C++编程的基本方法。">
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+    
+      <meta name='theme-color' content='#FFFFFF'>
+    
+      <meta name='msapplication-TileColor' content='#1BC3FB'>
+    
+      <meta name='msapplication-config' content='https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicons/browserconfig.xml'>
+    
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css">
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+
+  
+
+  
+  <link rel="shortcut icon" type='image/x-icon' href="https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicon.ico">
+  
+
+  
+
+  <!-- import link -->
+  
+  
+  <link rel='shortcut icon' type='image/x-icon' href='https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicon.ico'>
+  <link rel='icon' type='image/x-icon' sizes='32x32' href='https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicons/favicon-32x32.png'>
+  <link rel='apple-touch-icon' type='image/png' sizes='180x180' href='https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicons/apple-touch-icon.png'>
+  <link rel='mask-icon' color='#1BC3FB' href='https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicons/safari-pinned-tab.svg'>
+  <link rel='manifest' href='https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicons/site.webmanifest'>
+  
+
+  
+    
+<link rel="stylesheet" href="/style.css">
+
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  <div class="cover-wrapper">
+    <cover class='cover post half'>
+      
+        
+  <p class="title ">Codelearn</p>
+  
+    <p class="subtitle ">分享Python,C/C++相关的技术文章, 海洋饼干叔叔@重庆大学</p>
+  
+
+
+  <div class="m_search">
+    <form name="searchform" class="form u-search-form">
+      <i class="icon fas fa-search fa-fw"></i>
+      <input type="text" class="input u-search-input" placeholder="搜索文档" />
+    </form>
+  </div>
+
+<div class='menu navigation'>
+  <ul class='h-list'>
+    
+      
+        <li>
+          <a class="nav home "
+            href="/2020/03/notice/"
+            
+            
+            id="202003notice">
+            <i class='fas fa-bullhorn fa-fw'></i>&nbsp;公告
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home "
+            href="/"
+            
+            
+            id="home">
+            <i class='fas fa-globe-asia fa-fw'></i>&nbsp;主页
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home "
+            href="http://www.bilibili.com/video/av34586138/"
+            
+            
+            id="http:www.bilibili.comvideoav34586138">
+            <i class='fas fa-book fa-fw'></i>&nbsp;从C到C++
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home "
+            href="http://www.bilibili.com/video/av34409478"
+            
+              rel="external nofollow noopener noreferrer"
+            
+            
+              target="_blank"
+            
+            id="http:www.bilibili.comvideoav34409478">
+            <i class='fas fa-book fa-fw'></i>&nbsp;Python编程基础及应用
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home "
+            href="/2020/03/thanks/"
+            
+            
+            id="202003thanks">
+            <i class='fas fa-handshake fa-fw'></i>&nbsp;鸣谢
+          </a>
+        </li>
+      
+    
+  </ul>
+</div>
+
+      
+    </cover>
+    <header class="l_header nav-blur">
+  <div id="loading-bar-wrapper">
+    <div id="loading-bar"></div>
+  </div>
+	<div class='wrapper'>
+		<div class="nav-main container container--flex">
+      
+        <a class="logo flat-box" target="_self" href='/' >
+          
+            
+              CODELEARN <sup style='color:#2196f3'>0.9.4</sup>
+            
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='h-list'>
+          
+  					
+  						<li>
+								<a class="nav flat-box" href="/getting-started/"
+                  
+                  
+                  id="getting-started">
+									<i class='fas fa-flag fa-fw'></i>&nbsp;公告
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/"
+                  
+                  
+                  id="home">
+									<i class='fas fa-globe-asia fa-fw'></i>&nbsp;主页
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/theme-settings/"
+                  
+                  
+                  id="theme-settings">
+									<i class='fas fa-palette fa-fw'></i>&nbsp;下载
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/page-settings/"
+                  
+                  
+                  id="page-settings">
+									<i class='fas fa-file-alt fa-fw'></i>&nbsp;图书
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/tag-plugins/"
+                  
+                  
+                  id="tag-plugins">
+									<i class='fas fa-pen-alt fa-fw'></i>&nbsp;MOOC
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/advanced-settings/"
+                  
+                  
+                  id="advanced-settings">
+									<i class='fas fa-flask fa-fw'></i>&nbsp;致谢
+								</a>
+							</li>
+      			
+      		
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="搜索文档" />
+        </form>
+      </div>
+
+			<ul class='switcher h-list'>
+				
+					<li class='s-search'><a class="fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li class='s-menu'><a class="fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a></li>
+			</ul>
+		</div>
+
+		<div class='nav-sub container container--flex'>
+			<a class="logo flat-box"></a>
+			<ul class='switcher h-list'>
+				<li class='s-comment'><a class="flat-btn fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li class='s-toc'><a class="flat-btn fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+			</ul>
+		</div>
+	</div>
+</header>
+	<aside class="menu-phone white-box">
+    <header>
+		<nav class="menu navigation">
+      <ul>
+        
+          
+            <li>
+							<a class="nav flat-box" href="/getting-started/"
+                
+                
+                id="getting-started">
+								<i class='fas fa-flag fa-fw'></i>&nbsp;公告
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/"
+                
+                
+                id="home">
+								<i class='fas fa-globe-asia fa-fw'></i>&nbsp;主页
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/theme-settings/"
+                
+                
+                id="theme-settings">
+								<i class='fas fa-palette fa-fw'></i>&nbsp;下载
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/page-settings/"
+                
+                
+                id="page-settings">
+								<i class='fas fa-file-alt fa-fw'></i>&nbsp;图书
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/tag-plugins/"
+                
+                
+                id="tag-plugins">
+								<i class='fas fa-pen-alt fa-fw'></i>&nbsp;MOOC
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/advanced-settings/"
+                
+                
+                id="advanced-settings">
+								<i class='fas fa-flask fa-fw'></i>&nbsp;致谢
+							</a>
+            </li>
+          
+       
+      </ul>
+		</nav>
+    </header>
+	</aside>
+<script>setLoadingBarProgress(40);</script>
+
+  </div>
+
+
+  <div class="l_body">
+    <div class='body-wrapper'>
+      
+
+<div class='l_main'>
+  
+
+  
+    <article id="post" class="post white-box   article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class='meta'>
+    
+    
+    <div class="meta" id="header-meta">
+      
+        
+  
+    <h1 class="title">
+      <a href="/2020/02/simpleqtuse/">
+        Qt Creator的简单使用方法
+      </a>
+    </h1>
+  
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+<div class='new-meta-item author'>
+  <a href="https://codelearn.club" rel="nofollow">
+    <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/avatar/avatar.png">
+    <p>海洋饼干叔叔</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/categories/C-C/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>C/C++</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-edit" aria-hidden="true"></i>
+    <p>发布于：2020年2月1日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          
+          <p>本文介绍使用Qt Creator进行C/C++编程的基本方法。</p>
+<a id="more"></a>
+
+<blockquote>
+<p>版权声明</p>
+<p>本文<strong>可以</strong>在互联网上自由转载，但必须：注明出处(作者：海洋饼干叔叔)并包含指向本页面的链接。</p>
+<p>本文<strong>不可以</strong>以纸质出版为目的进行改编、摘抄。</p>
+</blockquote>
+<h2 id="1-Qt-Creator启动"><a href="#1-Qt-Creator启动" class="headerlink" title="1. Qt Creator启动"></a>1. Qt Creator启动</h2><p>安装完Qt后，在Windows开始菜单中可以找到Qt 5.14.1子目录（版本号不同，子目录名不同）。</p>
+<p>单击Qt Creator 4.11.0(Community)即可启动Qt Creator。</p>
+<p>考虑到后续使用方便，可以在桌面上创建一个快捷方式：用鼠标左键单击Qt Creator 4.11.0(Community)并按住不放，然后拖至桌面并释放鼠标左键。</p>
+<p><img src="/images/image-20200131174711939.png" alt="image-20200131174711939"></p>
+<p>点击右上角的最大化按钮将窗口最大化， Qt Creator启动完成，可以使用了。</p>
+<p><img src="/images/image-20200131221231019.png" alt="image-20200131221231019"></p>
+<h2 id="2-创建Non-Qt-Project-Plain-C-Application"><a href="#2-创建Non-Qt-Project-Plain-C-Application" class="headerlink" title="2. 创建Non-Qt Project / Plain C Application"></a>2. 创建Non-Qt Project / Plain C Application</h2><p>选择菜单文件(File)-&gt;新建文件或项目（New File or Project ):</p>
+<p><img src="/images/image-20200131221435699.png" alt="image-20200131221435699"></p>
+<p>点选Non-Qt Project下的Plain C Application, 然后单击”Choose”, </p>
+<p><img src="/images/image-20200131221612499.png" alt="image-20200131221612499"></p>
+<p>将项目名称设为demo1; </p>
+<p>可以看到，默认的项目路径是Windows当前登录用户的文档路径，对部分读者而言，该路径可能包括中文（目录和文件名最好不要包含非英文字符！，解释见后），稳妥起见，点”浏览”按钮， </p>
+<p><img src="/images/image-20200131221820366.png" alt="image-20200131221820366"></p>
+<p>在弹出的对话框里选择C盘，在对话框的空白处，右键单击鼠标，选择弹出菜单中的新建-&gt;文件夹， 新建一个名为C2Cpp的目录。</p>
+<p><img src="/images/image-20200131222107109.png" alt="image-20200131222107109"></p>
+<p><img src="/images/image-20200131222142511.png" alt="image-20200131222142511"></p>
+<p>创建C:\C2Cpp目录并“选择文件夹”后，勾选“设为默认项目路径”， 然后单击“下一步”，</p>
+<p><img src="/images/image-20200131222235144.png" alt="image-20200131222235144"></p>
+<p>直接点“下一步”，</p>
+<p><img src="/images/image-20200131222300242.png" alt="image-20200131222300242"></p>
+<p>直接点”下一步“， 如果读者计算机上出现了其它选项，说明读者可能安装了Qt的其它版本（比如MSVC 2017）， 建议完全卸载QT后严格按照作者的操作文档重新安装。</p>
+<p><img src="/images/image-20200131222338597.png" alt="image-20200131222338597"></p>
+<p>单击”完成“，</p>
+<p><img src="/images/image-20200131222358816.png" alt="image-20200131222358816"></p>
+<p>可以看到，demo1项目已经成功创建并打开，其项目文件为demo1.pro, 主程序为main.c。</p>
+<p>在窗口的左下角，有一个绿色的三角形按钮（运行），点击此按钮将构建并运行当前项目。</p>
+<p><img src="/images/image-20200131222429126.png" alt="image-20200131222429126"></p>
+<p>点击运行按钮后，系统会进行构建/编译，然后一个黑色底的对话框内显示了执行结果: Hello World! </p>
+<p>黑色对话框（Windows命令行）右上角的X按钮表示关闭窗口，点击此按钮，将关闭黑色对话框。</p>
+<p><img src="/images/image-20200131222455222.png" alt="image-20200131222455222"></p>
+<p>如果上述过程正确无误，恭喜你，你的Qt开发环境的安装和配置多半是成功的。</p>
+<h2 id="3-Qt-Creator的基本操作"><a href="#3-Qt-Creator的基本操作" class="headerlink" title="3. Qt Creator的基本操作"></a>3. Qt Creator的基本操作</h2><h4 id="3-1-关闭项目"><a href="#3-1-关闭项目" class="headerlink" title="3.1 关闭项目"></a>3.1 关闭项目</h4><p>Qt Creator允许同时打开多个项目。为避免不必要的麻烦，我们建议初学者最好只同时打开一个项目。</p>
+<p>当需要关闭某个项目时，选单击选中项目（如下图中的demo1), </p>
+<p><img src="/images/image-20200201163154804.png" alt="image-20200201163154804"></p>
+<p>然后选择文件菜单 –&gt; Close Project “demo1”, </p>
+<p><img src="/images/image-20200201163237218.png" alt="image-20200201163237218"></p>
+<p>该项目关闭后，可以看到项目列表为空。</p>
+<p><img src="/images/image-20200201163314138.png" alt="image-20200201163314138"></p>
+<h3 id="3-2-打开已有的项目"><a href="#3-2-打开已有的项目" class="headerlink" title="3.2 打开已有的项目"></a>3.2 打开已有的项目</h3><ul>
+<li>方法1：</li>
+</ul>
+<p>选择文件菜单-&gt; 打开文件或者项目，</p>
+<p><img src="/images/image-20200201163419949.png" alt="image-20200201163419949"></p>
+<p>定位到C:\C2Cpp\demo1目录，选中demo1.pro, 然后单击”打开“， </p>
+<p><img src="/images/image-20200201163456274.png" alt="image-20200201163456274"></p>
+<p>可见，demo1项目被成功打开：</p>
+<p><img src="/images/image-20200201163619084.png" alt="image-20200201163619084"></p>
+<ul>
+<li>方法2</li>
+</ul>
+<p>在Windows的资源管理中，直接定位到项目文件demo1.pro, 然后双击，也可以打开该项目（Qt的安装程序将.pro文件与Qt Creator作了关联）。</p>
+<p><img src="/images/image-20200201163737197.png" alt="image-20200201163737197"></p>
+<h3 id="3-3-项目栏的收起与展开"><a href="#3-3-项目栏的收起与展开" class="headerlink" title="3.3 项目栏的收起与展开"></a>3.3 项目栏的收起与展开</h3><p>在Qt Creator的左下角，有一个按钮（如下图），单击这个按钮可以帮助收起/展开项目栏。</p>
+<p>当你书写代码时，可能希望整个屏幕都用于显示代码，此时，收取项目栏可以更好地利用屏幕空间。</p>
+<p><img src="/images/image-20200201163927547.png" alt="image-20200201163927547"></p>
+<h3 id="3-4-文件的打开和关闭"><a href="#3-4-文件的打开和关闭" class="headerlink" title="3.4 文件的打开和关闭"></a>3.4 文件的打开和关闭</h3><p>展开项目文件树后，双击main.c, 可见该文件被打开。</p>
+<p>如果需要关闭该文件，请点击main.c后方的x按钮， 如下图所示。</p>
+<p><img src="/images/image-20200201164334947.png" alt="image-20200201164334947"></p>
+<h3 id="3-5-代码字号调整"><a href="#3-5-代码字号调整" class="headerlink" title="3.5 代码字号调整"></a>3.5 代码字号调整</h3><p>在代码文件打开的情况下，先在代码编辑框中单击一下，确保当前编辑焦点在代码编辑框中。然后，按住Ctrl键不放，并滚动鼠标的滚轮（建议读者外接一个鼠标以便操作），可以看到代码的字号变化。</p>
+<p><img src="/images/image-20200201164700268.png" alt="image-20200201164700268"></p>
+<h2 id="4-创建Non-Qt-Project-Plain-C-Application"><a href="#4-创建Non-Qt-Project-Plain-C-Application" class="headerlink" title="4. 创建Non-Qt Project / Plain C++ Application"></a>4. 创建Non-Qt Project / Plain C++ Application</h2><p>C语言大约是C++语言的子集，当需要练习C++编程时，需要创建一个C++应用程序。</p>
+<p>创建过程与创建C应用程序类似，唯一区别是新建项目时，应选择Non-Qt Project / Plain C++ Application，如下图所示：</p>
+<p><img src="/images/image-20200201165448632.png" alt="image-20200201165448632"></p>
+<p>在这里，我们创建一个名为demo2的C++应用程序。</p>
+<p><img src="/images/image-20200201165649748.png" alt="image-20200201165649748"></p>
+<p>请读者注意，为了避免初学者可能遇到的困难，本书中我们总是使用C:\C2Cpp目录作为项目存储路径。</p>
+<p>下图中，Qt Creator同时打开了两个项目：demo1和demo2， 其中, demo2为当前项目（字体更粗）。</p>
+<p>main.cpp是demo2的主程序文件。此时，如果点击运行按钮，被编译和运行的将会是demo2项目。</p>
+<p><img src="/images/image-20200201165835873.png" alt="image-20200201165835873"></p>
+<p>在本书的前半部分，我们只需要创建和使用这种”原始“的C和C++项目。在本书的后半部分，我们还需要创建图形应用程序，具体方法到时再介绍。</p>
+<h2 id="5-对初学者的忠告"><a href="#5-对初学者的忠告" class="headerlink" title="5. 对初学者的忠告"></a>5. 对初学者的忠告</h2><blockquote>
+<p>对于键盘不熟悉的初学者，建议暂时关闭掉笔记本上的触摸板，仅使用外置鼠标（避免敲键盘时意外碰到触摸板误操作）。</p>
+</blockquote>
+<blockquote>
+<p>仅使用英文字符来命名文件夹及程序文件。现代的编程语言，计算机，操作系统都起源于国外，对中文的支持不太好。记住：<strong>避免掉下悬崖摔死的最好办法不是练习高超的平衡术，而是远离悬崖！</strong></p>
+</blockquote>
+<blockquote>
+<p>编程需要做大量的输入，输入的速度至关重要。没有掌握标准指法的初学者请逐步练习和使用标准指法，初期可能会浪费一点时间，后期会赚回来。<strong>一指禅威力过大，不宜日常使用。</strong></p>
+</blockquote>
+
+          
+        </div>
+        
+          <br>
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/IDE/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;<p>IDE</p></a></div>
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+              <section class="prev">
+                <span class="art-item-left">
+                  <h4>
+                    <a href="/2020/02/qtconsolechinese/" rel="prev" title="Windows环境下Qt Creator控制台输出中文乱码解决方法">
+                      <i class="fas fa-chevron-left" aria-hidden="true"></i>
+                      
+                        Windows环境下Qt Creator控制台输出中文乱码解决方法
+                      
+                    </a>
+                  </h4>
+                  
+                    
+                    <h6 class="tags">
+                      &nbsp;<a class="tag" href="/tags/C-C/"><i class="fas fa-tag" aria-hidden="true"></i> C/C++</a> <a class="tag" href="/tags/Qt/"><i class="fas fa-tag" aria-hidden="true"></i> Qt</a>
+                    </h6>
+                  
+                </span>
+              </section>
+            
+            
+              <section class="next">
+                <span class="art-item-right" aria-hidden="true">
+                  <h4>
+                    <a href="/2020/01/qt-install-win/" rel="prev" title="Windows环境下Qt C++开发环境的下载与安装">
+                      
+                        Windows环境下Qt C++开发环境的下载与安装
+                      
+                      <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                    </a>
+                  </h4>
+                  
+                    
+                    <h6 class="tags">
+                      <a class="tag" href="/tags/C-C/"><i class="fas fa-tag" aria-hidden="true"></i> C/C++</a> <a class="tag" href="/tags/Qt/"><i class="fas fa-tag" aria-hidden="true"></i> Qt</a>&nbsp;
+                    </h6>
+                  
+                </span>
+              </section>
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+  <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX","TeX"],
+      linebreaks: { automatic:true },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: { autoNumber: "AMS" },
+      noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+      Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+  });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += (all[i].SourceElement().parentNode.className ? ' ' : '') + 'has-jax';
+    }
+  });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+
+  <script>
+    window.subData = {
+      title: 'Qt Creator的简单使用方法',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+    
+      
+      
+
+<section class="widget grid  widget-blur desktop mobile">
+  
+  <header>
+    
+      <i class="fas fa-map-signs fa-fw" aria-hidden="true"></i><span class='name'>文档导航</span>
+    
+  </header>
+
+
+  <div class='content'>
+    <ul class="grid navigation">
+      
+        <li><a class="flat-box" title="/categories/Python/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97/" href="/categories/Python/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97/"
+          
+          
+          id="categoriesPythonE7A791E5ADA6E8AEA1E7AE97">
+          
+            <i class="fas fa-question-circle fa-fw" aria-hidden="true"></i>
+          
+          科学计算
+        </a></li>
+      
+        <li><a class="flat-box" title="/categories/Python/" href="/categories/Python/"
+          
+          
+          id="categoriesPython">
+          
+            <i class="fas fa-play-circle fa-fw" aria-hidden="true"></i>
+          
+          Python
+        </a></li>
+      
+        <li><a class="flat-box" title="/categories/C-C/" href="/categories/C-C/"
+          
+          
+          id="categoriesC-C">
+          
+            <i class="fas fa-handshake fa-fw" aria-hidden="true"></i>
+          
+          C/C++
+        </a></li>
+      
+        <li><a class="flat-box" title="/news/archives/" href="/news/archives/"
+          
+          
+          id="newsarchives">
+          
+            <i class="fas fa-file-archive fa-fw" aria-hidden="true"></i>
+          
+          资源下载
+        </a></li>
+      
+        <li><a class="flat-box" title="https://github.com/xaoxuu/hexo-theme-volantis/" href="https://github.com/xaoxuu/hexo-theme-volantis/"
+          
+            rel="external nofollow noopener noreferrer"
+          
+          
+            target="_blank"
+          
+          id="https:github.comxaoxuuhexo-theme-volantis">
+          
+            <i class="fas fa-file-code fa-fw" aria-hidden="true"></i>
+          
+          MOOC
+        </a></li>
+      
+        <li><a class="flat-box" title="https://github.com/xaoxuu/hexo-theme-volantis/releases/" href="https://github.com/xaoxuu/hexo-theme-volantis/releases/"
+          
+            rel="external nofollow noopener noreferrer"
+          
+          
+            target="_blank"
+          
+          id="https:github.comxaoxuuhexo-theme-volantisreleases">
+          
+            <i class="fas fa-clipboard-list fa-fw" aria-hidden="true"></i>
+          
+          图书订购
+        </a></li>
+      
+    </ul>
+  </div>
+</section>
+
+    
+  
+    
+      
+      
+
+<section class="widget text  widget-blur desktop">
+  
+  <header>
+    
+      <a href='https://codelearn.club/'><i class="fab fa-github fa-fw" aria-hidden="true"></i><span class='name'>点个赞吧</span></a>
+    
+  </header>
+
+
+  <div class='content'>
+    
+      <p>您的赞对我来说很重要，如果本网站的技术文章有帮到您，希望能够给下面的视频收藏点赞支持一下。</p>
+
+    
+      <p><a href="https://github.com/xaoxuu/ProHUD" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/proj/prohud/logo.png" height="50px"></a></p>
+
+    
+      <p><a href="https://github.com/xaoxuu/ValueX" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/proj/valuex/logo.png" height="50px"></a></p>
+
+    
+  </div>
+</section>
+
+    
+  
+    
+      
+      
+
+<section class="widget qrcode  widget-blur desktop">
+  
+  <header>
+    
+      <i class="fas fa-mobile fa-fw" aria-hidden="true"></i><span class='name'>手机观看</span>
+    
+  </header>
+
+
+  <div class='content article-entry'>
+    
+      
+        <img src='https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/qrcode/wiki_volantis.png'
+        >
+      
+    
+  </div>
+</section>
+
+    
+  
+    
+      
+      
+
+
+  <section class="widget toc-wrapper  widget-blur desktop mobile">
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Qt-Creator启动"><span class="toc-text">1. Qt Creator启动</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-创建Non-Qt-Project-Plain-C-Application"><span class="toc-text">2. 创建Non-Qt Project &#x2F; Plain C Application</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Qt-Creator的基本操作"><span class="toc-text">3. Qt Creator的基本操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-关闭项目"><span class="toc-text">3.1 关闭项目</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-打开已有的项目"><span class="toc-text">3.2 打开已有的项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-项目栏的收起与展开"><span class="toc-text">3.3 项目栏的收起与展开</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-文件的打开和关闭"><span class="toc-text">3.4 文件的打开和关闭</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-代码字号调整"><span class="toc-text">3.5 代码字号调整</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-创建Non-Qt-Project-Plain-C-Application"><span class="toc-text">4. 创建Non-Qt Project &#x2F; Plain C++ Application</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-对初学者的忠告"><span class="toc-text">5. 对初学者的忠告</span></a></li></ol>
+    </div>
+  </section>
+
+
+    
+  
+</aside>
+
+
+  
+  <footer class="clearfix ">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+              <a href="mailto:chenbo@cqu.edu.cn"
+                class="social fas fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://codelearn.club"
+                class="social fab fa-github flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://music.163.com/#/user/home?id=63035382"
+                class="social fas fa-headphones-alt flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+        </div>
+      
+    
+      
+        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+      
+    
+      
+        本站使用
+        <a href="https://volantis.js.org/" target="_blank" class="codename">CodeLearn</a>
+        作为主题
+        
+          ，
+          总访问量为
+          <span id="busuanzi_value_site_pv"><i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span>
+          次
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="https://codelearn.club">Copyright © 2018-2020 海洋饼干叔叔</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+<script>setLoadingBarProgress(80);</script>
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+
+
+  <script>
+    
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/" || "/";
+    if (!ROOT.endsWith('/')) ROOT += '/';
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@1.6.4/js/instant_page.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js" async></script>
+
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+  
+  
+  
+    
+<script src="//cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+
+    <script type="text/javascript">
+      $(function(){
+        if ('') {
+          $('').backstretch(
+          ["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/41F215B9-261F-48B4-80B5-4E86E165259E.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/BBC19066-E176-47C2-9D22-48C81EE5DF6B.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/B18FCBB3-67FD-48CC-B4F3-457BA145F17A.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/00E0F0ED-9F1C-407A-9AA6-545649D919F4.jpeg"],
+          {
+            duration: "5000",
+            fade: "2500"
+          });
+        } else {
+          $.backstretch(
+          ["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/41F215B9-261F-48B4-80B5-4E86E165259E.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/BBC19066-E176-47C2-9D22-48C81EE5DF6B.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/B18FCBB3-67FD-48CC-B4F3-457BA145F17A.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/00E0F0ED-9F1C-407A-9AA6-545649D919F4.jpeg"],
+          {
+            duration: "5000",
+            fade: "2500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+  
+<script src="/js/search.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@1.6.4/js/comment_typing.js"></script>
+
+
+
+<!-- 复制 -->
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  let COPY_SUCCESS = "复制成功";
+  let COPY_FAILURE = "复制失败";
+  /*页面载入完成后，创建复制按钮*/
+  !function (e, t, a) {
+    /* code */
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '  <i class="fa fa-copy"></i><span>复制</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+
+      clipboard.on('success', function(e) {
+        //您可以加入成功提示
+        console.info('Action:', e.action);
+        console.info('Text:', e.text);
+        console.info('Trigger:', e.trigger);
+        success_prompt(COPY_SUCCESS);
+        e.clearSelection();
+      });
+      clipboard.on('error', function(e) {
+        //您可以加入失败提示
+        console.error('Action:', e.action);
+        console.error('Trigger:', e.trigger);
+        fail_prompt(COPY_FAILURE);
+      });
+    }
+    initCopyCode();
+
+  }(window, document);
+
+  /**
+   * 弹出式提示框，默认1.5秒自动消失
+   * @param message 提示信息
+   * @param style 提示样式，有alert-success、alert-danger、alert-warning、alert-info
+   * @param time 消失时间
+   */
+  var prompt = function (message, style, time)
+  {
+      style = (style === undefined) ? 'alert-success' : style;
+      time = (time === undefined) ? 1500 : time*1000;
+      $('<div>')
+          .appendTo('body')
+          .addClass('alert ' + style)
+          .html(message)
+          .show()
+          .delay(time)
+          .fadeOut();
+  };
+
+  // 成功提示
+  var success_prompt = function(message, time)
+  {
+      prompt(message, 'alert-success', time);
+  };
+
+  // 失败提示
+  var fail_prompt = function(message, time)
+  {
+      prompt(message, 'alert-danger', time);
+  };
+
+  // 提醒
+  var warning_prompt = function(message, time)
+  {
+      prompt(message, 'alert-warning', time);
+  };
+
+  // 信息提示
+  var info_prompt = function(message, time)
+  {
+      prompt(message, 'alert-info', time);
+  };
+
+</script>
+
+
+
+
+<!-- fancybox -->
+
+  <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let LAZY_LOAD_IMAGE = "";
+  $(".article-entry").find("fancybox").find("img").each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      /* 图片采用懒加载处理时,
+       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
+       * 那么此处将原本的属性名src替换为对应属性名data-original,
+       * 修改如下
+       */
+       if (LAZY_LOAD_IMAGE) {
+         $(element).attr("href", $(this).attr("data-original"));
+       }
+      $(this).wrap(element);
+  });
+</script>
+
+
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+</body>
+</html>

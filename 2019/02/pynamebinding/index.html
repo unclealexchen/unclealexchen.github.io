@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html>
+<head hexo-theme='https://volantis.js.org/#0.9.4'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 页面元数据 -->
+  
+    <title>深入理解Python的数据类型及名字绑定 - Python,C/C++ Club</title>
+  
+    <meta name="keywords" content="Python,名字绑定">
+  
+  
+    <meta name="description" content="​    本小节深入讨论Python中的数据类型与名字绑定的关系，了解赋值过程的内部细节。">
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+    
+      <meta name='theme-color' content='#FFFFFF'>
+    
+      <meta name='msapplication-TileColor' content='#1BC3FB'>
+    
+      <meta name='msapplication-config' content='https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicons/browserconfig.xml'>
+    
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css">
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+
+  
+
+  
+  <link rel="shortcut icon" type='image/x-icon' href="https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicon.ico">
+  
+
+  
+
+  <!-- import link -->
+  
+  
+  <link rel='shortcut icon' type='image/x-icon' href='https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicon.ico'>
+  <link rel='icon' type='image/x-icon' sizes='32x32' href='https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicons/favicon-32x32.png'>
+  <link rel='apple-touch-icon' type='image/png' sizes='180x180' href='https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicons/apple-touch-icon.png'>
+  <link rel='mask-icon' color='#1BC3FB' href='https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicons/safari-pinned-tab.svg'>
+  <link rel='manifest' href='https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicons/site.webmanifest'>
+  
+
+  
+    
+<link rel="stylesheet" href="/style.css">
+
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  <div class="cover-wrapper">
+    <cover class='cover post half'>
+      
+        
+  <p class="title ">Codelearn</p>
+  
+    <p class="subtitle ">分享Python,C/C++相关的技术文章, 海洋饼干叔叔@重庆大学</p>
+  
+
+
+  <div class="m_search">
+    <form name="searchform" class="form u-search-form">
+      <i class="icon fas fa-search fa-fw"></i>
+      <input type="text" class="input u-search-input" placeholder="搜索文档" />
+    </form>
+  </div>
+
+<div class='menu navigation'>
+  <ul class='h-list'>
+    
+      
+        <li>
+          <a class="nav home "
+            href="/2020/03/notice/"
+            
+            
+            id="202003notice">
+            <i class='fas fa-bullhorn fa-fw'></i>&nbsp;公告
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home "
+            href="/"
+            
+            
+            id="home">
+            <i class='fas fa-globe-asia fa-fw'></i>&nbsp;主页
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home "
+            href="http://www.bilibili.com/video/av34586138/"
+            
+            
+            id="http:www.bilibili.comvideoav34586138">
+            <i class='fas fa-book fa-fw'></i>&nbsp;从C到C++
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home "
+            href="http://www.bilibili.com/video/av34409478"
+            
+              rel="external nofollow noopener noreferrer"
+            
+            
+              target="_blank"
+            
+            id="http:www.bilibili.comvideoav34409478">
+            <i class='fas fa-book fa-fw'></i>&nbsp;Python编程基础及应用
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home "
+            href="/2020/03/thanks/"
+            
+            
+            id="202003thanks">
+            <i class='fas fa-handshake fa-fw'></i>&nbsp;鸣谢
+          </a>
+        </li>
+      
+    
+  </ul>
+</div>
+
+      
+    </cover>
+    <header class="l_header nav-blur">
+  <div id="loading-bar-wrapper">
+    <div id="loading-bar"></div>
+  </div>
+	<div class='wrapper'>
+		<div class="nav-main container container--flex">
+      
+        <a class="logo flat-box" target="_self" href='/' >
+          
+            
+              CODELEARN <sup style='color:#2196f3'>0.9.4</sup>
+            
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='h-list'>
+          
+  					
+  						<li>
+								<a class="nav flat-box" href="/getting-started/"
+                  
+                  
+                  id="getting-started">
+									<i class='fas fa-flag fa-fw'></i>&nbsp;公告
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/"
+                  
+                  
+                  id="home">
+									<i class='fas fa-globe-asia fa-fw'></i>&nbsp;主页
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/theme-settings/"
+                  
+                  
+                  id="theme-settings">
+									<i class='fas fa-palette fa-fw'></i>&nbsp;下载
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/page-settings/"
+                  
+                  
+                  id="page-settings">
+									<i class='fas fa-file-alt fa-fw'></i>&nbsp;图书
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/tag-plugins/"
+                  
+                  
+                  id="tag-plugins">
+									<i class='fas fa-pen-alt fa-fw'></i>&nbsp;MOOC
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/advanced-settings/"
+                  
+                  
+                  id="advanced-settings">
+									<i class='fas fa-flask fa-fw'></i>&nbsp;致谢
+								</a>
+							</li>
+      			
+      		
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="搜索文档" />
+        </form>
+      </div>
+
+			<ul class='switcher h-list'>
+				
+					<li class='s-search'><a class="fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li class='s-menu'><a class="fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a></li>
+			</ul>
+		</div>
+
+		<div class='nav-sub container container--flex'>
+			<a class="logo flat-box"></a>
+			<ul class='switcher h-list'>
+				<li class='s-comment'><a class="flat-btn fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li class='s-toc'><a class="flat-btn fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+			</ul>
+		</div>
+	</div>
+</header>
+	<aside class="menu-phone white-box">
+    <header>
+		<nav class="menu navigation">
+      <ul>
+        
+          
+            <li>
+							<a class="nav flat-box" href="/getting-started/"
+                
+                
+                id="getting-started">
+								<i class='fas fa-flag fa-fw'></i>&nbsp;公告
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/"
+                
+                
+                id="home">
+								<i class='fas fa-globe-asia fa-fw'></i>&nbsp;主页
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/theme-settings/"
+                
+                
+                id="theme-settings">
+								<i class='fas fa-palette fa-fw'></i>&nbsp;下载
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/page-settings/"
+                
+                
+                id="page-settings">
+								<i class='fas fa-file-alt fa-fw'></i>&nbsp;图书
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/tag-plugins/"
+                
+                
+                id="tag-plugins">
+								<i class='fas fa-pen-alt fa-fw'></i>&nbsp;MOOC
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/advanced-settings/"
+                
+                
+                id="advanced-settings">
+								<i class='fas fa-flask fa-fw'></i>&nbsp;致谢
+							</a>
+            </li>
+          
+       
+      </ul>
+		</nav>
+    </header>
+	</aside>
+<script>setLoadingBarProgress(40);</script>
+
+  </div>
+
+
+  <div class="l_body">
+    <div class='body-wrapper'>
+      
+
+<div class='l_main'>
+  
+
+  
+    <article id="post" class="post white-box   article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class='meta'>
+    
+    
+    <div class="meta" id="header-meta">
+      
+        
+  
+    <h1 class="title">
+      <a href="/2019/02/pynamebinding/">
+        深入理解Python的数据类型及名字绑定
+      </a>
+    </h1>
+  
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+<div class='new-meta-item author'>
+  <a href="https://codelearn.club" rel="nofollow">
+    <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/avatar/avatar.png">
+    <p>海洋饼干叔叔</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/categories/Python/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>Python</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-edit" aria-hidden="true"></i>
+    <p>发布于：2019年2月11日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          
+          <p>​    本小节深入讨论Python中的数据类型与名字绑定的关系，了解赋值过程的内部细节。</p>
+<a id="more"></a>
+
+
+
+<blockquote>
+<p>版权声明</p>
+<p>本文<strong>可以</strong>在互联网上自由转载，但必须：注明出处(作者：海洋饼干叔叔)并包含指向本页面的链接。</p>
+<p>本文<strong>不可以</strong>以纸质出版为目的进行改编、摘抄。</p>
+</blockquote>
+<iframe width="100%" height="480" src="//player.bilibili.com/player.html?aid=34409478&cid=60565356&page=13" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+
+
+
+<h2 id="数据类型及名字绑定"><a href="#数据类型及名字绑定" class="headerlink" title="数据类型及名字绑定"></a>数据类型及名字绑定</h2><p>​    除了已经讨论过的整数-int、 浮点数-float、 布尔型-bool、字符串-str、列表-list之外，还有一些数据类型尚待讨论。</p>
+<h3 id="元组-只读的列表"><a href="#元组-只读的列表" class="headerlink" title="元组-只读的列表"></a>元组-只读的列表</h3><p>​    <strong>元组-tuple就是只读的列表。</strong>所谓只读，是指一个元组创建出来以后， 其值或者元素可以获取，但不能修改。上一章所讲述的关于列表的嵌套、in、not in、统计、运算等都适用于元组，切片也适用。注意切片并不会导致原始列表/元组被修改，其只会创建一个新列表/元组。</p>
+<p>​        那些会导致列表发生修改的成员函数，比如remove(), sort()则不适用于元组，因为元组是只读的。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">patient = (<span class="string">'2012011'</span>, <span class="string">'Eric Zhang'</span>, <span class="string">'male'</span>, <span class="number">77</span>, <span class="literal">True</span>, (<span class="number">67</span>,<span class="number">22</span>,<span class="number">78</span>))</span><br><span class="line">print(type(patient), patient)</span><br><span class="line">print(len(patient))</span><br><span class="line">print(patient[<span class="number">1</span>:<span class="number">4</span>])</span><br><span class="line">print(patient.count(<span class="literal">True</span>))</span><br><span class="line">print(<span class="literal">True</span> <span class="keyword">in</span> patient)</span><br><span class="line">print(max((<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>)))</span><br><span class="line">print((<span class="number">1</span>,<span class="number">2</span>) + (<span class="number">2</span>,<span class="number">3</span>) + (<span class="number">4</span>,))</span><br><span class="line">print((<span class="number">1</span>,<span class="number">2</span>) * <span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;class &#39;tuple&#39;&gt; (&#39;2012011&#39;, &#39;Eric Zhang&#39;, &#39;male&#39;, 77, True, (67, 22, 78))</span><br><span class="line">6</span><br><span class="line">(&#39;Eric Zhang&#39;, &#39;male&#39;, 77)</span><br><span class="line">1</span><br><span class="line">True</span><br><span class="line">5</span><br><span class="line">(1, 2, 2, 3, 4)</span><br><span class="line">(1, 2, 1, 2, 1, 2, 1, 2, 1, 2)</span><br></pre></td></tr></table></figure>
+
+<p>​    可以看到，元组用()框起来定义。上面的代码展示了元组的嵌套、len()函数、切片、max()、count()成员函数、in、拼接、运算等操作，其方法和用途与列表完全相同。</p>
+<p>​    请注意上述代码中最后一行这个奇怪的表达”<strong>(4,)</strong>“, 这是告知解释器，这是由一个元素构成的元组，而不是打了括号的整数4。</p>
+<p>​    下述操作则不适用于元组，因为这些操作预期会改变元组的值，而元组是只读的。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">patient = (<span class="string">'2012011'</span>, <span class="string">'Eric Zhang'</span>, <span class="string">'male'</span>, <span class="number">77</span>, <span class="literal">True</span>, (<span class="number">67</span>,<span class="number">22</span>,<span class="number">78</span>))</span><br><span class="line"><span class="comment">#下述代码是发生执行错误</span></span><br><span class="line">patient[<span class="number">1</span>] = <span class="string">'NEW VALUE'</span></span><br><span class="line">patientSort = patient.sort()</span><br><span class="line">patient.remove(<span class="number">77</span>)</span><br><span class="line">patient.clear()</span><br></pre></td></tr></table></figure>
+
+<h4 id="生成与转换"><a href="#生成与转换" class="headerlink" title="生成与转换"></a>生成与转换</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">numbers = tuple([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>])</span><br><span class="line">print(numbers)</span><br><span class="line">chars = tuple(<span class="string">'abc'</span>)</span><br><span class="line">print(chars)</span><br><span class="line">digits1 = (x <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">9</span>))</span><br><span class="line">print(<span class="string">"digits1:"</span>, digits1)</span><br><span class="line">digits2 = tuple(x <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">9</span>))</span><br><span class="line">print(digits2)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(1, 2, 3)</span><br><span class="line">(&#39;a&#39;, &#39;b&#39;, &#39;c&#39;)</span><br><span class="line">digits1: &lt;generator object &lt;genexpr&gt; at 0x0000019D5458BA20&gt;</span><br><span class="line">(0, 1, 2, 3, 4, 5, 6, 7, 8)</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，tuple()函数接受一个列表、字符串或者一个生成者对象-generator object作为参数，并返回一个元组。注意，digits1 = (x for x in range(9))被认为是一个生成者对象-generator object。</p>
+<h3 id="bytes"><a href="#bytes" class="headerlink" title="bytes"></a>bytes</h3><p>​    本节是介绍性内容，初学者如果对底层细节不感兴趣，可以略过。 </p>
+<p>​    在工业应用中，比如用Python语言编写工业机器人的控制程序，我们经常需要跟硬件直接通信。在数字电路里，永远是二进制的，所以我们所描述的全部数据类型在计算机内部最终全部以二进制形式存储和传输。bytes是只读的“二进制字节流”类型。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">buffer = <span class="string">b'abcdefghijklmn'</span></span><br><span class="line">print(buffer,type(buffer),<span class="string">"len="</span>,len(buffer))</span><br><span class="line">print(buffer[<span class="number">2</span>:<span class="number">9</span>:<span class="number">2</span>])</span><br><span class="line"></span><br><span class="line">buffer = <span class="string">b'\x11\xff\x77'</span></span><br><span class="line">print(<span class="string">"%x"</span> % (buffer[<span class="number">1</span>]))</span><br><span class="line"></span><br><span class="line">buffer = bytes(i+<span class="number">0x10</span> <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>))</span><br><span class="line">print(buffer)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">b&#39;abcdefghijklmn&#39; &lt;class &#39;bytes&#39;&gt; len&#x3D; 14</span><br><span class="line">b&#39;cegi&#39;</span><br><span class="line">ff</span><br><span class="line">b&#39;\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19&#39;</span><br></pre></td></tr></table></figure>
+
+<p>​    上述代码及执行结果展示了bytes的定义，len()函数、切片等基本操作。bytes()函数可以把一个生成者对象转换为bytes。一个字节如果看作无符号整数的话， 可以存储0-255之间的任何值。所以bytes作为字节流，其每个字节可以存任何0-255之间的任意整数，不限于’a’,’2’ 这些”可见”字符。</p>
+<h4 id="转换"><a href="#转换" class="headerlink" title="转换"></a>转换</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="number">65534</span></span><br><span class="line">bufferLittle = x.to_bytes(<span class="number">2</span>, <span class="string">'little'</span>)</span><br><span class="line">print(<span class="string">"little endian:"</span>, bufferLittle)</span><br><span class="line">bufferBig = x.to_bytes(<span class="number">2</span>,<span class="string">'big'</span>)</span><br><span class="line">print(<span class="string">"big endian:"</span>, bufferBig)</span><br><span class="line"></span><br><span class="line">y = int.from_bytes(<span class="string">b'\xfe\xff'</span>,<span class="string">'little'</span>)</span><br><span class="line">print(y)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">little endian: b&#39;\xfe\xff&#39;</span><br><span class="line">big endian: b&#39;\xff\xfe&#39;</span><br><span class="line">65534</span><br></pre></td></tr></table></figure>
+
+<p>​    如上，int的to_bytes()成员函数将一个整数转换成指定字节长度(示例中为2)的bytes，第2个参数’little’指明了字节编码顺序。现存的CPU在存储和处理数据时，存在little endian和big endian两种标准，其中，little endian高位字节存高地址，big endian则正好相反。常用的Intel x86 CPU（用于PC系统）以及ARM CPU(常见于智能手机及其它嵌入式系统，智能电视之类)都是little endian的。</p>
+<p>​    int的from_bytes()成员函数则把bytes重新打包成Python的int对象。</p>
+<p>​    借助于<strong>struct</strong>模块，我们可以更方便地把int, float和其它数据类型同bytes进行相互转换。</p>
+<h3 id="bytearray"><a href="#bytearray" class="headerlink" title="bytearray"></a>bytearray</h3><p>​    本节是介绍性内容，初学者如果对底层细节不感兴趣，可以略过。</p>
+<p>​    bytearray可以译作字节数组，其功用与bytes类似，区别在于，bytearray不是只读的，可修改。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">buffer = bytearray(<span class="number">0x00</span> <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">10</span>))</span><br><span class="line">print(type(buffer), buffer)</span><br><span class="line"></span><br><span class="line">buffer = bytearray(<span class="string">b'abcdefghijklmn'</span>)</span><br><span class="line">buffer[<span class="number">1</span>] = ord(<span class="string">'B'</span>)</span><br><span class="line">print(buffer)</span><br><span class="line">print(buffer[<span class="number">3</span>:<span class="number">11</span>:<span class="number">3</span>])</span><br></pre></td></tr></table></figure>
+
+<p>执行结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;class &#39;bytearray&#39;&gt; bytearray(b&#39;\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00&#39;)</span><br><span class="line">bytearray(b&#39;aBcdefghijklmn&#39;)</span><br><span class="line">bytearray(b&#39;dgj&#39;)</span><br></pre></td></tr></table></figure>
+
+<p>​    上述代码及执行结果展示了bytearray的定义，切片方法。其中，ord()函数来自于英文order, 它将一个字符转换成其对应的ASCII码整数。</p>
+<p>​    ASCII码是一个表格，将每个字符与一个整数对应，这个整数事实上就是字符在计算机内部的实际存储值。</p>
+<h4 id="按位与、或、移位"><a href="#按位与、或、移位" class="headerlink" title="按位与、或、移位"></a>按位与、或、移位</h4><p>​    本节是介绍性内容，初学者如果对底层细节不感兴趣，可以略过。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="number">0xaa</span></span><br><span class="line">print(<span class="string">"x ="</span>, bin(x))</span><br><span class="line">print(<span class="string">"x &amp; 0x7f ="</span>, bin(x &amp; <span class="number">0x7f</span>))</span><br><span class="line">print(<span class="string">"x | 0x77 ="</span>, bin(x | <span class="number">0x77</span>))</span><br><span class="line"></span><br><span class="line">y = <span class="number">0x00ff</span></span><br><span class="line">y = y &lt;&lt; <span class="number">8</span></span><br><span class="line">print(<span class="string">"y ="</span>, hex(y))</span><br></pre></td></tr></table></figure>
+
+<p>执行结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x &#x3D; 0b10101010</span><br><span class="line">x &amp; 0x7f &#x3D; 0b101010</span><br><span class="line">x | 0x77 &#x3D; 0b11111111</span><br><span class="line">y &#x3D; 0xff00</span><br></pre></td></tr></table></figure>
+
+<p>​    上述代码及执行结果展示了按位与-&amp;、按位或-|、左移位-&lt;&lt;操作符的使用方法。这些操作符只有当你跟底层硬件打交道时才会用得到。</p>
+<p>​    所谓按位与，即是把原始比特值做逻辑与运算，1看作真，0看作假，结果也用1或0表示：</p>
+<p>​    1 &amp; 1 = 1;   1 &amp; 0 = 0;  0 &amp; 0 = 0。</p>
+<p>​    按位或即是把原始比特值做逻辑或运算。左移位&lt;&lt;操作符则是把全部比特向左移指定位数，右边补0。除此之外，还有按位取反~，按位异或^，右移位&gt;&gt;等操作符，各位等到用时再查资料即可。</p>
+<h3 id="序列"><a href="#序列" class="headerlink" title="序列"></a>序列</h3><p>​    列表-list、字符串-str、元组-tuple、bytes、bytearray都可视作序列类型。共同点在于：</p>
+<ul>
+<li><p>可以通过下标或索引访问其元素（只读类型只可获取，不得修改）；</p>
+</li>
+<li><p>可通过切片操作获取其子序列。</p>
+<p>作为序列类型，上述类型的使用方法有很多相通之处。</p>
+</li>
+</ul>
+<h3 id="名字绑定"><a href="#名字绑定" class="headerlink" title="名字绑定"></a>名字绑定</h3><p>​    在第4章，我们已经见识了将一个列表从一个变量赋值给另一个变量后的令人疑惑的操作结果：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">person1 = [<span class="string">'10000'</span>, <span class="string">'Jack Ma'</span>,   <span class="string">'male'</span>,   <span class="number">47</span>, <span class="string">'CEO'</span>]</span><br><span class="line">person2 = person1</span><br><span class="line">person2[<span class="number">1</span>] = <span class="string">"Tom Henry"</span></span><br><span class="line">print(person1)</span><br><span class="line">print(person2)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[&#39;10000&#39;, &#39;Tom Henry&#39;, &#39;male&#39;, 47, &#39;CEO&#39;]</span><br><span class="line">[&#39;10000&#39;, &#39;Tom Henry&#39;, &#39;male&#39;, 47, &#39;CEO&#39;]</span><br></pre></td></tr></table></figure>
+
+<p>​    看起来，似乎person2和person1指向的是同一个列表实体。因为person2被修改后，person1也跟着改变了。初学者很容易感到疑惑，本章试图从原理层面讲清楚这个重要的问题。</p>
+<h4 id="再看a-1"><a href="#再看a-1" class="headerlink" title="再看a=1"></a>再看a=1</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">1</span></span><br><span class="line">print(<span class="string">"id:"</span>,id(a))</span><br><span class="line">a = <span class="number">2</span></span><br><span class="line">print(<span class="string">"id:"</span>,id(a))</span><br><span class="line">b = a</span><br><span class="line">print(<span class="string">"id of a:"</span>, id(a), <span class="string">"id of b:"</span>,id(b))</span><br><span class="line">a += <span class="number">1</span></span><br><span class="line">print(<span class="string">"id:"</span>,id(a))</span><br></pre></td></tr></table></figure>
+
+<p>执行结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">id: 140720188347424</span><br><span class="line">id: 140720188347456</span><br><span class="line">id of a: 140720188347456 id of b: 140720188347456</span><br><span class="line">id: 140720188347488</span><br></pre></td></tr></table></figure>
+
+<p>​    id()函数返回对象在Python解释器内部的编号，每一个对象都是一个唯一的id号，你可以把id号想象成该对象在内存中的地址。可以看到，a每经过一次赋值，其id号是不同的。</p>
+<p>​    之前，我们是这样描述a = 1的： a是一个变量/对象，赋值操作符=把类型为整数的对象1传递给了变量/对象a，赋值之后a是一个类型为整数的变量/对象，其值为1。这种描述方法是传统习惯，目的是方便你在课程前期能够看懂，但这不是事实。</p>
+<h4 id="名字、对象及绑定"><a href="#名字、对象及绑定" class="headerlink" title="名字、对象及绑定"></a>名字、对象及绑定</h4><table>
+<thead>
+<tr>
+<th>a =  1执行结果：</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="/images/479693-20170526173801716-890063777.png" alt="将名字a捆绑到对象1上"></td>
+<td>- 值1是一个对象-object，它有内存地址(id号)；<br/>- a只是一个名字-name，所谓赋值，就是把这个名字绑定在相应的对象上。</td>
+</tr>
+</tbody></table>
+<p>同理，a = 2被执行时， 解释器会将名字a绑定在值为2的整数对象上。由于2是一个跟1不同的对象，所以id(a)会返回不同的地址。如下图：</p>
+<table>
+<thead>
+<tr>
+<th>a = 2执行结果：</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="/images/479693-20170526173838732-1478929988.png" alt="标签a移动到另一个对象"></td>
+<td><img src="/images/479693-20170526173844544-1800269479.png" alt="1对象没有标签了"></td>
+</tr>
+</tbody></table>
+<p>​    请注意，此时，值为1的对象此时仍然存在，但没有名字与其绑定。事实上，对象内部会有专门的引用计数来表明这个对象当前与多少个名字绑定，当对象的引用计数下降到0后，Python解释器会在恰当的时候从内存中销毁这个对象，这个机制称为“<strong>垃圾回收</strong>”。</p>
+<table>
+<thead>
+<tr>
+<th>b = a执行结果：</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="/images/479693-20170526173914997-48053743.png" alt="有两个标签的对象"></td>
+<td>- 如图：b = a中的赋值并没有创建新对象; <br>- 赋值操作只是简单地把名字b也绑定到名字a绑定的对象上; <br>- 由于a,b都绑定了同一个对象，所以id(a)与 id(b)的值相同。</td>
+</tr>
+</tbody></table>
+<p>​    Python的这种操作方式有其合理之处，特别是对于那些体量比较大的对象，比如列表，赋值时不创建复制品而是简单地执行名字绑定，可以快速地完成形式上的赋值。大多数情况下，这没有什么问题。如上例，虽然名字a和名字b被绑在了同一个值为2的对象上，但无论是通过名字a还是名字b取值，都可得到2；当其中一个名字，比如b被赋以不同的新值时，名字b又会被绑定到别的对象上，名字a不受影响。</p>
+<p>​    同理，a += 1 等价于 a = a + 1, 通过计算后，解释器把名字a绑定在了值为3的另一个对象上，所以我们又看到了新的不同的id(a)值。</p>
+<p>​    需要注意的是，Python解释器可能会出于执行速度优化的考虑，倾向于将名字尽可能绑定在系统已有的对象上，而不是创建新对象。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">3</span></span><br><span class="line">b = int(a ** <span class="number">2</span> / <span class="number">3</span>)</span><br><span class="line">print(a,b)</span><br><span class="line">print(id(a),id(b))</span><br></pre></td></tr></table></figure>
+
+<p>执行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">3 3</span><br><span class="line">140720185398368 140720185398368</span><br></pre></td></tr></table></figure>
+
+<p>​    a被赋值为3, b也被赋值为计算出来的结果3，与预期的不一样，a和b并没有并绑定到两个不同的值为3的整数对象，而是被绑定到同一个值为3的整数对象。作者相信这是某种形式的解释器优化的结果，解释器试图尽可能快地执行代码。</p>
+<h4 id="is-和"><a href="#is-和" class="headerlink" title="is 和 =="></a>is 和 ==</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">3</span></span><br><span class="line">b = <span class="number">3.0</span></span><br><span class="line">print(<span class="string">"a==b:"</span>,a==b)</span><br><span class="line">print(<span class="string">"a is b:"</span>,a <span class="keyword">is</span> b)</span><br><span class="line">print(id(a),id(b))</span><br></pre></td></tr></table></figure>
+
+<p>执行结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a&#x3D;&#x3D;b: True</span><br><span class="line">a is b: False</span><br><span class="line">140720188347488 2675211874712</span><br></pre></td></tr></table></figure>
+
+<p>​    每个名字所绑定的对象都至少包括三个属性：id-就是对象的内存地址；type-类型；value-对象的值。a is b将a的id与b的id作比较，只有两者相同时才返回True，这里显然a,b没有绑定到同一个对象，所以a is b返回False；a == b将两个对象的值进行比较，3等于3.0，故返回True。在实践中，为了避免不必要的麻烦，建议尽量使用==而不是is。</p>
+<h4 id="只读数据类型"><a href="#只读数据类型" class="headerlink" title="只读数据类型"></a>只读数据类型</h4><p>​    下表列出了我们已经讨论过的全部数据类型：</p>
+<table>
+<thead>
+<tr>
+<th align="left">只读数据类型</th>
+<th align="left">可修改数据类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">整数-int, 浮点数-float，字符串str，<br>布尔-bool, 二进制字节流-bytes,元组-tuple</td>
+<td align="left">列表-list, 二进制字节数组-bytearray</td>
+</tr>
+</tbody></table>
+<p>​    对于只读类型，编程者完全可以忽略名字绑定这件事，任何赋值操作的最终结果都会跟你的期望一致。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">values = (<span class="number">3</span>,<span class="number">2</span>,<span class="number">1</span>)</span><br><span class="line">valuesCopy = values</span><br><span class="line">valuesCopy = (<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line">print(values, <span class="string">"-"</span>, valuesCopy)</span><br><span class="line"></span><br><span class="line">string = <span class="string">"string"</span></span><br><span class="line">stringCopy = string</span><br><span class="line">stringCopy = <span class="string">"new string"</span></span><br><span class="line">print(string, <span class="string">"-"</span>, stringCopy)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(3, 2, 1) - (1, 2, 3)</span><br><span class="line">string - new string</span><br></pre></td></tr></table></figure>
+
+<p>​    可以看到，上述代码中，valuesCopy与values, stringCopy与string都曾经同时绑定到同一个只读类型对象，由于对象是只读的，所以对象无法修改，任何对valuesCopy, stringCopy的赋值都将创建一个新对象，values，string名字绑定的原有对象不受影响。</p>
+<h4 id="可修改数据类型"><a href="#可修改数据类型" class="headerlink" title="可修改数据类型"></a>可修改数据类型</h4><p>​    终于到了可以解决疑惑的时间了。列表-list, 二进制字节数组-bytearray属于可修改数据类型，当列表、bytearray被赋值给多个名字时，可能会导致意料之外的结果，需要十分小心。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">person1 = [<span class="string">'10000'</span>, <span class="string">'Jack Ma'</span>,   <span class="string">'male'</span>,   <span class="number">47</span>, <span class="string">'CEO'</span>]</span><br><span class="line">person2 = person1</span><br><span class="line">person2[<span class="number">1</span>] = <span class="string">"Tom Henry"</span></span><br><span class="line">print(person1)</span><br><span class="line">print(person2)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[&#39;10000&#39;, &#39;Tom Henry&#39;, &#39;male&#39;, 47, &#39;CEO&#39;]</span><br><span class="line">[&#39;10000&#39;, &#39;Tom Henry&#39;, &#39;male&#39;, 47, &#39;CEO&#39;]</span><br></pre></td></tr></table></figure>
+
+<p>​    请注意，第2行person2 = person1之后，两个名字事实上绑定到了同一个列表对象。由于列表是可修改类型，对person2的修改事实上是对person1和person2共同绑定的同一个对象的修改。所以，修改完成后，person1和person2打印出来的值相同。事实上，如果打印一下id(person1)和id(person2)，结果肯定是一样的。</p>
+<p>​    大多数情况下，两个名字绑定同一个列表对象并没有什么不好，比如，当一个列表作为函数实参传递给形参时，这种名字绑定的方法可以非常快地完成形式上的参数传递，执行效率非常高。但如果你在函数内部修改了列表的元素值，外面那个名字所绑定的列表也会跟着改变（事实上就是同一个），这可能不是你所期望的。为了避免这种情况的发生，可以借助于列表的copy()成员函数制造一个完全独立的副本，也可以借助列表的切片,比如 person1[:]来产生一个全新的副本。还可以借助于copy模块的copy()及deepcopy()函数来完成对象复制。下面的代码展示了这些方法在bytearray和list上的应用。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> copy</span><br><span class="line">chars = bytearray(<span class="string">b'abcdefghijklmn'</span>)</span><br><span class="line">charsCopy = chars.copy()</span><br><span class="line">charsCopy2 = chars[:]</span><br><span class="line">print(id(chars),<span class="string">"-"</span>,id(charsCopy),<span class="string">"-"</span>,id(charsCopy2))</span><br><span class="line"></span><br><span class="line">numbers = [<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>]</span><br><span class="line">numbersCopy = numbers.copy()</span><br><span class="line">numbersCopy2 = numbers[:]</span><br><span class="line">numbersCopy3 = copy.copy(numbers)</span><br><span class="line">numbersCopy4 = copy.deepcopy(numbers)</span><br><span class="line">print(id(numbers),<span class="string">"-"</span>,id(numbersCopy),<span class="string">"-"</span>,id(numbersCopy2),</span><br><span class="line">      <span class="string">"-"</span>,id(numbersCopy3),<span class="string">"-"</span>,id(numbersCopy4))</span><br></pre></td></tr></table></figure>
+
+<p>执行结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2090502934232 - 2090502931208 - 2090502950960</span><br><span class="line">2090503871624 - 2090503792584 - 2090503872008 - 2090503871560 - 2090503871880</span><br></pre></td></tr></table></figure>
+
+<p>​    可以看到，上述名字对应对象的id值均不相同，是相互独立的对象和名字。</p>
+<p>​    当列表有嵌套时，copy()和deepcopy()是有差异的。copy()只会复制列表本身，复制出来的列表(设名为b)与原列表(设名为a)的相同元素位仍可能绑定在一个相同的子列表对象上，此时，修改a的这个子列表事实上就是修改b的同一个子列表。deepcopy()会将列表及其嵌套列表完整复制，以避免上述情况。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,[<span class="number">3</span>,<span class="number">2</span>,<span class="number">1</span>]]</span><br><span class="line">b = a.copy()</span><br><span class="line">print(id(a),id(b))</span><br><span class="line">print(id(a[<span class="number">3</span>]),id(b[<span class="number">3</span>]))</span><br><span class="line">b[<span class="number">3</span>][<span class="number">2</span>] = <span class="number">99</span></span><br><span class="line">print(a,b)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1989546107528 1989546601928</span><br><span class="line">1989546107464 1989546107464</span><br><span class="line">[1, 2, 3, [3, 2, 99]] [1, 2, 3, [3, 2, 99]]</span><br></pre></td></tr></table></figure>
+
+<p>​    可以看出，通过浅拷贝copy()后，a,b绑定的是两个独立的列表对象。但由于列表有子列表[3,2,1]，两个列表对象的下标3位置仍然绑定了同一个子列表对象，这从id(a[3])和id(b[3])的值可以看出来。些时，修改b[3]的元素值事实上就是在修改a[3]的对应元素值。借助于b = copy.deepcopy(a)，不光列表会被复制，子列表以及子列表的子列表也会被复制，这样b与a之间不再有任何联系。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> copy</span><br><span class="line">a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,[<span class="number">3</span>,<span class="number">2</span>,<span class="number">1</span>]]</span><br><span class="line">b = copy.deepcopy(a)</span><br><span class="line">print(id(a),id(b))</span><br><span class="line">print(id(a[<span class="number">3</span>]),id(b[<span class="number">3</span>]))</span><br><span class="line">b[<span class="number">3</span>][<span class="number">2</span>] = <span class="number">99</span></span><br><span class="line">print(a,b)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1723423500488 1723423499272</span><br><span class="line">1723423628168 1723423628488</span><br><span class="line">[1, 2, 3, [3, 2, 1]] [1, 2, 3, [3, 2, 99]]</span><br></pre></td></tr></table></figure>
+
+
+
+<p>​    <strong>列表的任意元素位置也可以看作是一个名字，它同具体的对象相绑定。</strong></p>
+<p>​    <strong>虽然我们已经了解了名字、对象、绑定这些背后的秘密，但本书的后续部分，我们有时仍将沿用变量、赋值这些术语，因为习惯。</strong></p>
+
+          
+        </div>
+        
+          <br>
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Python/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;<p>Python</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E5%90%8D%E5%AD%97%E7%BB%91%E5%AE%9A/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;<p>名字绑定</p></a></div>
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+              <section class="prev">
+                <span class="art-item-left">
+                  <h4>
+                    <a href="/2019/02/pyslice/" rel="prev" title="深入讨论Python中的序列切片语法">
+                      <i class="fas fa-chevron-left" aria-hidden="true"></i>
+                      
+                        深入讨论Python中的序列切片语法
+                      
+                    </a>
+                  </h4>
+                  
+                    
+                    <h6 class="tags">
+                      &nbsp;<a class="tag" href="/tags/Python/"><i class="fas fa-tag" aria-hidden="true"></i> Python</a> <a class="tag" href="/tags/%E5%88%87%E7%89%87/"><i class="fas fa-tag" aria-hidden="true"></i> 切片</a>
+                    </h6>
+                  
+                </span>
+              </section>
+            
+            
+              <section class="next">
+                <span class="art-item-right" aria-hidden="true">
+                  <h4>
+                    <a href="/2019/01/imagesconcatenate/" rel="prev" title="使用numpy进行9宫格图像拼接">
+                      
+                        使用numpy进行9宫格图像拼接
+                      
+                      <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                    </a>
+                  </h4>
+                  
+                    
+                    <h6 class="tags">
+                      <a class="tag" href="/tags/Python/"><i class="fas fa-tag" aria-hidden="true"></i> Python</a> <a class="tag" href="/tags/numpy/"><i class="fas fa-tag" aria-hidden="true"></i> numpy</a> <a class="tag" href="/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/"><i class="fas fa-tag" aria-hidden="true"></i> 图像处理</a> <a class="tag" href="/tags/OpenCV/"><i class="fas fa-tag" aria-hidden="true"></i> OpenCV</a>&nbsp;
+                    </h6>
+                  
+                </span>
+              </section>
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+  <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX","TeX"],
+      linebreaks: { automatic:true },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: { autoNumber: "AMS" },
+      noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+      Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+  });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += (all[i].SourceElement().parentNode.className ? ' ' : '') + 'has-jax';
+    }
+  });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+
+  <script>
+    window.subData = {
+      title: '深入理解Python的数据类型及名字绑定',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+    
+      
+      
+
+<section class="widget grid  widget-blur desktop mobile">
+  
+  <header>
+    
+      <i class="fas fa-map-signs fa-fw" aria-hidden="true"></i><span class='name'>文档导航</span>
+    
+  </header>
+
+
+  <div class='content'>
+    <ul class="grid navigation">
+      
+        <li><a class="flat-box" title="/categories/Python/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97/" href="/categories/Python/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97/"
+          
+          
+          id="categoriesPythonE7A791E5ADA6E8AEA1E7AE97">
+          
+            <i class="fas fa-question-circle fa-fw" aria-hidden="true"></i>
+          
+          科学计算
+        </a></li>
+      
+        <li><a class="flat-box" title="/categories/Python/" href="/categories/Python/"
+          
+          
+          id="categoriesPython">
+          
+            <i class="fas fa-play-circle fa-fw" aria-hidden="true"></i>
+          
+          Python
+        </a></li>
+      
+        <li><a class="flat-box" title="/categories/C-C/" href="/categories/C-C/"
+          
+          
+          id="categoriesC-C">
+          
+            <i class="fas fa-handshake fa-fw" aria-hidden="true"></i>
+          
+          C/C++
+        </a></li>
+      
+        <li><a class="flat-box" title="/news/archives/" href="/news/archives/"
+          
+          
+          id="newsarchives">
+          
+            <i class="fas fa-file-archive fa-fw" aria-hidden="true"></i>
+          
+          资源下载
+        </a></li>
+      
+        <li><a class="flat-box" title="https://github.com/xaoxuu/hexo-theme-volantis/" href="https://github.com/xaoxuu/hexo-theme-volantis/"
+          
+            rel="external nofollow noopener noreferrer"
+          
+          
+            target="_blank"
+          
+          id="https:github.comxaoxuuhexo-theme-volantis">
+          
+            <i class="fas fa-file-code fa-fw" aria-hidden="true"></i>
+          
+          MOOC
+        </a></li>
+      
+        <li><a class="flat-box" title="https://github.com/xaoxuu/hexo-theme-volantis/releases/" href="https://github.com/xaoxuu/hexo-theme-volantis/releases/"
+          
+            rel="external nofollow noopener noreferrer"
+          
+          
+            target="_blank"
+          
+          id="https:github.comxaoxuuhexo-theme-volantisreleases">
+          
+            <i class="fas fa-clipboard-list fa-fw" aria-hidden="true"></i>
+          
+          图书订购
+        </a></li>
+      
+    </ul>
+  </div>
+</section>
+
+    
+  
+    
+      
+      
+
+<section class="widget text  widget-blur desktop">
+  
+  <header>
+    
+      <a href='https://codelearn.club/'><i class="fab fa-github fa-fw" aria-hidden="true"></i><span class='name'>点个赞吧</span></a>
+    
+  </header>
+
+
+  <div class='content'>
+    
+      <p>您的赞对我来说很重要，如果本网站的技术文章有帮到您，希望能够给下面的视频收藏点赞支持一下。</p>
+
+    
+      <p><a href="https://github.com/xaoxuu/ProHUD" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/proj/prohud/logo.png" height="50px"></a></p>
+
+    
+      <p><a href="https://github.com/xaoxuu/ValueX" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/proj/valuex/logo.png" height="50px"></a></p>
+
+    
+  </div>
+</section>
+
+    
+  
+    
+      
+      
+
+<section class="widget qrcode  widget-blur desktop">
+  
+  <header>
+    
+      <i class="fas fa-mobile fa-fw" aria-hidden="true"></i><span class='name'>手机观看</span>
+    
+  </header>
+
+
+  <div class='content article-entry'>
+    
+      
+        <img src='https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/qrcode/wiki_volantis.png'
+        >
+      
+    
+  </div>
+</section>
+
+    
+  
+    
+      
+      
+
+
+  <section class="widget toc-wrapper  widget-blur desktop mobile">
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#数据类型及名字绑定"><span class="toc-text">数据类型及名字绑定</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#元组-只读的列表"><span class="toc-text">元组-只读的列表</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#生成与转换"><span class="toc-text">生成与转换</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#bytes"><span class="toc-text">bytes</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#转换"><span class="toc-text">转换</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#bytearray"><span class="toc-text">bytearray</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#按位与、或、移位"><span class="toc-text">按位与、或、移位</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#序列"><span class="toc-text">序列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#名字绑定"><span class="toc-text">名字绑定</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#再看a-1"><span class="toc-text">再看a&#x3D;1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#名字、对象及绑定"><span class="toc-text">名字、对象及绑定</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#is-和"><span class="toc-text">is 和 &#x3D;&#x3D;</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#只读数据类型"><span class="toc-text">只读数据类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#可修改数据类型"><span class="toc-text">可修改数据类型</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </section>
+
+
+    
+  
+</aside>
+
+
+  
+  <footer class="clearfix ">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+              <a href="mailto:chenbo@cqu.edu.cn"
+                class="social fas fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://codelearn.club"
+                class="social fab fa-github flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://music.163.com/#/user/home?id=63035382"
+                class="social fas fa-headphones-alt flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+        </div>
+      
+    
+      
+        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+      
+    
+      
+        本站使用
+        <a href="https://volantis.js.org/" target="_blank" class="codename">CodeLearn</a>
+        作为主题
+        
+          ，
+          总访问量为
+          <span id="busuanzi_value_site_pv"><i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span>
+          次
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="https://codelearn.club">Copyright © 2018-2020 海洋饼干叔叔</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+<script>setLoadingBarProgress(80);</script>
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+
+
+  <script>
+    
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/" || "/";
+    if (!ROOT.endsWith('/')) ROOT += '/';
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@1.6.4/js/instant_page.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js" async></script>
+
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+  
+  
+  
+    
+<script src="//cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+
+    <script type="text/javascript">
+      $(function(){
+        if ('') {
+          $('').backstretch(
+          ["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/41F215B9-261F-48B4-80B5-4E86E165259E.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/BBC19066-E176-47C2-9D22-48C81EE5DF6B.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/B18FCBB3-67FD-48CC-B4F3-457BA145F17A.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/00E0F0ED-9F1C-407A-9AA6-545649D919F4.jpeg"],
+          {
+            duration: "5000",
+            fade: "2500"
+          });
+        } else {
+          $.backstretch(
+          ["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/41F215B9-261F-48B4-80B5-4E86E165259E.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/BBC19066-E176-47C2-9D22-48C81EE5DF6B.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/B18FCBB3-67FD-48CC-B4F3-457BA145F17A.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/00E0F0ED-9F1C-407A-9AA6-545649D919F4.jpeg"],
+          {
+            duration: "5000",
+            fade: "2500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+  
+<script src="/js/search.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@1.6.4/js/comment_typing.js"></script>
+
+
+
+<!-- 复制 -->
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  let COPY_SUCCESS = "复制成功";
+  let COPY_FAILURE = "复制失败";
+  /*页面载入完成后，创建复制按钮*/
+  !function (e, t, a) {
+    /* code */
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '  <i class="fa fa-copy"></i><span>复制</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+
+      clipboard.on('success', function(e) {
+        //您可以加入成功提示
+        console.info('Action:', e.action);
+        console.info('Text:', e.text);
+        console.info('Trigger:', e.trigger);
+        success_prompt(COPY_SUCCESS);
+        e.clearSelection();
+      });
+      clipboard.on('error', function(e) {
+        //您可以加入失败提示
+        console.error('Action:', e.action);
+        console.error('Trigger:', e.trigger);
+        fail_prompt(COPY_FAILURE);
+      });
+    }
+    initCopyCode();
+
+  }(window, document);
+
+  /**
+   * 弹出式提示框，默认1.5秒自动消失
+   * @param message 提示信息
+   * @param style 提示样式，有alert-success、alert-danger、alert-warning、alert-info
+   * @param time 消失时间
+   */
+  var prompt = function (message, style, time)
+  {
+      style = (style === undefined) ? 'alert-success' : style;
+      time = (time === undefined) ? 1500 : time*1000;
+      $('<div>')
+          .appendTo('body')
+          .addClass('alert ' + style)
+          .html(message)
+          .show()
+          .delay(time)
+          .fadeOut();
+  };
+
+  // 成功提示
+  var success_prompt = function(message, time)
+  {
+      prompt(message, 'alert-success', time);
+  };
+
+  // 失败提示
+  var fail_prompt = function(message, time)
+  {
+      prompt(message, 'alert-danger', time);
+  };
+
+  // 提醒
+  var warning_prompt = function(message, time)
+  {
+      prompt(message, 'alert-warning', time);
+  };
+
+  // 信息提示
+  var info_prompt = function(message, time)
+  {
+      prompt(message, 'alert-info', time);
+  };
+
+</script>
+
+
+
+
+<!-- fancybox -->
+
+  <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let LAZY_LOAD_IMAGE = "";
+  $(".article-entry").find("fancybox").find("img").each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      /* 图片采用懒加载处理时,
+       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
+       * 那么此处将原本的属性名src替换为对应属性名data-original,
+       * 修改如下
+       */
+       if (LAZY_LOAD_IMAGE) {
+         $(element).attr("href", $(this).attr("data-original"));
+       }
+      $(this).wrap(element);
+  });
+</script>
+
+
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+</body>
+</html>

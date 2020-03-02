@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html>
+<head hexo-theme='https://volantis.js.org/#0.9.4'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 页面元数据 -->
+  
+    <title>Python下的异常处理及错误日志记录 - Python,C/C++ Club</title>
+  
+    <meta name="keywords" content="Python">
+  
+  
+    <meta name="description" content="Python使用被称为异常的特殊对象来表达执行期间发现的错误。当这些异常没有被捕获并处理时，程序将停止，并向控制台打印错误信息。这个错误信息通常是一个traceback，包含了异常的类型，以及诱发这个异常的代码位置及调用栈细节。">
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+    
+      <meta name='theme-color' content='#FFFFFF'>
+    
+      <meta name='msapplication-TileColor' content='#1BC3FB'>
+    
+      <meta name='msapplication-config' content='https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicons/browserconfig.xml'>
+    
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css">
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+
+  
+
+  
+  <link rel="shortcut icon" type='image/x-icon' href="https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicon.ico">
+  
+
+  
+
+  <!-- import link -->
+  
+  
+  <link rel='shortcut icon' type='image/x-icon' href='https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicon.ico'>
+  <link rel='icon' type='image/x-icon' sizes='32x32' href='https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicons/favicon-32x32.png'>
+  <link rel='apple-touch-icon' type='image/png' sizes='180x180' href='https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicons/apple-touch-icon.png'>
+  <link rel='mask-icon' color='#1BC3FB' href='https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicons/safari-pinned-tab.svg'>
+  <link rel='manifest' href='https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicons/site.webmanifest'>
+  
+
+  
+    
+<link rel="stylesheet" href="/style.css">
+
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  <div class="cover-wrapper">
+    <cover class='cover post half'>
+      
+        
+  <p class="title ">Codelearn</p>
+  
+    <p class="subtitle ">分享Python,C/C++相关的技术文章, 海洋饼干叔叔@重庆大学</p>
+  
+
+
+  <div class="m_search">
+    <form name="searchform" class="form u-search-form">
+      <i class="icon fas fa-search fa-fw"></i>
+      <input type="text" class="input u-search-input" placeholder="搜索文档" />
+    </form>
+  </div>
+
+<div class='menu navigation'>
+  <ul class='h-list'>
+    
+      
+        <li>
+          <a class="nav home "
+            href="/2020/03/notice/"
+            
+            
+            id="202003notice">
+            <i class='fas fa-bullhorn fa-fw'></i>&nbsp;公告
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home "
+            href="/"
+            
+            
+            id="home">
+            <i class='fas fa-globe-asia fa-fw'></i>&nbsp;主页
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home "
+            href="http://www.bilibili.com/video/av34586138/"
+            
+            
+            id="http:www.bilibili.comvideoav34586138">
+            <i class='fas fa-book fa-fw'></i>&nbsp;从C到C++
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home "
+            href="http://www.bilibili.com/video/av34409478"
+            
+              rel="external nofollow noopener noreferrer"
+            
+            
+              target="_blank"
+            
+            id="http:www.bilibili.comvideoav34409478">
+            <i class='fas fa-book fa-fw'></i>&nbsp;Python编程基础及应用
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home "
+            href="/2020/03/thanks/"
+            
+            
+            id="202003thanks">
+            <i class='fas fa-handshake fa-fw'></i>&nbsp;鸣谢
+          </a>
+        </li>
+      
+    
+  </ul>
+</div>
+
+      
+    </cover>
+    <header class="l_header nav-blur">
+  <div id="loading-bar-wrapper">
+    <div id="loading-bar"></div>
+  </div>
+	<div class='wrapper'>
+		<div class="nav-main container container--flex">
+      
+        <a class="logo flat-box" target="_self" href='/' >
+          
+            
+              CODELEARN <sup style='color:#2196f3'>0.9.4</sup>
+            
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='h-list'>
+          
+  					
+  						<li>
+								<a class="nav flat-box" href="/getting-started/"
+                  
+                  
+                  id="getting-started">
+									<i class='fas fa-flag fa-fw'></i>&nbsp;公告
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/"
+                  
+                  
+                  id="home">
+									<i class='fas fa-globe-asia fa-fw'></i>&nbsp;主页
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/theme-settings/"
+                  
+                  
+                  id="theme-settings">
+									<i class='fas fa-palette fa-fw'></i>&nbsp;下载
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/page-settings/"
+                  
+                  
+                  id="page-settings">
+									<i class='fas fa-file-alt fa-fw'></i>&nbsp;图书
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/tag-plugins/"
+                  
+                  
+                  id="tag-plugins">
+									<i class='fas fa-pen-alt fa-fw'></i>&nbsp;MOOC
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/advanced-settings/"
+                  
+                  
+                  id="advanced-settings">
+									<i class='fas fa-flask fa-fw'></i>&nbsp;致谢
+								</a>
+							</li>
+      			
+      		
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="搜索文档" />
+        </form>
+      </div>
+
+			<ul class='switcher h-list'>
+				
+					<li class='s-search'><a class="fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li class='s-menu'><a class="fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a></li>
+			</ul>
+		</div>
+
+		<div class='nav-sub container container--flex'>
+			<a class="logo flat-box"></a>
+			<ul class='switcher h-list'>
+				<li class='s-comment'><a class="flat-btn fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li class='s-toc'><a class="flat-btn fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+			</ul>
+		</div>
+	</div>
+</header>
+	<aside class="menu-phone white-box">
+    <header>
+		<nav class="menu navigation">
+      <ul>
+        
+          
+            <li>
+							<a class="nav flat-box" href="/getting-started/"
+                
+                
+                id="getting-started">
+								<i class='fas fa-flag fa-fw'></i>&nbsp;公告
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/"
+                
+                
+                id="home">
+								<i class='fas fa-globe-asia fa-fw'></i>&nbsp;主页
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/theme-settings/"
+                
+                
+                id="theme-settings">
+								<i class='fas fa-palette fa-fw'></i>&nbsp;下载
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/page-settings/"
+                
+                
+                id="page-settings">
+								<i class='fas fa-file-alt fa-fw'></i>&nbsp;图书
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/tag-plugins/"
+                
+                
+                id="tag-plugins">
+								<i class='fas fa-pen-alt fa-fw'></i>&nbsp;MOOC
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/advanced-settings/"
+                
+                
+                id="advanced-settings">
+								<i class='fas fa-flask fa-fw'></i>&nbsp;致谢
+							</a>
+            </li>
+          
+       
+      </ul>
+		</nav>
+    </header>
+	</aside>
+<script>setLoadingBarProgress(40);</script>
+
+  </div>
+
+
+  <div class="l_body">
+    <div class='body-wrapper'>
+      
+
+<div class='l_main'>
+  
+
+  
+    <article id="post" class="post white-box   article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class='meta'>
+    
+    
+    <div class="meta" id="header-meta">
+      
+        
+  
+    <h1 class="title">
+      <a href="/2019/07/exception/">
+        Python下的异常处理及错误日志记录
+      </a>
+    </h1>
+  
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+<div class='new-meta-item author'>
+  <a href="https://codelearn.club" rel="nofollow">
+    <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/avatar/avatar.png">
+    <p>海洋饼干叔叔</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/categories/Python/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>Python</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-edit" aria-hidden="true"></i>
+    <p>发布于：2019年7月18日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          
+          <p>Python使用被称为异常的特殊对象来表达执行期间发现的错误。当这些异常没有被捕获并处理时，程序将停止，并向控制台打印错误信息。这个错误信息通常是一个traceback，包含了异常的类型，以及诱发这个异常的代码位置及调用栈细节。</p>
+<a id="more"></a>
+
+
+
+<blockquote>
+<p>版权声明</p>
+<p>本文<strong>可以</strong>在互联网上自由转载，但必须：注明出处(作者：海洋饼干叔叔)并包含指向本页面的链接。</p>
+<p>本文<strong>不可以</strong>以纸质出版为目的进行改编、摘抄。</p>
+</blockquote>
+<h3 id="1-曾经的异常"><a href="#1-曾经的异常" class="headerlink" title="1. 曾经的异常"></a>1. 曾经的异常</h3><p>在本书的前半部分，我们已经遇到过很多异常：</p>
+<table>
+<thead>
+<tr>
+<th>异常类</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ValueError</td>
+<td>值与期望的不符</td>
+</tr>
+<tr>
+<td>IndentationError</td>
+<td>代码缩进错误</td>
+</tr>
+<tr>
+<td>IndexError</td>
+<td>序列索引不存在</td>
+</tr>
+<tr>
+<td>AssertionError</td>
+<td>断言失败</td>
+</tr>
+<tr>
+<td>NameError</td>
+<td>名字不存在</td>
+</tr>
+<tr>
+<td>KeyError</td>
+<td>映射（比如字典）中的键不存在</td>
+</tr>
+<tr>
+<td>AttributeError</td>
+<td>属性错误（对象无指定名字的属性)</td>
+</tr>
+<tr>
+<td>TypeError</td>
+<td>类型出错</td>
+</tr>
+<tr>
+<td>SyntaxError</td>
+<td>代码语法错误</td>
+</tr>
+<tr>
+<td>OSError</td>
+<td>操作系统未能执行指定任务</td>
+</tr>
+<tr>
+<td>ZeroDivisionError</td>
+<td>除0错误</td>
+</tr>
+</tbody></table>
+<p>这些异常类，都继承自Exception类型。在本书的前半部分，我们对于这些异常采取了放任的态度: 程序直接报错停止。但一个严谨的程序，应该捕获并处理这些异常。</p>
+<table>
+<thead>
+<tr>
+<th>异常发生后</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>- 捕获并处理异常，尝试将程序从异常中拯救出来，继续正常运行。</td>
+</tr>
+<tr>
+<td>- 捕获并处理异常，至少做一些必要的紧急操作，避免严重后果的发生。比如，汽车的车载控制系统发现发动机的“异常高温”（可能意味着起火）异常，应尝试切断油路，迫使汽车减速停车；一个股票交易系统发现无法恢复的异常，应尝试关闭数据库连接，并将没有保存的文件全部存盘。</td>
+</tr>
+<tr>
+<td>- 捕获并处理异常，最低限度，作者认为应该将异常信息保存在错误日志中，以便程序员查找错误发生的原因。</td>
+</tr>
+</tbody></table>
+<h3 id="2-try-except-else-finally"><a href="#2-try-except-else-finally" class="headerlink" title="2. try except else finally"></a>2. try except else finally</h3><p>下述代码展示了一个完整的异常处理程序：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#try.py</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">divide</span><span class="params">(a, b)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> a/b</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    sFirst = input(<span class="string">"First number:"</span>)</span><br><span class="line">    sSecond = input(<span class="string">"Second number:"</span>)</span><br><span class="line">    <span class="keyword">if</span> sFirst == <span class="string">"q"</span> <span class="keyword">or</span> sSecond == <span class="string">"q"</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        iFirst = int(sFirst)</span><br><span class="line">        iSecond = int(sSecond)</span><br><span class="line">        fResult = divide(iFirst,iSecond)</span><br><span class="line">    <span class="keyword">except</span> (ZeroDivisionError) <span class="keyword">as</span> e:</span><br><span class="line">        print(<span class="string">"You can not divide by 0:"</span>,e)</span><br><span class="line">    <span class="keyword">except</span> (ValueError,TypeError) <span class="keyword">as</span> e:</span><br><span class="line">        print(<span class="string">"Illegal value been inputted:"</span>,e)</span><br><span class="line">        print(type(e))</span><br><span class="line">    <span class="keyword">except</span> (Exception) <span class="keyword">as</span> e:</span><br><span class="line">        print(<span class="string">"An exception found, I do not know how to process it."</span>)</span><br><span class="line">        <span class="keyword">raise</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print( sFirst, <span class="string">"/"</span>, sSecond, <span class="string">"="</span>, fResult)</span><br><span class="line">    <span class="keyword">finally</span>:</span><br><span class="line">        print(<span class="string">"'Finally' will be executed what ever happens."</span>)</span><br></pre></td></tr></table></figure>
+
+<p>上述程序试图让用户输入两个整数，然后相除并将相除的结果打印出来。当除数为0或者操作者输入的字符串不是一个整数时，均会发生异常。上述try … except … else … finally语句将会捕获并恰当地处理这些异常。这个try…finally语句的工作过程可以概述如下：</p>
+<p>首先，解释器将会执行try子句内的代码。在上例中，作者故意把try子句写得比较复杂，还加入了一个本不必要的函数，目的是想告诉读者：try子句内的代码以及间接被try子句内代码调用执行的代码，都受try子句的管辖。</p>
+<p>如果try子句的执行没有发生异常，在try子句执行完毕后将执行else子句，然后再执行finally语句。下述输入及其执行结果证明了这一点。作者输入了15和3，字符串到整数的转换没有任何问题，else子句打印了除法运算的结果，finally子句接下来“强行”补充：”不管发生什么，我都来刷存在感”。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">First number:15</span><br><span class="line">Second number:3</span><br><span class="line">15 &#x2F; 3 &#x3D; 5.0</span><br><span class="line">&#39;Finally&#39; will be executed what ever happens.</span><br></pre></td></tr></table></figure>
+
+<p>如果try子句的执行发生了异常，则Python解释器会放弃try子句内后续代码的执行，并根据异常的类型创建一个异常对象。然后，解释器将从前往后逐一检查except子句括号里所包括的异常类型，当实际发生的异常属于该except子句括号内的异常类型时，该except子句将会被执行。最后，finally子句也会被执行。</p>
+<p>下例中，我们输入了15和0x38。由于0x38不是一个十进制整数，所以iSecond = int(sSecond)这行代码诱发了一个 ValueError异常。解释器放弃了后续try子句的执行，并执行了第二个except子句以及finally子句。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">First number:15</span><br><span class="line">Second number:0x38</span><br><span class="line">Illegal value been inputted: invalid literal for int() with base 10: &#39;0x38&#39;</span><br><span class="line">&lt;class &#39;ValueError&#39;&gt;</span><br><span class="line">&#39;Finally&#39; will be executed what ever happens.</span><br></pre></td></tr></table></figure>
+
+<p>下例中，我们输入了15和0。此时，divide函数内的a/b产生了ZeroDivisionError异常。解释器放弃了try子句后续代码的执行，并执行了第一个except子句以及finally子句。</p>
+<p>当异常发生后，如果异常类型既不属于第一条except语句指定的类型，也不属于第二条except语句指定的类型，此时，第三条except语句多半可以捕获并处理异常。因为，绝大多数异常都是Exception类的子类型。注意，作者说的是绝大多数，也有一些异常，比如SystemExit，KeyboardInterrupt，不是Exception的子类。如果希望捕获并处理这些异常，可以直接使用下述型式的except子句:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">except</span>:</span><br><span class="line">	print(<span class="string">"I found an exception that is not sub-class of Exception."</span>)</span><br></pre></td></tr></table></figure>
+
+<p>如果捕获的异常在当前情境下处理不了，也可以接着向外抛：上述代码中第三条except子句中的raise即为该用途。如果直接raise，抛出的是原有异常。当然，也可以欺骗或者加工一下异常：raise  ValueError(“值错了!”)  。</p>
+<p>连续输入两个”q”， 上述程序将会正常结束。</p>
+<p>所谓的向外抛出异常，有必要解释一下。程序中的try…except…else…finally语句很可能处于另外一个try…finally语句的try子句中。所谓，抛出，就是本try…finally语句不处理该异常，扔给外面那个try…finally来处理。参见下述伪代码，我们看到，dummy函数内的try…except间接处于外部的try…except的try子句管辖内。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">dummy</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        doing something here</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">raise</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    doing something before</span><br><span class="line">    dummy()</span><br><span class="line">    doing something more</span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">    print(<span class="string">"Exception catched..."</span>)</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>try…finally语句总结</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>- 当try子句的执行没有发生异常时，else子句将被执行。</td>
+</tr>
+<tr>
+<td>- 当try子句的执行发生异常时，解释器会放弃执行try子句后续代码，并根据异常的类型选择执行except子句，顺序为从上到下。</td>
+</tr>
+<tr>
+<td>- except子句捕获异常后，可以尝试将程序从异常中恢复，或者做一些最低限度的后处理，以避免“灾难”性结果。如果处理不了，也可以通过raise语句将异常外抛。</td>
+</tr>
+<tr>
+<td>- 不管有没有异常发生，finally子句总会在最后阶段被执行。这使得finally子句特别适合于处理一些善后工作，比如关闭因为异常未及关闭的文件，断开网络连接，关闭数据库连接等。</td>
+</tr>
+<tr>
+<td>- 语法上，else子句以及finally子句是可选的，而except子句可以有无限多条。</td>
+</tr>
+<tr>
+<td>- Python允许程序员定义自己的异常类型，比如车载电脑的控制程序可能需要一个“发动机转速过高”的异常。这很简单：定义一个Exception的子类就好了。</td>
+</tr>
+</tbody></table>
+<h3 id="3-警告"><a href="#3-警告" class="headerlink" title="3. 警告"></a>3. 警告</h3><p>如果有些情况的发生还不是那么严重，可以尝试发出警告。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#warn.py</span></span><br><span class="line"><span class="keyword">from</span> warnings <span class="keyword">import</span> warn</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">divide</span><span class="params">(a,b)</span>:</span></span><br><span class="line">    fResult = a / b</span><br><span class="line">    <span class="keyword">if</span> fResult &lt; <span class="number">0.0000001</span>:</span><br><span class="line">        warn(<span class="string">"The result is very close to Zero!"</span>)</span><br><span class="line">    <span class="keyword">return</span> fResult</span><br><span class="line"></span><br><span class="line">print(divide(<span class="number">0.1</span>, <span class="number">10000000000</span>))</span><br><span class="line">print(<span class="string">"Something else."</span>)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">d:\pylearn\C12_UnitTestException\warn.py:6: UserWarning: The result is very close to Zero!</span><br><span class="line">  warn(&quot;The result is very close to Zero!&quot;)</span><br><span class="line">1.0000000000000001e-11</span><br><span class="line">Something else.</span><br></pre></td></tr></table></figure>
+
+<p>从执行结果可以看出，warn()函数发出了警告，该警告会被打印至屏幕，但程序的执行不会因为该警告而停止：print(“Something else.”)在警告之后继续执行了。</p>
+<p>如果你使用别人的模块，还可以通过filterwarnings()函数来过滤该模块产生的警告信息。你可以选择忽略-“ignore”，也可以上纲上线地把该模块的警告转化成异常-“error”。具体请查询Python文档。</p>
+<h3 id="4-出错日志"><a href="#4-出错日志" class="headerlink" title="4. 出错日志"></a>4. 出错日志</h3><p>异常发生后，如果异常是预料中的类型，程序员直接处理这些异常并挽救程序即可。而程序发生非意料的异常几乎是历史的必然：程序员是人不是神！ 没有bug的应用程序不存在。这些意料之外的异常发生后，把相关情况记入出错日志（通常是一个文本文件），对于解决问题，十分重要。下述代码中的UserExceptHook函数来自于作者编写的一个实际的应用软件。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#excepthook.py</span></span><br><span class="line"><span class="keyword">import</span> sys,traceback</span><br><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line"></span><br><span class="line">fError = open(<span class="string">"except_error.log"</span>,  <span class="string">'a'</span>)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">UserExceptHook</span><span class="params">(tp, val, tb)</span>:</span></span><br><span class="line">    traceList = traceback.format_tb(tb)</span><br><span class="line">    html = repr(tp) + <span class="string">"\n"</span></span><br><span class="line">    html += (repr(val) + <span class="string">"\n"</span>)</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> traceList:</span><br><span class="line">        html += (line + <span class="string">"\n"</span>)</span><br><span class="line">    print(html, file=sys.stderr)</span><br><span class="line">    print(datetime.now(), file=fError)</span><br><span class="line">    print(html, file=fError)</span><br><span class="line">    fError.close()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    sFirst = input(<span class="string">"First number:"</span>)</span><br><span class="line">    sSecond = input(<span class="string">"Second number:"</span>)</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        fResult = int(sFirst) / int(sSecond)</span><br><span class="line">    <span class="keyword">except</span> Exception:</span><br><span class="line">        print(<span class="string">"发现异常，但我不处理，抛出去."</span>)</span><br><span class="line">        <span class="keyword">raise</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print( sFirst, <span class="string">"/"</span>, sSecond, <span class="string">"="</span>, fResult)</span><br><span class="line"></span><br><span class="line">sys.excepthook = UserExceptHook</span><br><span class="line">main()</span><br><span class="line">fError.close()</span><br></pre></td></tr></table></figure>
+
+<p>sys模块下的excepthook是一个勾子-hook函数。当有程序没有捕获的异常，或者捕获后又抛出来的异常时，解释器就会执行这个勾子函数，然后停止运行。</p>
+<p>上述代码自行定义了一个勾子函数，并将其赋值给sys.excepthook。这个函数有三个参数：tp-异常类型、val-异常值、tb-异常跟踪栈。异常跟踪栈可以通过traceback模块的format_tb()函数转换成一个字符串列表，这些字符串表明了异常发生时的程序调用关系。</p>
+<p>可以看到，UserExceptHook()函数把异常转换成一个多行字符串，其中，repr()函数将一个对象转换成一个可以打印的表示字符串。然后这个多行字符串被打印至sys.stderr标准错误输出，然后再被打印至fError文件。请注意，fError文件在程序开始执行时即被以”a”-附加模式打开，附加模式保证了后续发生的错误信息不会覆盖原有文件内容。此外，在UserExceptHook()函数的最后一行，fError文件被关闭。因为，该勾子函数执行完成后，程序将会终止，这里是唯一关闭文件确保文件内容被正确写入外存的最后机会。</p>
+<p>datetime.now()返回当前系统日期和时间。</p>
+<p>作者多次运行上述程序，故意输入一些不恰当的值来诱发异常，最后得到下述错误日志-except_error.log：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">2018-11-03 18:05:58.305337</span><br><span class="line">&lt;class &#39;ZeroDivisionError&#39;&gt;</span><br><span class="line">ZeroDivisionError(&#39;division by zero&#39;)</span><br><span class="line">  File &quot;D:&#x2F;pylearn&#x2F;C12_UnitTestException&#x2F;excepthook.py&quot;, line 28, in &lt;module&gt;</span><br><span class="line">    main()</span><br><span class="line"></span><br><span class="line">  File &quot;D:&#x2F;pylearn&#x2F;C12_UnitTestException&#x2F;excepthook.py&quot;, line 20, in main</span><br><span class="line">    fResult &#x3D; int(sFirst) &#x2F; int(sSecond)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">2018-11-03 18:06:04.097457</span><br><span class="line">&lt;class &#39;ValueError&#39;&gt;</span><br><span class="line">ValueError(&quot;invalid literal for int() with base 10: &#39;3.2&#39;&quot;)</span><br><span class="line">  File &quot;D:&#x2F;pylearn&#x2F;C12_UnitTestException&#x2F;excepthook.py&quot;, line 28, in &lt;module&gt;</span><br><span class="line">    main()</span><br><span class="line"></span><br><span class="line">  File &quot;D:&#x2F;pylearn&#x2F;C12_UnitTestException&#x2F;excepthook.py&quot;, line 20, in main</span><br><span class="line">    fResult &#x3D; int(sFirst) &#x2F; int(sSecond)</span><br></pre></td></tr></table></figure>
+
+<p>终于，当使用你编写的软件的客户通过电话向你抱怨程序有时会运行出错时，你可以要求客户把错误日志文件发送给你。通过错误日志，你可以了解软件出错的相关细节，而不必通过客户那些“不准确”甚至“夸大其词”的描述去推断错误发生的原因。</p>
+
+          
+        </div>
+        
+          <br>
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Python/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;<p>Python</p></a></div>
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+              <section class="prev">
+                <span class="art-item-left">
+                  <h4>
+                    <a href="/2019/07/range/" rel="prev" title="Python下的数值列表 - range(x,y,z)函数">
+                      <i class="fas fa-chevron-left" aria-hidden="true"></i>
+                      
+                        Python下的数值列表 - range(x,y,z)函数
+                      
+                    </a>
+                  </h4>
+                  
+                    
+                    <h6 class="tags">
+                      &nbsp;<a class="tag" href="/tags/Python/"><i class="fas fa-tag" aria-hidden="true"></i> Python</a>
+                    </h6>
+                  
+                </span>
+              </section>
+            
+            
+              <section class="next">
+                <span class="art-item-right" aria-hidden="true">
+                  <h4>
+                    <a href="/2019/07/func3d/" rel="prev" title="numpy,matplotlib - Python绘制二元函数曲面">
+                      
+                        numpy,matplotlib - Python绘制二元函数曲面
+                      
+                      <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                    </a>
+                  </h4>
+                  
+                    
+                    <h6 class="tags">
+                      <a class="tag" href="/tags/Python/"><i class="fas fa-tag" aria-hidden="true"></i> Python</a>&nbsp;
+                    </h6>
+                  
+                </span>
+              </section>
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+  <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX","TeX"],
+      linebreaks: { automatic:true },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: { autoNumber: "AMS" },
+      noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+      Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+  });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += (all[i].SourceElement().parentNode.className ? ' ' : '') + 'has-jax';
+    }
+  });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+
+  <script>
+    window.subData = {
+      title: 'Python下的异常处理及错误日志记录',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+    
+      
+      
+
+<section class="widget grid  widget-blur desktop mobile">
+  
+  <header>
+    
+      <i class="fas fa-map-signs fa-fw" aria-hidden="true"></i><span class='name'>文档导航</span>
+    
+  </header>
+
+
+  <div class='content'>
+    <ul class="grid navigation">
+      
+        <li><a class="flat-box" title="/categories/Python/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97/" href="/categories/Python/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97/"
+          
+          
+          id="categoriesPythonE7A791E5ADA6E8AEA1E7AE97">
+          
+            <i class="fas fa-question-circle fa-fw" aria-hidden="true"></i>
+          
+          科学计算
+        </a></li>
+      
+        <li><a class="flat-box" title="/categories/Python/" href="/categories/Python/"
+          
+          
+          id="categoriesPython">
+          
+            <i class="fas fa-play-circle fa-fw" aria-hidden="true"></i>
+          
+          Python
+        </a></li>
+      
+        <li><a class="flat-box" title="/categories/C-C/" href="/categories/C-C/"
+          
+          
+          id="categoriesC-C">
+          
+            <i class="fas fa-handshake fa-fw" aria-hidden="true"></i>
+          
+          C/C++
+        </a></li>
+      
+        <li><a class="flat-box" title="/news/archives/" href="/news/archives/"
+          
+          
+          id="newsarchives">
+          
+            <i class="fas fa-file-archive fa-fw" aria-hidden="true"></i>
+          
+          资源下载
+        </a></li>
+      
+        <li><a class="flat-box" title="https://github.com/xaoxuu/hexo-theme-volantis/" href="https://github.com/xaoxuu/hexo-theme-volantis/"
+          
+            rel="external nofollow noopener noreferrer"
+          
+          
+            target="_blank"
+          
+          id="https:github.comxaoxuuhexo-theme-volantis">
+          
+            <i class="fas fa-file-code fa-fw" aria-hidden="true"></i>
+          
+          MOOC
+        </a></li>
+      
+        <li><a class="flat-box" title="https://github.com/xaoxuu/hexo-theme-volantis/releases/" href="https://github.com/xaoxuu/hexo-theme-volantis/releases/"
+          
+            rel="external nofollow noopener noreferrer"
+          
+          
+            target="_blank"
+          
+          id="https:github.comxaoxuuhexo-theme-volantisreleases">
+          
+            <i class="fas fa-clipboard-list fa-fw" aria-hidden="true"></i>
+          
+          图书订购
+        </a></li>
+      
+    </ul>
+  </div>
+</section>
+
+    
+  
+    
+      
+      
+
+<section class="widget text  widget-blur desktop">
+  
+  <header>
+    
+      <a href='https://codelearn.club/'><i class="fab fa-github fa-fw" aria-hidden="true"></i><span class='name'>点个赞吧</span></a>
+    
+  </header>
+
+
+  <div class='content'>
+    
+      <p>您的赞对我来说很重要，如果本网站的技术文章有帮到您，希望能够给下面的视频收藏点赞支持一下。</p>
+
+    
+      <p><a href="https://github.com/xaoxuu/ProHUD" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/proj/prohud/logo.png" height="50px"></a></p>
+
+    
+      <p><a href="https://github.com/xaoxuu/ValueX" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/proj/valuex/logo.png" height="50px"></a></p>
+
+    
+  </div>
+</section>
+
+    
+  
+    
+      
+      
+
+<section class="widget qrcode  widget-blur desktop">
+  
+  <header>
+    
+      <i class="fas fa-mobile fa-fw" aria-hidden="true"></i><span class='name'>手机观看</span>
+    
+  </header>
+
+
+  <div class='content article-entry'>
+    
+      
+        <img src='https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/qrcode/wiki_volantis.png'
+        >
+      
+    
+  </div>
+</section>
+
+    
+  
+    
+      
+      
+
+
+  <section class="widget toc-wrapper  widget-blur desktop mobile">
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-曾经的异常"><span class="toc-text">1. 曾经的异常</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-try-except-else-finally"><span class="toc-text">2. try except else finally</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-警告"><span class="toc-text">3. 警告</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-出错日志"><span class="toc-text">4. 出错日志</span></a></li></ol>
+    </div>
+  </section>
+
+
+    
+  
+</aside>
+
+
+  
+  <footer class="clearfix ">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+              <a href="mailto:chenbo@cqu.edu.cn"
+                class="social fas fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://codelearn.club"
+                class="social fab fa-github flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://music.163.com/#/user/home?id=63035382"
+                class="social fas fa-headphones-alt flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+        </div>
+      
+    
+      
+        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+      
+    
+      
+        本站使用
+        <a href="https://volantis.js.org/" target="_blank" class="codename">CodeLearn</a>
+        作为主题
+        
+          ，
+          总访问量为
+          <span id="busuanzi_value_site_pv"><i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span>
+          次
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="https://codelearn.club">Copyright © 2018-2020 海洋饼干叔叔</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+<script>setLoadingBarProgress(80);</script>
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+
+
+  <script>
+    
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/" || "/";
+    if (!ROOT.endsWith('/')) ROOT += '/';
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@1.6.4/js/instant_page.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js" async></script>
+
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+  
+  
+  
+    
+<script src="//cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+
+    <script type="text/javascript">
+      $(function(){
+        if ('') {
+          $('').backstretch(
+          ["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/41F215B9-261F-48B4-80B5-4E86E165259E.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/BBC19066-E176-47C2-9D22-48C81EE5DF6B.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/B18FCBB3-67FD-48CC-B4F3-457BA145F17A.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/00E0F0ED-9F1C-407A-9AA6-545649D919F4.jpeg"],
+          {
+            duration: "5000",
+            fade: "2500"
+          });
+        } else {
+          $.backstretch(
+          ["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/41F215B9-261F-48B4-80B5-4E86E165259E.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/BBC19066-E176-47C2-9D22-48C81EE5DF6B.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/B18FCBB3-67FD-48CC-B4F3-457BA145F17A.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/00E0F0ED-9F1C-407A-9AA6-545649D919F4.jpeg"],
+          {
+            duration: "5000",
+            fade: "2500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+  
+<script src="/js/search.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@1.6.4/js/comment_typing.js"></script>
+
+
+
+<!-- 复制 -->
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  let COPY_SUCCESS = "复制成功";
+  let COPY_FAILURE = "复制失败";
+  /*页面载入完成后，创建复制按钮*/
+  !function (e, t, a) {
+    /* code */
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '  <i class="fa fa-copy"></i><span>复制</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+
+      clipboard.on('success', function(e) {
+        //您可以加入成功提示
+        console.info('Action:', e.action);
+        console.info('Text:', e.text);
+        console.info('Trigger:', e.trigger);
+        success_prompt(COPY_SUCCESS);
+        e.clearSelection();
+      });
+      clipboard.on('error', function(e) {
+        //您可以加入失败提示
+        console.error('Action:', e.action);
+        console.error('Trigger:', e.trigger);
+        fail_prompt(COPY_FAILURE);
+      });
+    }
+    initCopyCode();
+
+  }(window, document);
+
+  /**
+   * 弹出式提示框，默认1.5秒自动消失
+   * @param message 提示信息
+   * @param style 提示样式，有alert-success、alert-danger、alert-warning、alert-info
+   * @param time 消失时间
+   */
+  var prompt = function (message, style, time)
+  {
+      style = (style === undefined) ? 'alert-success' : style;
+      time = (time === undefined) ? 1500 : time*1000;
+      $('<div>')
+          .appendTo('body')
+          .addClass('alert ' + style)
+          .html(message)
+          .show()
+          .delay(time)
+          .fadeOut();
+  };
+
+  // 成功提示
+  var success_prompt = function(message, time)
+  {
+      prompt(message, 'alert-success', time);
+  };
+
+  // 失败提示
+  var fail_prompt = function(message, time)
+  {
+      prompt(message, 'alert-danger', time);
+  };
+
+  // 提醒
+  var warning_prompt = function(message, time)
+  {
+      prompt(message, 'alert-warning', time);
+  };
+
+  // 信息提示
+  var info_prompt = function(message, time)
+  {
+      prompt(message, 'alert-info', time);
+  };
+
+</script>
+
+
+
+
+<!-- fancybox -->
+
+  <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let LAZY_LOAD_IMAGE = "";
+  $(".article-entry").find("fancybox").find("img").each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      /* 图片采用懒加载处理时,
+       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
+       * 那么此处将原本的属性名src替换为对应属性名data-original,
+       * 修改如下
+       */
+       if (LAZY_LOAD_IMAGE) {
+         $(element).attr("href", $(this).attr("data-original"));
+       }
+      $(this).wrap(element);
+  });
+</script>
+
+
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+</body>
+</html>
