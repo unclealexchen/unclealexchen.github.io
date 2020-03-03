@@ -21,8 +21,7 @@
     <meta name="keywords" content="Qt Creator">
   
   
-    <meta name="description" content="1. 简介在程序有BUG/缺陷，需要修复时，断点调试是发现缺陷的重要方法。对于初学者而言，断点调试还有另外一个用途：帮助理解程序背后的逻辑。
-本文以Qt Creator为例，简述C/C++程序断点调试的基本方法和过程。其它的IDE环境，大同小异。">
+    <meta name="description" content="本文以Qt Creator为例，简述C/C++程序断点调试的基本方法和过程。其它的IDE环境，大同小异。">
   
 
   <!-- feed -->
@@ -86,90 +85,7 @@
 
 <body>
   
-  <div class="cover-wrapper">
-    <cover class='cover post half'>
-      
-        
-  <p class="title ">Codelearn</p>
-  
-    <p class="subtitle ">分享Python,C/C++相关的技术文章, 海洋饼干叔叔@重庆大学</p>
-  
-
-
-  <div class="m_search">
-    <form name="searchform" class="form u-search-form">
-      <i class="icon fas fa-search fa-fw"></i>
-      <input type="text" class="input u-search-input" placeholder="搜索文档" />
-    </form>
-  </div>
-
-<div class='menu navigation'>
-  <ul class='h-list'>
-    
-      
-        <li>
-          <a class="nav home "
-            href="/about/"
-            
-            
-            id="about">
-            <i class='fas fa-bullhorn fa-fw'></i>&nbsp;公告
-          </a>
-        </li>
-      
-        <li>
-          <a class="nav home "
-            href="/"
-            
-            
-            id="home">
-            <i class='fas fa-globe-asia fa-fw'></i>&nbsp;主页
-          </a>
-        </li>
-      
-        <li>
-          <a class="nav home "
-            href="http://www.bilibili.com/video/av34586138/"
-            
-            
-              target="_blank"
-            
-            id="http:www.bilibili.comvideoav34586138">
-            <i class='fas fa-book fa-fw'></i>&nbsp;从C到C++
-          </a>
-        </li>
-      
-        <li>
-          <a class="nav home "
-            href="http://www.bilibili.com/video/av34409478"
-            
-              rel="external nofollow noopener noreferrer"
-            
-            
-              target="_blank"
-            
-            id="http:www.bilibili.comvideoav34409478">
-            <i class='fas fa-book fa-fw'></i>&nbsp;Python编程基础及应用
-          </a>
-        </li>
-      
-        <li>
-          <a class="nav home "
-            href="/thanks/"
-            
-            
-            id="thanks">
-            <i class='fas fa-handshake fa-fw'></i>&nbsp;鸣谢
-          </a>
-        </li>
-      
-    
-  </ul>
-</div>
-
-      
-    </cover>
-    <header class="l_header nav-blur">
+  <header class="l_header nav-blur">
   <div id="loading-bar-wrapper">
     <div id="loading-bar"></div>
   </div>
@@ -343,10 +259,9 @@
 	</aside>
 <script>setLoadingBarProgress(40);</script>
 
-  </div>
 
 
-  <div class="l_body">
+  <div class="l_body nocover">
     <div class='body-wrapper'>
       
 
@@ -390,6 +305,16 @@
           
         
           
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-edit" aria-hidden="true"></i>
+    <p>发布于：2020年2月20日</p>
+  </a>
+</div>
+
+          
+        
+          
             
   
   <div class='new-meta-item category'>
@@ -403,17 +328,20 @@
           
         
           
-            <div class="new-meta-item date">
-  <a class='notlink'>
-    <i class="fas fa-edit" aria-hidden="true"></i>
-    <p>发布于：2020年2月20日</p>
-  </a>
-</div>
-
-          
-        
-          
             
+  
+    <div class="new-meta-item browse busuanzi">
+      <a class='notlink'>
+        <i class="fas fa-eye" aria-hidden="true"></i>
+        <p>
+          <span id="busuanzi_value_page_pv">
+            <i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i>
+          </span>
+        </p>
+      </a>
+    </div>
+  
+
 
           
         
@@ -428,10 +356,13 @@
       <section class="article typo">
         <div class="article-entry" itemprop="articleBody">
           
-          <h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h2><p>在程序有BUG/缺陷，需要修复时，断点调试是发现缺陷的重要方法。对于初学者而言，断点调试还有另外一个用途：帮助理解程序背后的逻辑。</p>
-<p>本文以Qt Creator为例，简述C/C++程序断点调试的基本方法和过程。其它的IDE环境，大同小异。</p>
+          <p>本文以Qt Creator为例，简述C/C++程序断点调试的基本方法和过程。其它的IDE环境，大同小异。</p>
 <a id="more"></a>
 
+
+
+<h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h2><p>在程序有BUG/缺陷，需要修复时，断点调试是发现缺陷的重要方法。对于初学者而言，断点调试还有另外一个用途：帮助理解程序背后的逻辑。</p>
+<p>本文以Qt Creator为例，简述C/C++程序断点调试的基本方法和过程。其它的IDE环境，大同小异。</p>
 <blockquote>
 <p>版权声明</p>
 <p>本文<strong>可以</strong>在互联网上自由转载，但必须：注明出处(作者：海洋饼干叔叔)并包含指向本页面的链接。</p>
@@ -497,7 +428,12 @@
     <div class='new-meta-box'>
       
         
-          
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-03-03T12:54:12+08:00">
+  <a class='notlink'>
+    <i class="fas fa-save" aria-hidden="true"></i>
+    <p>更新于：2020年3月3日</p>
+  </a>
+</div>
 
         
       
@@ -505,6 +441,62 @@
           
   
   <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Qt-Creator/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;<p>Qt Creator</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=http://codelearn.club/2020/02/qtdebug/&title=C/C++程序的断点调试 | Python,C/C++ Club&pics=https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/avatar/avatar.png&summary=本文以Qt Creator为例，简述C/C++程序断点调试的基本方法和过程。其它的IDE环境，大同小异。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://codelearn.club/2020/02/qtdebug/&title=C/C++程序的断点调试 | Python,C/C++ Club&pics=https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/avatar/avatar.png&summary=本文以Qt Creator为例，简述C/C++程序断点调试的基本方法和过程。其它的IDE环境，大同小异。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class='qrcode' rel="external nofollow noopener noreferrer" href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACLUlEQVR42u3aS27DMAxF0ex/0+40QGDlPlIpYOpqFKSprOMBwY9eL7yut/X+Df8r+fy5z+YlQ4aMxzKu5SKP/Hzw3Q588bPJkCHjHMZdBFv/hsQ9sjN5fV/OLEOGDBnL39RWmlbKkCFDBg+LtTL1bh9eKsuQIUNGWkyuj1Ura3niKEOGjNMYvDT9/88/mW/IkCHjUYxdZWcaKMk4IdhBhgwZoxm1EeauSxtkTz5gkCFDxmwGTwrTMrVWvhJkXMrKkCHjsYz0slenSVcbl5IxgwwZMk5gpIUlb8mlwwaejKJaXIYMGeMY/NC7SlwOCBptMmTIOIbBk8XakKB2USPoycmQIWMco5OopUfkzwqSURkyZIxm8FSMp5I8pKJWGg/BMmTIGMrgw4BaCK4NR9OXK0OGjHMY6TCgHzTXFWhQ6MqQIWM0g2yUJoW1MQPfU4YMGacxeEOfg3k6WGux3V62kCFDxlDGhgIyPGLtlaXppgwZMuYxSNsrvRixJvFnBa9GhgwZxzDiKw5hi/+HQVmGDBkHMNKQyotM3lAj6eCXgCtDhoyhjFoCx5tf6ffbWmwyZMgYwbjC1bmQkV7a4A04GTJkzGbUgt2u1lun6C3CZMiQ8VhGesGLJHzFS6idgCtDhowDGCTw9ZtiHBmPVGXIkCEjvPrAX0H6/baAK0OGjNGMtDXW4QWVtwwZMg5gpEVspw1H/jcdJ8iQIWM2o5N3pQPLzhE3DDVlyJDxPMYfACb1G8IEsJUAAAAASUVORK5CYII='>
+        
+          <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/wechat.png">
+        
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=http://codelearn.club/2020/02/qtdebug/&title=C/C++程序的断点调试 | Python,C/C++ Club&pics=https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/avatar/avatar.png&summary=本文以Qt Creator为例，简述C/C++程序断点调试的基本方法和过程。其它的IDE环境，大同小异。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
 
 
         
