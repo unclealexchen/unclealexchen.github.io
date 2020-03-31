@@ -410,7 +410,7 @@
 <p>输出为：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Address for the Array: 0x2670048</span><br><span class="line">The long long before the Array: 20194134   【这个值就是数组长度】</span><br><span class="line">Destuct from: 0x2670040</span><br></pre></td></tr></table></figure>
 <p>代码给出的结果证明了前述的猜想：<strong>自定义类数组前的8个字节，是一个long long类型的变量，储存了该数组的长度。</strong></p>
-<h3 id="3-结论"><a href="#3-结论" class="headerlink" title="3. 结论"></a>3. 结论</h3><p><img src="images/image-20200331232726796.png" alt="image-20200331232726796"></p>
+<h3 id="3-结论"><a href="#3-结论" class="headerlink" title="3. 结论"></a>3. 结论</h3><p><img src="/images/image-20200331232726796.png" alt="image-20200331232726796"></p>
 <p>我们以Yu* a = new Yu[2]为例进行说明。表面上，我们需要sizeof(Yu) x 2共8个字节的空间，但事实上，new [ ]操作符会从堆里申请8 + 8 = 16个字节的空间。其中，前8个字节用于存储数组的元素个数，后续空间用于存放数组元素。具体到本例，变量a得到的是数组首元素的地址，它事实上等于真实的堆空间地址 + 8！</p>
 <p>当delete [ ]a被执行时：</p>
 <ul>
@@ -439,7 +439,7 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-03-31T23:50:16+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-03-31T23:53:17+08:00">
   <a class='notlink'>
     <i class="fas fa-save" aria-hidden="true"></i>
     <p>更新于：2020年3月31日</p>
