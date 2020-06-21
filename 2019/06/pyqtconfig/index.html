@@ -368,10 +368,10 @@
 </blockquote>
 <h2 id="PyQt工具简介"><a href="#PyQt工具简介" class="headerlink" title="PyQt工具简介"></a>PyQt工具简介</h2><p>Qt/PyQt中包括一系列的工具，其中：</p>
 <ul>
-<li>Qt Designer: 用即见即所得的方式设计图形界面，成果表现为扩展名为ui的文件。   可执行文件：designer 。</li>
+<li>Qt Designer: 用即见即所得的方式设计图形界面，成果表现为扩展名为ui的文件。   可执行文件：pyqt5designer 。</li>
 <li>UI Compiler: 将上述ui文件“编译”成Python程序。执行该Python程序便可以得ui文件所描述的图形界面。可执行文件: pyuic5。</li>
 <li>Qt Linguist:   语言学家，可以便捷的实现软件的国际化，即生成软件的法语、英语、日语或者其它语种版本。工作模式大致可以描述成：先用pylupdate5扫描源代码中全部可翻译的字符串，然后用linguist翻译相应的字符串至目标语言，接下来用lrelease工具发布。软件运行时，加载法语版本的语言学家文件，软件界面就是法语，加载日语版本的语言学家文件，软件界面就是日语。可执行文件：linguist,pylupdate5,lrelease。</li>
-<li>Resource Compiler: 资源编译器。UI文件设计过程中可以需要使用到各种图片，这些图片以资源文件的形式组织，扩展名为qrc；资源编译器负责将 qrc格式的资源文件编译成py文件，其中，图片被转换成bytes字节流。可执行文件：  pyrcc5。</li>
+<li>Resource Compiler: 资源编译器。UI文件设计过程中可以需要使用到各种图片，这些图片以资源文件的形式组织，扩展名为qrc；资源编译器负责将 qrc格式的资源文件编译成py文件，其中，图片被转换成bytes字节列。可执行文件：  pyrcc5。</li>
 </ul>
 <p>​    </p>
 <h2 id="PyQt扩展安装"><a href="#PyQt扩展安装" class="headerlink" title="PyQt扩展安装"></a>PyQt扩展安装</h2><p>为了使用这些Qt工具，我们需要在Visual Studio Code中安装下述扩展或者其它类似功能的扩展并对扩展进行配置。Visual Studio Code上的扩展安装方法请回顾第一章相关内容。</p>
@@ -383,7 +383,7 @@
 <h2 id="PyQt扩展的配置"><a href="#PyQt扩展的配置" class="headerlink" title="PyQt扩展的配置"></a>PyQt扩展的配置</h2><p>在Visual Studio Code中的Extensions管理页面，点击Qt for Python扩展的Manage齿轮按钮，</p>
 <p><img src="/images/1560411218639.png" alt="1560411218639"></p>
 <p>然后，按照提示逐一设置各种可执行文件/模块的路径及运行参数信息。</p>
-<p><img src="/images/1560433172067.png" alt="1560433172067"></p>
+<p><img src="/images/image-20200621182354668.png" alt="image-20200621182354668"></p>
 <p>为方便读者，下表列出相关配置项的值。</p>
 <table>
 <thead>
@@ -450,7 +450,7 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-06-21T17:51:30+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-06-21T18:25:24+08:00">
   <a class='notlink'>
     <i class="fas fa-save" aria-hidden="true"></i>
     <p>更新于：2020年6月21日</p>
