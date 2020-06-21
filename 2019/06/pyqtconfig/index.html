@@ -377,9 +377,9 @@
 <h2 id="PyQt扩展安装"><a href="#PyQt扩展安装" class="headerlink" title="PyQt扩展安装"></a>PyQt扩展安装</h2><p>为了使用这些Qt工具，我们需要在Visual Studio Code中安装下述扩展或者其它类似功能的扩展并对扩展进行配置。Visual Studio Code上的扩展安装方法请回顾第一章相关内容。</p>
 <p><img src="/images/1560392902372.png" alt="1560392902372"></p>
 <p>pyqt5, pyqt5-tools作为Python扩展库，其安装路径位于Python安装路径的Lib\site-packages子目录下。而上述Qt/PyQt工具的可执行文件，则可以在Python安装路径的Scripts路径下找到。在作者计算机上，该目录为：</p>
-<p>C:\Users\Alex\AppData\Local\Programs\Python\Python37\Scripts。</p>
+<p>C:\Users\Alex\AppData\Local\Programs\Python\Python38\Scripts。</p>
 <p><img src="/images/1560432853431.png" alt="1560432853431"></p>
-<p> 由于作者安装 Python解释器时选择将Python路径加入了系统路径。因此，上述C:\Users\Alex\AppData\Local\Programs\Python\Python37\Scripts路径在操作系统环境变量PATH中。引用上述目录中的可执行文件时，路径部分可以省略。</p>
+<p> 由于作者安装 Python解释器时选择将Python路径加入了系统路径。因此，上述C:\Users\Alex\AppData\Local\Programs\Python\Python38\Scripts路径在操作系统环境变量PATH中。引用上述目录中的可执行文件时，路径部分可以省略。</p>
 <h2 id="PyQt扩展的配置"><a href="#PyQt扩展的配置" class="headerlink" title="PyQt扩展的配置"></a>PyQt扩展的配置</h2><p>在Visual Studio Code中的Extensions管理页面，点击Qt for Python扩展的Manage齿轮按钮，</p>
 <p><img src="/images/1560411218639.png" alt="1560411218639"></p>
 <p>然后，按照提示逐一设置各种可执行文件/模块的路径及运行参数信息。</p>
@@ -395,18 +395,18 @@
 </thead>
 <tbody><tr>
 <td>Path:Designer</td>
-<td>designer.exe</td>
-<td></td>
+<td>pyqt5designer.exe</td>
+<td>文件在Python安装路径的Scripts目录下，该目录在系统路径中，故可直接使用</td>
 </tr>
 <tr>
 <td>Path:Linguist</td>
-<td>linguist.exe</td>
-<td></td>
+<td>/</td>
+<td>本例中用不上，可不设置</td>
 </tr>
 <tr>
 <td>Path:Lrelease</td>
-<td>lrelease.exe -qm ./“${fileBasenameNoExtension}.qm”</td>
-<td></td>
+<td>/</td>
+<td>本例中用不上，可不设置</td>
 </tr>
 <tr>
 <td>Path:Pylupdate</td>
@@ -425,8 +425,8 @@
 </tr>
 <tr>
 <td>Path:Qmlscene</td>
-<td>qmlscene.exe –verbose</td>
-<td></td>
+<td>/</td>
+<td>本例中用不上，可不设置</td>
 </tr>
 </tbody></table>
 <h2 id="创建新的UI文件"><a href="#创建新的UI文件" class="headerlink" title="创建新的UI文件"></a>创建新的UI文件</h2><p>在Visual Studio Code项目目录的空白位置右击鼠标，选择New Form(Qt Designer UI File)</p>
@@ -450,10 +450,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-03-03T13:00:47+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-06-21T17:51:30+08:00">
   <a class='notlink'>
     <i class="fas fa-save" aria-hidden="true"></i>
-    <p>更新于：2020年3月3日</p>
+    <p>更新于：2020年6月21日</p>
   </a>
 </div>
 
