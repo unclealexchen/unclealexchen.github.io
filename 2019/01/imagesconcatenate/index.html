@@ -366,11 +366,7 @@
 <p>本文<strong>可以</strong>在互联网上自由转载，但必须：注明出处(作者：海洋饼干叔叔)并包含指向本页面的链接。</p>
 <p>本文<strong>不可以</strong>以纸质出版为目的进行改编、摘抄。</p>
 </blockquote>
-<p>本文配套在线视频： <a href="https://www.bilibili.com/video/av34409478/?p=49" target="_blank" rel="noopener">https://www.bilibili.com/video/av34409478/?p=49</a></p>
-<iframe width="100%" height="480" src="//player.bilibili.com/player.html?aid=34409478&cid=68505528&page=49" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
-### 微实践：九宫格图像拼接
-
-<p>本节内容要用到opencv-python模块，请先行安装。本例程中使用到的图片保存在pictures子目录下。本例的任务是要将9张JPG格式图片按三行三列拼接成下述九宫格。</p>
+<h3 id="微实践：九宫格图像拼接"><a href="#微实践：九宫格图像拼接" class="headerlink" title="微实践：九宫格图像拼接"></a>微实践：九宫格图像拼接</h3><p>本节内容要用到opencv-python模块，请先行安装。本例程中使用到的图片保存在pictures子目录下。本例的任务是要将9张JPG格式图片按三行三列拼接成下述九宫格。</p>
 <p><img src="/images/3x3_0.jpg" alt=""></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#pictures9.py</span></span><br><span class="line"><span class="keyword">import</span> glob</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> cv2 <span class="keyword">import</span> imread,imwrite			<span class="comment">#cv2来自OpenCV-Python扩展库</span></span><br><span class="line"></span><br><span class="line">imgs,heights,widths = [],[],[]</span><br><span class="line"><span class="keyword">for</span> f <span class="keyword">in</span> glob.glob(<span class="string">"pictures/*.jpg"</span>):</span><br><span class="line">    img = imread(f,<span class="number">-1</span>)</span><br><span class="line">    print(<span class="string">"original:"</span>,img.shape)</span><br><span class="line">    h,w = img.shape[:<span class="number">2</span>]</span><br><span class="line">    heights.append(h)</span><br><span class="line">    widths.append(w)</span><br><span class="line">    imgs.append(img)</span><br></pre></td></tr></table></figure>
 
@@ -441,6 +437,16 @@
 <td>交换两个轴的顺序</td>
 </tr>
 </tbody></table>
+<hr>
+<blockquote>
+<p>本文内容节选自作者编著的《Python编程基础及应用》（高等教育出版社）一书。</p>
+</blockquote>
+<p><img src="/images/pybook.jpg" alt="Python编程基础及应用"></p>
+<p>免费随书B站MOOC:  </p>
+<iframe src="//player.bilibili.com/player.html?aid=34409478&bvid=BV1kt411R7uW&cid=124551481&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="100%" height="600"> </iframe>
+
+
+
 
           
         </div>
@@ -453,10 +459,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-03-03T12:59:16+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-09-11T14:21:13+08:00">
   <a class='notlink'>
     <i class="fas fa-save" aria-hidden="true"></i>
-    <p>更新于：2020年3月3日</p>
+    <p>更新于：2020年9月11日</p>
   </a>
 </div>
 
@@ -789,6 +795,20 @@
       
       
 
+
+  <section class="widget toc-wrapper  widget-blur desktop mobile">
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#微实践：九宫格图像拼接"><span class="toc-text">微实践：九宫格图像拼接</span></a></li></ol>
+    </div>
+  </section>
 
 
     

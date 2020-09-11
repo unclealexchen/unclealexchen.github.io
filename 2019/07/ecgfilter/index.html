@@ -404,6 +404,16 @@
 
 <p>滤波的代码十分简单。signal.lfilter()将滤波器返回的b,a数组应用于信号x上，滤波后返回一个新数组。读者一定有点好奇，lfilter()内部到底做了些什么。对于FIR-有限脉冲响应滤波器，a组系数不适用，对于输出信号数组y的任意点y[i]，其值为：<br>$$<br>y_i=b_0x_i+b_1x_{i-1}+…+b_px_{i-p}<br>$$<br>​    这就是个简单的乘积和。对于IIR-无限脉冲响应滤波器，对于输出信号数组y的任意点y[i]，其值为：<br>$$<br>y_i=\frac{b_0x_i+b_1x_{i-1}+…+b_px_{i-p}-a_1y_{i-1}-a_2y_{i-2}-…-a_qy_{i-q}}{a_0}<br>$$<br>​    上述两个公式中，p+1为b数组的元素个数；q+1为a数组的元素个数。</p>
 <p>巴特沃斯滤波器只是IIR滤波器的一种。 使用firwin()、remez()等函数可以设计FIR滤波器。iirdesign()函数则可以帮助设计IIR滤波器。要想彻底弄明白滤波器背后的数学原理，不是一件容易的事情。</p>
+<hr>
+<blockquote>
+<p>本文内容节选自作者编著的《Python编程基础及应用》（高等教育出版社）一书。</p>
+</blockquote>
+<p><img src="/images/pybook.jpg" alt="Python编程基础及应用"></p>
+<p>免费随书B站MOOC:  </p>
+<iframe src="//player.bilibili.com/player.html?aid=34409478&bvid=BV1kt411R7uW&cid=124551481&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="100%" height="600"> </iframe>
+
+
+
 
           
         </div>
@@ -416,10 +426,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-03-03T13:09:18+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-09-11T14:19:29+08:00">
   <a class='notlink'>
     <i class="fas fa-save" aria-hidden="true"></i>
-    <p>更新于：2020年3月3日</p>
+    <p>更新于：2020年9月11日</p>
   </a>
 </div>
 
