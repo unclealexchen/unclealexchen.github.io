@@ -394,12 +394,9 @@
 <p><img src="/images/1560054100568.png" alt="1560054100568"></p>
 <p>在这个路径的Lib\site-packages路径下，可以看到那些被安装的模块的文件。</p>
 <p><img src="/images/1560054126563.png" alt="1560054126563"></p>
-<h2 id="安装失败怎么办"><a href="#安装失败怎么办" class="headerlink" title="安装失败怎么办"></a>安装失败怎么办</h2><p>有时候安装会失败。最大的可能是因为网速太慢，具体说是国内到pip官方软件仓库服务器的网速太慢。解决方案有两个：</p>
-<p>a. 找个网速好的地方再执行两次；</p>
-<p>b. 试试国内的镜像源，该镜像源可以通过-i 参数指定，比如，下述命令试图从国内清华的镜像源安装django模块：</p>
+<h2 id="安装失败怎么办"><a href="#安装失败怎么办" class="headerlink" title="安装失败怎么办"></a>安装失败怎么办</h2><p>有时候安装会失败，通常表现为安装突然中断，并有红字的错误信息。最大的可能是因为网速太慢，具体说是国内到pip官方软件仓库服务器的网速太慢。解决方案：</p>
+<p>通过-i 参数指定国内下载源，比如，下述命令试图从国内清华的镜像源安装django模块：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install django -i https://pypi.tuna.tsinghua.edu.cn/simple</span><br></pre></td></tr></table></figure>
-
-
 
 
 
@@ -427,10 +424,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-09-17T22:20:04+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-09-20T18:20:39+08:00">
   <a class='notlink'>
     <i class="fas fa-save" aria-hidden="true"></i>
-    <p>更新于：2020年9月17日</p>
+    <p>更新于：2020年9月20日</p>
   </a>
 </div>
 
