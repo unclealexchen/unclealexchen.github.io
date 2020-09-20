@@ -179,11 +179,11 @@
     
     
     <entry>
-      <title>Visual Studio Code无法启动Jupyter的解决办法（v1.38-1.42)</title>
+      <title>Visual Studio Code无法启动Jupyter的解决办法</title>
       <link href="/2020/02/vscjupyter/"/>
       <url>/2020/02/vscjupyter/</url>
       
-        <content type="html"><![CDATA[<p>[该解决方案由重庆大学2018级数统学院罗少航同学提供]</p><p>故障现象： 在下述版本的Visual Studio Code上， v1.38 - 1.42， .ipynb(Jupyter Notebook)文件打开时会提示无法启动/连接Jupyter Server. </p><a id="more"></a><p>解决方案：</p><ol><li>进入Windows设置。</li></ol><p><img src="/images/image-20200217182732939.png" alt="image-20200217182732939"></p><ol start="2"><li>搜索并进入“编辑系统环境变量”；</li></ol><p><img src="/images/image-20200217182806775.png" alt="image-20200217182806775"></p><ol start="3"><li>点”环境变量“；</li></ol><p><img src="/images/image-20200217182826778.png" alt="image-20200217182826778"></p><ol start="4"><li>在上方的”Alex”的用户变量里，选Path, 点“编辑”。  （Alex是你的Windows登录用户名）</li></ol><p><img src="/images/image-20200217192824579.png" alt="image-20200217192824579"></p><ol start="5"><li><p>新建如下述高亮行所示的路径，请将其移动至顶端；注意如果你的解释器版本不是Python3.8下述目录中的Python38要作调整。</p><p>%AppData%\Python\Python38\Scripts</p></li></ol><p><img src="/images/image-20200217192856560.png" alt="image-20200217192856560"></p><ol start="6"><li>然后一路确定，重启Visual Studio Code后尝试编辑和运行1.ipynb文件。（最好连计算机也重启一下）。</li></ol>]]></content>
+        <content type="html"><![CDATA[<p>在Visual Studio Code中，依视频首次编辑运行Jupyter Notebook时( .ipynb )时，系统会主动安装Jupyter相关组件。默认情况下，系统从位于国外的服务器下载组件，受限于防火墙及网速，经常会出现安装失败的情况，通常表现为安装的中断及红字错误信息。如下图：</p><p><img src="/images/image-20200920175958812.png" alt="image-20200920175958812"></p><p>[图1]</p><a id="more"></a><p>解决方法：</p><p>在Visual Studio Code中的Terminal页中，手动执行安装命令安装组件，并通过-i 参数指定从国内清华大学的源进行下载。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip install jupyter -i https://pypi.tuna.tsinghua.edu.cn/simple</span><br><span class="line">pip install ipykernel -i https://pypi.tuna.tsinghua.edu.cn/simple</span><br></pre></td></tr></table></figure><p>如下图所示：</p><p><img src="/images/image-20200920180258283.png" alt="image-20200920180258283"></p><p>[图2]</p><p>安装完成后，重新启动Visual Studio Code, 再次尝试运行Jupyter Notebook.</p><p>说明：具体的组件名称时有变化，读者可以从图1的红框位置找到安装失败的组件，哪个组件安装失败，就尝试从Terminal中手动安装哪个组件。</p>]]></content>
       
       
       <categories>
