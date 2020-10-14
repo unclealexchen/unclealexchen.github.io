@@ -366,6 +366,7 @@
 <p>（理由就是Windows系统认可的目录名称，Python或者兼容Linux系统的库不认可）</p>
 <p>解决方案：卸载重装，Customize Installation，选择一个纯英文的安装目录，比如C:\Python。这个安装目录不可以是C:\Windows, C:\Program Files等受系统保护的特殊目录。 （Program Files还含有空格）</p>
 <h3 id="3-安装目录或者程序目录包含中文或空格，特殊符号"><a href="#3-安装目录或者程序目录包含中文或空格，特殊符号" class="headerlink" title="3. 安装目录或者程序目录包含中文或空格，特殊符号"></a>3. 安装目录或者程序目录包含中文或空格，特殊符号</h3><p>引发库安装不上，程序执行出错等各种问题。</p>
+<p>我对学生的要求是：安装目录，程序保存目录，文件名不允许包含任何中文及中文符号。</p>
 <h3 id="4-安装比较大的包时因网速而中断"><a href="#4-安装比较大的包时因网速而中断" class="headerlink" title="4. 安装比较大的包时因网速而中断"></a>4. 安装比较大的包时因网速而中断</h3><p>众所周知的原因，国内访问国外服务器很慢，pip安装包时，默认从国外下载，卒。</p>
 <p>解决方案：在Visual Studio Code的Terminal中，或者Windows命令行中手工执行pip命令进行安装，指定国内的镜像源，比如，下面的代码从清华的镜像源下载。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install jupyter -i https:&#x2F;&#x2F;pypi.tuna.tsinghua.edu.cn&#x2F;simple</span><br></pre></td></tr></table></figure>
@@ -377,7 +378,11 @@
 
 <p>详情见下述链接：</p>
 <p><a href="https://codelearn.club/2020/02/vscjupyter/">https://codelearn.club/2020/02/vscjupyter/</a></p>
+<p>也有可能是安装目录中包含中文、空格或特殊符号导致安装失败。</p>
+<p>也有可能是同时安装了多个解释器版本。</p>
 <h3 id="6-Visual-Studio-Code老是提示安装pylint"><a href="#6-Visual-Studio-Code老是提示安装pylint" class="headerlink" title="6. Visual Studio Code老是提示安装pylint"></a>6. Visual Studio Code老是提示安装pylint</h3><p>如上，一般是网速问题。pip手工安装一下。</p>
+<p>也有可能是安装目录中包含中文、空格或特殊符号导致安装失败。</p>
+<p>也有可能是同时安装了多个解释器版本。</p>
 <h3 id="7-Visual-Studio-Code中看不到三角形运行符号"><a href="#7-Visual-Studio-Code中看不到三角形运行符号" class="headerlink" title="7. Visual Studio Code中看不到三角形运行符号"></a>7. Visual Studio Code中看不到三角形运行符号</h3><p>情况1： 学生创建的程序文件扩展名不对，不是.py。</p>
 <p>情况2： 学生没联网，或者没注意到Visual Studio Code安装Python扩展的提示，手工安装Python扩展，重启Visual Studio Code.</p>
 
@@ -392,7 +397,7 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-10-14T22:53:16+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-10-14T23:00:01+08:00">
   <a class='notlink'>
     <i class="fas fa-save" aria-hidden="true"></i>
     <p>更新于：2020年10月14日</p>
