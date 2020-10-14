@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Python解释器，Visual Studio Code，库安装中的常见问题及解决办法</title>
+      <link href="/2020/10/pipissue/"/>
+      <url>/2020/10/pipissue/</url>
+      
+        <content type="html"><![CDATA[<p>Python解释器，Visual Studio Code，库安装中的常见问题及解决办法</p><a id="more"></a><p>学生在配置安装相关环境时，有时会遇到各种奇奇怪怪的现象。总结如下。</p><h3 id="1-学生同时安装了多个版本的Python解释器，甚至还有Anaconda"><a href="#1-学生同时安装了多个版本的Python解释器，甚至还有Anaconda" class="headerlink" title="1. 学生同时安装了多个版本的Python解释器，甚至还有Anaconda."></a>1. 学生同时安装了多个版本的Python解释器，甚至还有Anaconda.</h3><p>后果：会导致pip安装包时安装到其中一个解释器，而实际使用的是另外一个解释器。</p><p>解决方案：卸载全部解释器，重新安装一个。</p><h3 id="2-Windows登录用户名为中文，含空格或特殊符号"><a href="#2-Windows登录用户名为中文，含空格或特殊符号" class="headerlink" title="2. Windows登录用户名为中文，含空格或特殊符号"></a>2. Windows登录用户名为中文，含空格或特殊符号</h3><p>Python解释器的默认安装路径是C:\Users\用户名\… 下的某个目录，当用户名是纯英文及数字时，一切ok。 如果用户名包括中文（不一定会出问题），包含空格或特殊符号($ . , \ / ? 等)，则会出现各种库安装不成功等现象。</p><p>（理由就是Windows系统认可的目录名称，Python或者兼容Linux系统的库不认可）</p><p>解决方案：卸载重装，Customize Installation，选择一个纯英文的安装目录，比如C:\Python。这个安装目录不可以是C:\Windows, C:\Program Files等受系统保护的特殊目录。 （Program Files还含有空格）</p><h3 id="3-安装目录或者程序目录包含中文或空格，特殊符号"><a href="#3-安装目录或者程序目录包含中文或空格，特殊符号" class="headerlink" title="3. 安装目录或者程序目录包含中文或空格，特殊符号"></a>3. 安装目录或者程序目录包含中文或空格，特殊符号</h3><p>引发库安装不上，程序执行出错等各种问题。</p><h3 id="4-安装比较大的包时因网速而中断"><a href="#4-安装比较大的包时因网速而中断" class="headerlink" title="4. 安装比较大的包时因网速而中断"></a>4. 安装比较大的包时因网速而中断</h3><p>众所周知的原因，国内访问国外服务器很慢，pip安装包时，默认从国外下载，卒。</p><p>解决方案：在Visual Studio Code的Terminal中，或者Windows命令行中手工执行pip命令进行安装，指定国内的镜像源，比如，下面的代码从清华的镜像源下载。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install jupyter -i https:&#x2F;&#x2F;pypi.tuna.tsinghua.edu.cn&#x2F;simple</span><br></pre></td></tr></table></figure><h3 id="5-jupyter-Notebook安装失败"><a href="#5-jupyter-Notebook安装失败" class="headerlink" title="5. jupyter Notebook安装失败"></a>5. jupyter Notebook安装失败</h3><p>一般是网速问题，在Visual Studio Code的Terminal或者Windows命令行中直接用pip安装，然后再重启Visual Studio Code即可。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install jupyter -i https:&#x2F;&#x2F;pypi.tuna.tsinghua.edu.cn&#x2F;simple</span><br></pre></td></tr></table></figure><h3 id="6-Visual-Studio-Code老是提示安装pylint"><a href="#6-Visual-Studio-Code老是提示安装pylint" class="headerlink" title="6. Visual Studio Code老是提示安装pylint"></a>6. Visual Studio Code老是提示安装pylint</h3><p>如上，一般是网速问题。pip手工安装一下。</p><h3 id="7-Visual-Studio-Code中看不到三角形运行符号"><a href="#7-Visual-Studio-Code中看不到三角形运行符号" class="headerlink" title="7. Visual Studio Code中看不到三角形运行符号"></a>7. Visual Studio Code中看不到三角形运行符号</h3><p>情况1： 学生创建的程序文件扩展名不对，不是.py。</p><p>情况2： 学生没联网，或者没注意到Visual Studio Code安装Python扩展的提示，手工安装Python扩展，重启Visual Studio Code.</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Python </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>简洁的C及C++</title>
       <link href="/2020/09/C-CppBook/"/>
       <url>/2020/09/C-CppBook/</url>
