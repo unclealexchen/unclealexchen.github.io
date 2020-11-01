@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>如何在PTA上使用《Python编程基础及应用》一书的习题？</title>
+      <link href="/2020/11/usepta/"/>
+      <url>/2020/11/usepta/</url>
+      
+        <content type="html"><![CDATA[<p>如何在PTA上使用《Python编程基础及应用》一书的习题？</p><a id="more"></a><ol><li><p>进入<a href="https://pintia.cn/" target="_blank" rel="noopener">https://pintia.cn/</a> ，  注册， 然后向浙江大学陈越老师（<a href="mailto:chenyue@zju.edu.cn">chenyue@zju.edu.cn</a>）发送邮件，证明教师身份，获限教师权限（可顺便提及由重庆大学陈老师推荐）。</p></li><li><p>创建用户组</p><p><img src="/images/image-20201101212518901.png" alt="image-20201101212518901"></p></li><li><p>编辑用户组，使用邀请码功能邀请你的学生加入用户组，可以一个教学班创建一个用户组。</p><p><img src="/images/image-20201101212654347.png" alt="image-20201101212654347"></p></li></ol><ol start="3"><li><p>我的题目集 - 创建题目集，选择默认题目集； （可以把题目集视为一次作业）</p><p><img src="/images/image-20201101212758994.png" alt="image-20201101212758994"></p></li></ol><ol start="4"><li><p>设置题目集的基本信息，其中，编译器建议只选 Python(Python3)， 创建。</p></li><li><p>在题目集- 授权页将题目集授权给对应的用户组。</p></li><li><p>在题目集- 题目列表中， 对编程题 点 + 号，并使用Python编程及基础进行搜索，即可找到本书的习题并加入题目集。</p></li></ol><p><img src="/images/image-20201101213159816.png" alt="image-20201101213159816"></p><p>注意：本书的习题包括多选，填空，函数，编程等各种类型，请分别搜索添加。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Python </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Python解释器，Visual Studio Code，库安装中的常见问题及解决办法</title>
       <link href="/2020/10/pipissue/"/>
       <url>/2020/10/pipissue/</url>

@@ -5,8 +5,6 @@
   <!-- SEO相关 -->
   
     
-      <meta name="robots" content="noindex,follow">
-    
   
   <!-- 渲染优化 -->
   <meta name="renderer" content="webkit">
@@ -18,8 +16,12 @@
 
   <!-- 页面元数据 -->
   
-    <title>标签：Python - Python,C/C++ Club</title>
+    <title>如何在PTA上使用《Python编程基础及应用》一书的习题？ - Python,C/C++ Club</title>
   
+    <meta name="keywords" content="Python">
+  
+  
+    <meta name="description" content="如何在PTA上使用《Python编程基础及应用》一书的习题？">
   
 
   <!-- feed -->
@@ -83,90 +85,7 @@
 
 <body>
   
-  <div class="cover-wrapper">
-    <cover class='cover  half'>
-      
-        
-  <p class="title ">Codelearn</p>
-  
-    <p class="subtitle ">分享Python,C/C++相关的技术文章, 海洋饼干叔叔@重庆大学</p>
-  
-
-
-  <div class="m_search">
-    <form name="searchform" class="form u-search-form">
-      <i class="icon fas fa-search fa-fw"></i>
-      <input type="text" class="input u-search-input" placeholder="搜索文档" />
-    </form>
-  </div>
-
-<div class='menu navigation'>
-  <ul class='h-list'>
-    
-      
-        <li>
-          <a class="nav home "
-            href="/about/"
-            
-            
-            id="about">
-            <i class='fas fa-bullhorn fa-fw'></i>&nbsp;公告
-          </a>
-        </li>
-      
-        <li>
-          <a class="nav home "
-            href="/"
-            
-            
-            id="home">
-            <i class='fas fa-globe-asia fa-fw'></i>&nbsp;主页
-          </a>
-        </li>
-      
-        <li>
-          <a class="nav home "
-            href="http://www.bilibili.com/video/av34586138/"
-            
-            
-              target="_blank"
-            
-            id="http:www.bilibili.comvideoav34586138">
-            <i class='fas fa-book fa-fw'></i>&nbsp;从C到C++
-          </a>
-        </li>
-      
-        <li>
-          <a class="nav home "
-            href="http://www.bilibili.com/video/av34409478"
-            
-              rel="external nofollow noopener noreferrer"
-            
-            
-              target="_blank"
-            
-            id="http:www.bilibili.comvideoav34409478">
-            <i class='fas fa-book fa-fw'></i>&nbsp;Python编程基础及应用
-          </a>
-        </li>
-      
-        <li>
-          <a class="nav home "
-            href="/thanks/"
-            
-            
-            id="thanks">
-            <i class='fas fa-handshake fa-fw'></i>&nbsp;鸣谢
-          </a>
-        </li>
-      
-    
-  </ul>
-</div>
-
-      
-    </cover>
-    <header class="l_header nav-blur">
+  <header class="l_header nav-blur">
   <div id="loading-bar-wrapper">
     <div id="loading-bar"></div>
   </div>
@@ -340,26 +259,18 @@
 	</aside>
 <script>setLoadingBarProgress(40);</script>
 
-  </div>
 
 
-  <div class="l_body">
+  <div class="l_body nocover">
     <div class='body-wrapper'>
       
 
-
 <div class='l_main'>
   
-    
-      
-  <section class="post-list ">
-    
-    
-      
-        
-          <div class='post-wrapper'>
-            <article class="post white-box   reveal ">
+
   
+    <article id="post" class="post white-box   article-type-post" itemscope itemprop="blogPost">
+      
 
 
   <section class='meta'>
@@ -368,11 +279,13 @@
     <div class="meta" id="header-meta">
       
         
-  <h2 class="title">
-    <a href="/2019/02/pyslice/">
-      深入讨论Python中的序列切片语法
-    </a>
-  </h2>
+  
+    <h1 class="title">
+      <a href="/2020/11/usepta/">
+        如何在PTA上使用《Python编程基础及应用》一书的习题？
+      </a>
+    </h1>
+  
 
 
       
@@ -395,7 +308,7 @@
             <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-edit" aria-hidden="true"></i>
-    <p>发布于：2019年2月11日</p>
+    <p>发布于：2020年11月1日</p>
   </a>
 </div>
 
@@ -416,486 +329,198 @@
         
           
             
-
-          
-        
-      </div>
-      
-        <hr>
-      
-    </div>
-  </section>
-
-
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      <p>本小节深入探讨Python中的序列切片语法。<br>切片-slicing可以获取序列的子序列（列表，字符串…)：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">numbers = [x <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">10</span>)]</span><br><span class="line">print(<span class="string">"numbers:"</span>,numbers)</span><br><span class="line">print(<span class="string">"numbers[3:9]:"</span>,numbers[<span class="number">3</span>:<span class="number">9</span>])</span><br><span class="line">print(<span class="string">"numbers[3:]:"</span>,numbers[<span class="number">3</span>:])</span><br><span class="line">print(<span class="string">"numbers[:9]:"</span>,numbers[:<span class="number">9</span>])</span><br><span class="line">print(<span class="string">"numbers[-6:-1]:"</span>,numbers[<span class="number">-6</span>:<span class="number">-1</span>])</span><br><span class="line">print(<span class="string">"numbers[1:9:2]:"</span>,numbers[<span class="number">1</span>:<span class="number">9</span>:<span class="number">2</span>])</span><br><span class="line">print(<span class="string">"numbers[-1:1:-2]:"</span>,numbers[<span class="number">-1</span>:<span class="number">1</span>:<span class="number">-2</span>])</span><br></pre></td></tr></table></figure>
-      
-        
-          <div class="button readmore">
-            <a href="/2019/02/pyslice/" class="flat-box">
-              <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-              阅读全文
-            </a>
-          </div>
-        
-      
-    </div>
-    <!-- 
-      <div class="full-width auto-padding tags">
-        
-          <a href="/tags/Python/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> Python</a>
-        
-          <a href="/tags/%E5%88%87%E7%89%87/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> 切片</a>
-        
-      </div>
-     -->
-  </section>
-</article>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <article class="post white-box   reveal ">
   
-
-
-  <section class='meta'>
-    
-    
-    <div class="meta" id="header-meta">
-      
-        
-  <h2 class="title">
-    <a href="/2019/02/pynamebinding/">
-      深入理解Python的数据类型及名字绑定
-    </a>
-  </h2>
-
-
-      
-      <div class='new-meta-box'>
-        
-          
-        
-          
-            
-<div class='new-meta-item author'>
-  <a href="https://codelearn.club" rel="nofollow">
-    <img src="https://codelearn.club/images/author.png">
-    <p>海洋饼干叔叔</p>
-  </a>
-</div>
-
-          
-        
-          
-            <div class="new-meta-item date">
-  <a class='notlink'>
-    <i class="fas fa-edit" aria-hidden="true"></i>
-    <p>发布于：2019年2月11日</p>
-  </a>
-</div>
-
-          
-        
-          
-            
-  
-  <div class='new-meta-item category'>
-    <a href='/categories/Python/' rel="nofollow">
-      <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>Python</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            
-
-          
-        
-      </div>
-      
-        <hr>
-      
-    </div>
-  </section>
-
-
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      <p>​    本小节深入讨论Python中的数据类型与名字绑定的关系，了解赋值过程的内部细节。</p>
-      
-        
-          <div class="button readmore">
-            <a href="/2019/02/pynamebinding/" class="flat-box">
-              <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-              阅读全文
-            </a>
-          </div>
-        
-      
-    </div>
-    <!-- 
-      <div class="full-width auto-padding tags">
-        
-          <a href="/tags/Python/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> Python</a>
-        
-          <a href="/tags/%E5%90%8D%E5%AD%97%E7%BB%91%E5%AE%9A/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> 名字绑定</a>
-        
-      </div>
-     -->
-  </section>
-</article>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <article class="post white-box   reveal ">
-  
-
-
-  <section class='meta'>
-    
-    
-    <div class="meta" id="header-meta">
-      
-        
-  <h2 class="title">
-    <a href="/2019/01/imagesconcatenate/">
-      使用numpy进行9宫格图像拼接
-    </a>
-  </h2>
-
-
-      
-      <div class='new-meta-box'>
-        
-          
-        
-          
-            
-<div class='new-meta-item author'>
-  <a href="https://codelearn.club" rel="nofollow">
-    <img src="https://codelearn.club/images/author.png">
-    <p>海洋饼干叔叔</p>
-  </a>
-</div>
-
-          
-        
-          
-            <div class="new-meta-item date">
-  <a class='notlink'>
-    <i class="fas fa-edit" aria-hidden="true"></i>
-    <p>发布于：2019年1月20日</p>
-  </a>
-</div>
-
-          
-        
-          
-            
-  
-  <div class='new-meta-item category'>
-    <a href='/categories/Python/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/' rel="nofollow">
-      <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>Python&nbsp;/&nbsp;图像处理</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            
-
-          
-        
-      </div>
-      
-        <hr>
-      
-    </div>
-  </section>
-
-
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      <p>本节内容要用到opencv-python模块，请先行安装。本例程中使用到的图片保存在pictures子目录下。本例的任务是要将9张JPG格式图片按三行三列拼接成下述九宫格。</p>
-      
-        
-          <div class="button readmore">
-            <a href="/2019/01/imagesconcatenate/" class="flat-box">
-              <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-              阅读全文
-            </a>
-          </div>
-        
-      
-    </div>
-    <!-- 
-      <div class="full-width auto-padding tags">
-        
-          <a href="/tags/Python/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> Python</a>
-        
-          <a href="/tags/numpy/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> numpy</a>
-        
-          <a href="/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> 图像处理</a>
-        
-          <a href="/tags/OpenCV/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> OpenCV</a>
-        
-      </div>
-     -->
-  </section>
-</article>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <article class="post white-box   reveal ">
-  
-
-
-  <section class='meta'>
-    
-    
-    <div class="meta" id="header-meta">
-      
-        
-  <h2 class="title">
-    <a href="/2019/01/python-mandelbrot/">
-      Python, Cython绘制美妙绝伦的Mandelbrot集, 曼德博集分形图案
-    </a>
-  </h2>
-
-
-      
-      <div class='new-meta-box'>
-        
-          
-        
-          
-            
-<div class='new-meta-item author'>
-  <a href="https://codelearn.club" rel="nofollow">
-    <img src="https://codelearn.club/images/author.png">
-    <p>海洋饼干叔叔</p>
-  </a>
-</div>
-
-          
-        
-          
-            <div class="new-meta-item date">
-  <a class='notlink'>
-    <i class="fas fa-edit" aria-hidden="true"></i>
-    <p>发布于：2019年1月19日</p>
-  </a>
-</div>
-
-          
-        
-          
-            
-  
-  <div class='new-meta-item category'>
-    <a href='/categories/Python/%E5%88%86%E5%BD%A2/' rel="nofollow">
-      <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>Python&nbsp;/&nbsp;数学之美&nbsp;/&nbsp;分形</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            
-
-          
-        
-      </div>
-      
-        <hr>
-      
-    </div>
-  </section>
-
-
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      <p>上世纪60-70年代，美籍数学家曼德博 - Benoit B. Mandelbrot几乎单枪匹马的创立了一个新的数学分支，即分形几何学 - fractal geometry。这个新的数学分支有助于人类探索物理现象背后的数学规律，分形混沌之旋风，横扫数学、理化、生物、大气、海洋以至社会学科，在音乐、美术领域也产生了一定的影响。</p>
-      
-        
-          <div class="button readmore">
-            <a href="/2019/01/python-mandelbrot/" class="flat-box">
-              <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-              阅读全文
-            </a>
-          </div>
-        
-      
-    </div>
-    <!-- 
-      <div class="full-width auto-padding tags">
-        
-          <a href="/tags/Python/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> Python</a>
-        
-          <a href="/tags/Mandelbrot/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> Mandelbrot</a>
-        
-          <a href="/tags/%E5%88%86%E5%BD%A2%E6%95%B0%E5%AD%A6/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> 分形数学</a>
-        
-          <a href="/tags/%E6%9B%BC%E5%BE%B7%E5%8D%9A%E9%9B%86/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> 曼德博集</a>
-        
-          <a href="/tags/Cython/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> Cython</a>
-        
-      </div>
-     -->
-  </section>
-</article>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <article class="post white-box   reveal ">
-  
-
-
-  <section class='meta'>
-    
-    
-    <div class="meta" id="header-meta">
-      
-        
-  <h2 class="title">
-    <a href="/2019/01/python-buildtree/">
-      实践 - 使用Python画一棵递归分形树
-    </a>
-  </h2>
-
-
-      
-      <div class='new-meta-box'>
-        
-          
-        
-          
-            
-<div class='new-meta-item author'>
-  <a href="https://codelearn.club" rel="nofollow">
-    <img src="https://codelearn.club/images/author.png">
-    <p>海洋饼干叔叔</p>
-  </a>
-</div>
-
-          
-        
-          
-            <div class="new-meta-item date">
-  <a class='notlink'>
-    <i class="fas fa-edit" aria-hidden="true"></i>
-    <p>发布于：2019年1月19日</p>
-  </a>
-</div>
-
-          
-        
-          
-            
-  
-  <div class='new-meta-item category'>
-    <a href='/categories/Python/%E5%88%86%E5%BD%A2/' rel="nofollow">
-      <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>Python&nbsp;/&nbsp;数学之美&nbsp;/&nbsp;分形</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            
-
-          
-        
-      </div>
-      
-        <hr>
-      
-    </div>
-  </section>
-
-
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      <p>本实践中，作者要介绍用Python在Tkinter上画一棵树的方法。通过本实践，读者可以：练习面向对象的程序设计方法；了解生成器的使用方法；运用递归函数；了解Tkinter画图的基本方法；以及学习“树”这种重要的数据结构。</p>
-      
-        
-          <div class="button readmore">
-            <a href="/2019/01/python-buildtree/" class="flat-box">
-              <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-              阅读全文
-            </a>
-          </div>
-        
-      
-    </div>
-    <!-- 
-      <div class="full-width auto-padding tags">
-        
-          <a href="/tags/Python/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> Python</a>
-        
-          <a href="/tags/%E5%88%86%E5%BD%A2%E6%95%B0%E5%AD%A6/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> 分形数学</a>
-        
-          <a href="/tags/%E9%80%92%E5%BD%92/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> 递归</a>
-        
-          <a href="/tags/%E6%A0%91/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> 树</a>
-        
-          <a href="/tags/Tkinter/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> Tkinter</a>
-        
-      </div>
-     -->
-  </section>
-</article>
-
-          </div>
-        
-      
-    
-  </section>
-  
-    
-      <br>
-      <div class="prev-next">
-        
-          <a class="prev" rel="prev" href="/tags/Python/page/3/">
-            <section class="post prev white-box  widget-blur" >
-              <i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页&nbsp;
-            </section>
-          </a>
-        
-        <p class="current">
-          4 / 4
+    <div class="new-meta-item browse busuanzi">
+      <a class='notlink'>
+        <i class="fas fa-eye" aria-hidden="true"></i>
+        <p>
+          <span id="busuanzi_value_page_pv">
+            <i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i>
+          </span>
         </p>
+      </a>
+    </div>
+  
+
+
+          
         
       </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          
+          <p>如何在PTA上使用《Python编程基础及应用》一书的习题？</p>
+<a id="more"></a>
+
+
+
+<ol>
+<li><p>进入<a href="https://pintia.cn/" target="_blank" rel="noopener">https://pintia.cn/</a> ，  注册， 然后向浙江大学陈越老师（<a href="mailto:chenyue@zju.edu.cn">chenyue@zju.edu.cn</a>）发送邮件，证明教师身份，获限教师权限（可顺便提及由重庆大学陈老师推荐）。</p>
+</li>
+<li><p>创建用户组</p>
+<p><img src="/images/image-20201101212518901.png" alt="image-20201101212518901"></p>
+</li>
+<li><p>编辑用户组，使用邀请码功能邀请你的学生加入用户组，可以一个教学班创建一个用户组。</p>
+<p><img src="/images/image-20201101212654347.png" alt="image-20201101212654347"></p>
+</li>
+</ol>
+<ol start="3">
+<li><p>我的题目集 - 创建题目集，选择默认题目集； （可以把题目集视为一次作业）</p>
+<p><img src="/images/image-20201101212758994.png" alt="image-20201101212758994"></p>
+</li>
+</ol>
+<ol start="4">
+<li><p>设置题目集的基本信息，其中，编译器建议只选 Python(Python3)， 创建。</p>
+</li>
+<li><p>在题目集- 授权页将题目集授权给对应的用户组。</p>
+</li>
+<li><p>在题目集- 题目列表中， 对编程题 点 + 号，并使用Python编程及基础进行搜索，即可找到本书的习题并加入题目集。</p>
+</li>
+</ol>
+<p><img src="/images/image-20201101213159816.png" alt="image-20201101213159816"></p>
+<p>注意：本书的习题包括多选，填空，函数，编程等各种类型，请分别搜索添加。</p>
+
+          
+        </div>
+        
+          <br>
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-11-01T21:35:06+08:00">
+  <a class='notlink'>
+    <i class="fas fa-save" aria-hidden="true"></i>
+    <p>更新于：2020年11月1日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Python/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;<p>Python</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
     
-    <!-- 根据主题中的设置决定是否在archive中针对摘要部分的MathJax公式加载mathjax.js文件 -->
+      
+        <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=http://codelearn.club/2020/11/usepta/&title=如何在PTA上使用《Python编程基础及应用》一书的习题？ | Python,C/C++ Club&pics=https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/avatar/avatar.png&summary=如何在PTA上使用《Python编程基础及应用》一书的习题？"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qq.png">
+          
+        </a>
+      
     
+      
+        <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://codelearn.club/2020/11/usepta/&title=如何在PTA上使用《Python编程基础及应用》一书的习题？ | Python,C/C++ Club&pics=https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/avatar/avatar.png&summary=如何在PTA上使用《Python编程基础及应用》一书的习题？"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qzone.png">
+          
+        </a>
+      
     
-      <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+      
+        <a class='qrcode' rel="external nofollow noopener noreferrer" href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACLUlEQVR42u3ay27CQAwF0P7/T1OpK6SW5NoOUnHOrJAgyZwszPjx9RWvx896/vy8jq/6fe3xt8f3HC0MDIyPZTwOV+8Br7ZefTXJ3jAwMO7DyB/z6qoecv4KMDAwMJJbJ4fFPHRiYGBgzBm95LZ6EMTAwMDoJbFJmex9V12Wi2NgYHwgY1I+e/fnt/c3MDAw/j3jUVy9NuekORrtCgMDYzUjP6LlwTcv+k9Cf3TCxcDAWMHIN500A6rp6FWtCAwMjN2MPCz2RiuqIxrJdgvpLgYGxgrGZNyhCk6elae1GBgYd2PkF+QBsTdC0TwUYmBgrGa8r3yWp6x5U/NkbxgYGEsZ+aGwN5KVF+OS358ksRgYGEsZ+UGtOjZRDcHVa0/+NzAwMJYyqkls3oycfFsOuBgYGLdkTBoDvYGM3nAGBgbGVsZ8qGueBlcLdiedWAwMjHWMJFntpa/zu/X+ADAwMPYxCoEsL3sVm5TVkIqBgXE3RrWInzcd87GwJM/uFfUwMDB2MCahs1ogm6TEo1wcAwNjHaMXdo83elUyfJLEYmBgLGXkzcj81tUUNE9Ky6U3DAyMFYxHcU1ajNUUNy/VYWBg7Gbkq7rRq8Yv8rthYGDsZlSL+8fvIC+ZVXkYGBgY1Sbi8YPzw98klY3ashgYGDdjzI99vdGxqFSHgYGBURzLqAbi6sDHH7/EwMC4AWNyvOttIm9tRqEcAwNjNaPaGOht66omRBOAgYHxqYxv7r9lq7KrepoAAAAASUVORK5CYII='>
+        
+          <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/wechat.png">
+        
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=http://codelearn.club/2020/11/usepta/&title=如何在PTA上使用《Python编程基础及应用》一书的习题？ | Python,C/C++ Club&pics=https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/avatar/avatar.png&summary=如何在PTA上使用《Python编程基础及应用》一书的习题？"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+            
+              <section class="next">
+                <span class="art-item-right" aria-hidden="true">
+                  <h4>
+                    <a href="/2020/10/pipissue/" rel="prev" title="Python解释器，Visual Studio Code，库安装中的常见问题及解决办法">
+                      
+                        Python解释器，Visual Studio Code，库安装中的常见问题及解决办法
+                      
+                      <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                    </a>
+                  </h4>
+                  
+                    
+                    <h6 class="tags">
+                      <a class="tag" href="/tags/Python/"><i class="fas fa-tag" aria-hidden="true"></i> Python</a>&nbsp;
+                    </h6>
+                  
+                </span>
+              </section>
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+  <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
     "HTML-CSS": {
@@ -932,13 +557,17 @@
   src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 
-    
-
-  
 
 
-    
-  
+
+  <script>
+    window.subData = {
+      title: '如何在PTA上使用《Python编程基础及应用》一书的习题？',
+      tools: true
+    }
+  </script>
+
+
 </div>
 <aside class='l_side'>
   
@@ -1079,6 +708,14 @@
     
   </div>
 </section>
+
+    
+  
+    
+      
+      
+
+
 
     
   
