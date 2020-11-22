@@ -16,12 +16,12 @@
 
   <!-- 页面元数据 -->
   
-    <title>在线OJ答题指南 - Python语言版 - Python,C/C++ Club</title>
+    <title>汉诺塔递归算法/搬金盘的婆罗门 - Python实现 - Python,C/C++ Club</title>
   
     <meta name="keywords" content="Python">
   
   
-    <meta name="description" content="现在很多大学都使用在线OJ给学生布置编程作业，甚至考试。理由有二：1. 教师节省了评阅作业的时间；2. 强迫学生进行编程练习。初学者因为不理解OJ的运作机制，常常遭受”我觉得我对，但OJ老判我错“的困局。本文试图帮助初学者理解OJ的运作机制。">
+    <meta name="description" content="汉诺塔递归算法/搬金盘的婆罗门 - Python实现">
   
 
   <!-- feed -->
@@ -281,8 +281,8 @@
         
   
     <h1 class="title">
-      <a href="/2020/11/pyoj/">
-        在线OJ答题指南 - Python语言版
+      <a href="/2020/11/pyhanoi/">
+        汉诺塔递归算法/搬金盘的婆罗门 - Python实现
       </a>
     </h1>
   
@@ -308,7 +308,7 @@
             <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-edit" aria-hidden="true"></i>
-    <p>发布于：2020年11月8日</p>
+    <p>发布于：2020年11月22日</p>
   </a>
 </div>
 
@@ -356,84 +356,124 @@
       <section class="article typo">
         <div class="article-entry" itemprop="articleBody">
           
-          <p>现在很多大学都使用在线OJ给学生布置编程作业，甚至考试。理由有二：1. 教师节省了评阅作业的时间；2. 强迫学生进行编程练习。初学者因为不理解OJ的运作机制，常常遭受”我觉得我对，但OJ老判我错“的困局。本文试图帮助初学者理解OJ的运作机制。</p>
+          <p>汉诺塔递归算法/搬金盘的婆罗门 - Python实现</p>
 <a id="more"></a>
 
 
 
-<h3 id="1-什么是OJ"><a href="#1-什么是OJ" class="headerlink" title="1. 什么是OJ"></a>1. 什么是OJ</h3><p>Online Judge，简称OJ, 是一种在线判题系统。常见的有：</p>
+<blockquote>
+<p>版权声明</p>
+<p>本文节选自作者本人的图书《Python编程基础及应用》，高等教育出版社。本文<strong>可以</strong>在互联网上自由转载，但必须：注明出处(作者：海洋饼干叔叔)并包含指向本页面的链接。本文<strong>不可以</strong>以纸质出版为目的进行改编、摘抄。本书同名免费MOOC<a href="https://www.bilibili.com/video/BV1kt411R7uW/" target="_blank" rel="noopener"><strong>《Python编程基础及应用》</strong></a>在哔哩哔哩（B站）热播，作者带着你学。</p>
+</blockquote>
+<h3 id="17-1-汉诺塔问题"><a href="#17-1-汉诺塔问题" class="headerlink" title="17.1 汉诺塔问题"></a>17.1 汉诺塔问题</h3><p>法国数学家爱德华·卢卡斯曾转述过一个印度的古老传说：在世界中心贝拿勒斯（在印度北部）的圣庙里，一块黄铜板上插着三根金刚石柱。印度教的主神梵天在创造世界的时候，在其中一根石柱上从下到上的穿好了由大到小的64块金盘，这就是所谓的汉诺塔 - Hanoi Tower。</p>
+<p>按照梵天的命令，不论白天黑夜，总有一个婆罗门僧侣在按照下面的规则移动这些金盘：一次只移动一个盘，不管在哪根柱上，小盘必须在大盘上面。僧侣们预言，当所有的金盘都从梵天穿好的那根柱上移到另外一根柱上时，世界就将在一声霹雳中消灭，而梵塔、庙宇和众生也都将同归于尽。</p>
+<p>​    </p>
+<h4 id="17-1-1-求解"><a href="#17-1-1-求解" class="headerlink" title="17.1.1 求解"></a>17.1.1 求解</h4><p>如下图所示的5个盘的汉诺塔问题，其<strong>总任务</strong>是<strong>将A柱上的n = 5个盘移至C柱</strong>。要实现这个总任务并且保证移盘过程中小盘始终在大盘上面，整个过程分三步实现。第1步：我们必须先将n - 1 = 4个黑盘从A柱移至B柱。在第1步的执行过程当中，为了保证规则的贯彻，显然，必须借助于C柱作为中转柱才能完成。</p>
+<p>第1步所做的工作可描述为：<strong>借助中转柱C， 将n-1=4个盘从A移至B</strong>。</p>
+<p><img src="/images/1542444136655-1606028326147.png" alt="1542444136655"></p>
+<p>​    现在，最大的白盘在A柱上，C柱是空的。可实施第2步：<strong>将A柱上的大盘取下，移至C柱</strong>。</p>
+<p><img src="/images/1542445466353-1606028326148.png" alt="1542445466353"></p>
+<p>接下来，我们要做的是第3步: <strong>借助中转柱A，将B柱上的n - 1 = 4个盘移至C柱</strong>。此时，C柱上虽然已经有了一个盘，但由于此盘是最大的，所以只要移动过程中不搬动C柱上的原有大盘，可以忽略其存在。</p>
+<p>​    <img src="/images/1542445960115-1606028326148.png" alt="1542445960115"></p>
+<p>现在，我们试图总结一下总任务及其三个子任务：</p>
 <table>
 <thead>
 <tr>
-<th><img src="/images/a1.jpg" alt="a1"></th>
-<th><img src="/images/a2.jpg" alt="a2"></th>
-<th><img src="/images/a3.jpg" alt="a3"></th>
+<th>总任务:   将 n = 5个盘从A柱移至C柱，以B柱为中转柱</th>
 </tr>
 </thead>
 <tbody><tr>
-<td></td>
-<td></td>
-<td></td>
+<td>- 子任务1:   将 n - 1 = 4个盘从A柱移至B柱，以C柱为中转柱；</td>
+</tr>
+<tr>
+<td>- 子任务2:  将A柱上的大盘移至C柱；</td>
+</tr>
+<tr>
+<td>- 子作务3：将n - 1 = 4个盘从B柱移至C柱，以A柱为中转柱。</td>
 </tr>
 </tbody></table>
-<p>​    还有LeetCode/力扣之类， 本文以浙大背景的pintia.cn为基础进行说明。</p>
-<h3 id="2-OJ如何判题"><a href="#2-OJ如何判题" class="headerlink" title="2. OJ如何判题"></a>2. OJ如何判题</h3><p>我们以下题为例进行说明。该题要求从键盘以固定格式读入人的体重，身高，计算BMI, 然后根据不同的BMI值，给出判定结果，判定结果应为超轻/标准/超重/肥胖之一。</p>
-<p><img src="/images/image-20201108200030028.png" alt="image-20201108200030028"></p>
-<p>当答题者提交程序后，OJ会在服务器上使用你选择的编译器编译并运行答题者提交的程序，并：</p>
-<ol>
-<li>将命题者设定好的测试输入<strong>提供</strong>给答题者的程序作为输入（答题者程序通过input()函数获取这些输入）。</li>
-<li>获取答题者程序的输出（通常是答题者程序通过print()函数输出的），并将该输出与命题者提供的标准答案进行比较，如果完全一致，则判定该测试点通过，否则判定失败。 </li>
-<li>观察答题者程序的内存消耗，运行时间等情况，如果超出设定，即判错。</li>
-</ol>
-<p>在该题中，命题者设置了两个测试点，分别是：</p>
+<p>不难看出，除了柱子不同，子任务3同子任务1所做的工作是一样的，都是把 n - 1 个盘从一个柱移至另一个柱。同时，子任务1，3与总任务之间也极其相似，除了需要移动的盘子数量差异外。</p>
+<p>我们称，将n - 1个盘子从A移至B的汉诺塔问题，与原问题 - 即“将n个盘子从A移至C的汉诺塔问题”的性质完全相同，区别仅在于问题的规模 - 需要移动的盘子数量稍小。我也称为前者是原问题的子问题。</p>
+<p>如果我们能将n - 1 = 4个盘子从A移至B，从B移至Ｃ，那么n = 5个盘子的汉诺塔问题可解。那么如何求解4个盘子的汉诺塔问题呢？ 聪明的读者已经有了答案。</p>
 <table>
 <thead>
 <tr>
-<th>编号</th>
-<th>输入</th>
-<th>期望输出</th>
+<th>子问题:   将 n’ = 4个盘从A柱移至B柱，以C柱为中转柱</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>1</td>
-<td>70,1.75</td>
-<td>标准</td>
+<td>- 子子问题1:   将 n’ - 1 = 3个盘从A柱移至C柱，以B柱为中转柱；</td>
 </tr>
 <tr>
-<td>2</td>
-<td>55,1.2</td>
-<td>肥胖</td>
+<td>- 简单任务:  将A柱上的大盘移至B柱；</td>
+</tr>
+<tr>
+<td>- 子子问题2：将n’ - 1 = 3个盘从C柱移至B柱，以A柱为中转柱。</td>
 </tr>
 </tbody></table>
-<p>说明：测试点的输入及输出答题者在OJ网站上是看不到的，如果答题者能够看到测试输入和输出，则可以造假。</p>
-<p>我们编写了下述程序并提交：</p>
-<p><img src="/images/image-20201108203826672.png" alt="image-20201108203826672"></p>
-<p>OJ将两次运行我们提交的程序，提供输入并检查输出，检查后认为程序得到了正确的执行结果，判定为通过/答案正确。</p>
-<p><img src="/images/image-20201108204129323.png" alt="image-20201108204129323"></p>
-<h3 id="3-新手常犯的错"><a href="#3-新手常犯的错" class="headerlink" title="3. 新手常犯的错"></a>3. 新手常犯的错</h3><h4 id="3-1-固定输入内容"><a href="#3-1-固定输入内容" class="headerlink" title="3.1 固定输入内容"></a>3.1 固定输入内容</h4><p>部分新手认为程序的输入“固定”为题目中的输入示例，直接将输入固化在程序中，如下述程序中的第1行。</p>
-<p><img src="/images/image-20201108204453230.png" alt="image-20201108204453230"></p>
-<p>这种程序将会被OJ判错。<strong>程序的输入一定要用input()函数读取</strong>。</p>
-<h4 id="3-2-input-函数内提供提示字符串"><a href="#3-2-input-函数内提供提示字符串" class="headerlink" title="3.2 input()函数内提供提示字符串"></a>3.2 input()函数内提供提示字符串</h4><p>在下述程序中，答题者在input()函数中提供了提示字符串：”请输入体重，身高：”。从程序设计角度，这种做法很体贴，很好，但OJ是机器，它会将该提示字符串视为程序输出的一部分，然后发现程序输出与设定的标准输出不一致，判你错。</p>
-<p><img src="/images/image-20201108204652070.png" alt="image-20201108204652070"></p>
-<h4 id="3-3-输出格式不符合要求"><a href="#3-3-输出格式不符合要求" class="headerlink" title="3.3 输出格式不符合要求"></a>3.3 输出格式不符合要求</h4><p>下述程序中，答题者画蛇添足地在print()函数中增加了“诊断结果：”这几个字。如果是老师人肉判题，不会认为这是错误，但OJ是机器，它管程序的输出与设定的输出是否完全一致。 然后，你就被判错了。 </p>
-<p><img src="/images/image-20201108204933755.png" alt="image-20201108204933755"></p>
-<p>答题时，一定要确保程序的输出内容与要求的格式完全相同，包括内部的空格，空格个数，<strong>中英文符号</strong>等。必要情况下，应从输出示例中复制相关内容。</p>
-<h3 id="4-答题的正确姿势"><a href="#4-答题的正确姿势" class="headerlink" title="4. 答题的正确姿势"></a>4. 答题的正确姿势</h3><p>不要直接在OJ中编写代码！ 应该先在Visual Studio Code、PyCharm这类IDE环境中编写，调试，测试无误后再提交给OJ判题。在进行测试时，肯定要将题目的输入示例作为输入进行测试，观察程序输出是否与输出示例一致！  但这不够，命题者在后台设置的测试点可能十分变态和极端，答题者应自行考虑各种极端输入，并通过测试来验证程序的正确性。</p>
-<h3 id="5-非零返回"><a href="#5-非零返回" class="headerlink" title="5. 非零返回"></a>5. 非零返回</h3><p>程序的每一次运行，都会在结束后向操作系统报错一个值，如果该值为0，意思是说我刚才运行得很成功，很愉快！ 如果该值非0，即意味着程序异常退出。对于Python程序而言，非零返回即意味着你的程序在服务器端的运行发生了异常， 在得到结果前就中断退出了。</p>
-<p>答题者通常感到奇怪，说我的程序我运行过了呀，输入样例输入，可以得到样例输出。 要知道，你的测试，仅能证明程序在该特定输入下正确，并不能证明在所有合法输入下都能正确执行。</p>
-<p>老老实实检查程序，查找缺陷和错误！</p>
-<h3 id="6-说说函数题"><a href="#6-说说函数题" class="headerlink" title="6. 说说函数题"></a>6. 说说函数题</h3><p>函数题并不是要求答题者提交一个完成的程序，它只要求答题者提交一个或多个函数的定义。这些函数接受题目规定的输入，然后返回符合题目要求的值。</p>
-<p><img src="/images/image-20201108210124484.png" alt="image-20201108210124484"></p>
-<p>同样地，在答题者提交了函数代码之后，OJ会将函数代码与裁判测试程序合并（在裁判测试程序中，你的函数将会被调用），然后在服务器上执行，提供输入，并观察程序的输出是否与设定完全一致，从而间接判断你编写的函数代码是否正确。</p>
-<p>实践中，答题者可以将裁判测试程序复制到Visual Studio Code这类的IDE中，再补充编写函数代码，并进行测试。如下图：</p>
-<p><img src="/images/image-20201108210614705.png" alt="image-20201108210614705"></p>
-<p>注意：</p>
-<ol>
-<li><p>在测试通过后，仅提交函数定义部分（本例中为1-5行），而不是整个程序。</p>
-</li>
-<li><p>函数应使用return返回结果，而不是print。</p>
-</li>
-</ol>
+<p>​    下面的图展示了这一过程：</p>
+<p><img src="/images/1542456814315-1606028326148.png" alt="1542456814315"></p>
+<p><img src="/images/1542456843161-1606028326148.png" alt="1542456843161"></p>
+<p>上面的分析可以看出，5盘汉诺塔问题可以通过求解4盘汉诺塔问题来解决，4盘汉诺塔问题可以通过求解3盘汉诺塔问题来解决。同理，3盘汉诺塔问题可以通过求解2盘汉诺塔问题来解决，2盘汉诺塔问题可以通过求解一盘汉诺塔问题来解决。而一盘汉诺塔问题，由于问题的规模足够小，可直接解决：把盘从原柱搬至目标柱即可。所以在前表中，我们称其为“简单任务”。</p>
+<h4 id="17-1-2-递归算法"><a href="#17-1-2-递归算法" class="headerlink" title="17.1.2 递归算法"></a>17.1.2 递归算法</h4><p>根据前一小节描述的算法思想，我们可以写出汉诺塔问题求解的递归算法。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#BasicHanoi.py</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hanoi</span><span class="params">(n, a, b, c)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> n == <span class="number">1</span>:</span><br><span class="line">        movements.append(a + <span class="string">" --&gt; "</span> + c)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        hanoi(n - <span class="number">1</span>, a, c, b)</span><br><span class="line">        movements.append(a + <span class="string">" --&gt; "</span> + c)</span><br><span class="line">        hanoi(n - <span class="number">1</span>, b, a, c)</span><br><span class="line"></span><br><span class="line">movements = []</span><br><span class="line">hanoi(<span class="number">5</span>, <span class="string">'A'</span>, <span class="string">'B'</span>, <span class="string">'C'</span>)</span><br><span class="line">print(<span class="string">"Steps count:"</span>,len(movements))</span><br><span class="line">print(<span class="string">"The first 3 steps are:"</span>, movements[:<span class="number">3</span>])</span><br></pre></td></tr></table></figure>
+
+<p>函数hanoi(n,a,b,c)用于生成以b为中转柱，将n个金盘从a移至c的移盘序列。可以看到，这个递归函数的执行过程跟前节的总任务-子任务分解完全一致。当n == 1时，只有一个盘子，简单任务，直接移盘。如果n &gt; 1，则分解为两个 n - 1 的汉诺塔子问题，以及一个简单移盘任务。子问题的求解以函数递归调用来解决。</p>
+<p>上述代码的执行结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Steps count: 31</span><br><span class="line">The first 3 steps are: [&#39;A --&gt; C&#39;, &#39;A --&gt; B&#39;, &#39;C --&gt; B&#39;]</span><br></pre></td></tr></table></figure>
+
+<p>上述结果表明，5盘汉诺塔问题共需要31次移盘。movements列表中按顺序存储了全部的移盘动作。</p>
+<h4 id="17-1-3-计算复杂性"><a href="#17-1-3-计算复杂性" class="headerlink" title="17.1.3 计算复杂性"></a>17.1.3 计算复杂性</h4><p>使用前小节中的程序，作者尝试计算了n = 5 … 12汉诺塔问题的移盘过程，得到下述移盘次数。</p>
+<table>
+<thead>
+<tr>
+<th>盘数</th>
+<th>所需移盘次数</th>
+<th>评论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>5</td>
+<td>31</td>
+<td>2<sup>5</sup>-1</td>
+</tr>
+<tr>
+<td>6</td>
+<td>63</td>
+<td>2<sup>6</sup>-1</td>
+</tr>
+<tr>
+<td>7</td>
+<td>127</td>
+<td>2<sup>7</sup>-1</td>
+</tr>
+<tr>
+<td>8</td>
+<td>255</td>
+<td>2<sup>8</sup>-1</td>
+</tr>
+<tr>
+<td>…</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>12</td>
+<td>4095</td>
+<td>2<sup>12</sup>-1</td>
+</tr>
+</tbody></table>
+<p>看起来，似乎n个盘的汉诺塔问题的移盘次数为2<sup>n</sup>-1。事实上，对移盘次数的数学分析可以证明这个结论。n盘的汉诺塔求解可以拆分成两个n-1盘的汉诺塔求解再加上1次简单移盘。如果用T(n)来表示n盘汉诺塔的移盘次数的话，函数T(n)可使用下述递归定义。<br>$$<br>T(n) = \begin{cases} 1 &amp; n=1\2T(n-1) + 1 &amp;n&gt;1    \end{cases}<br>$$<br>​    </p>
+<p>我们试着把递归函数消解成非递归函数。<br>$$<br>\begin{aligned} T(n) &amp;= 2T(n-1) + 1 \<br>     &amp;= 2(2T(n-2) + 1) + 1 = 4T(n-2)+2 +1 = 2^2T(n-2) + 2^1 + 2^0\<br>     &amp;= 2^2(2T(n-3)+1)+2^1+2^0 = 2^3T(n-3) + 2^2 + 2^1 + 2^0\<br>     &amp;= … \<br>     &amp;= 2^tT(n-t) + 2^{t-1}+2^{t-2}+…+2^1+2^0\ \end{aligned}<br>$$<br>令t = n - 1，有：<br>$$<br>\begin{aligned}<br>     T(n) &amp;= 2^{n-1}T(1) + 2^{n-2} + 2^{n-3} + … + 2^1+2^0\<br>     &amp;= \sum\limits_{t=0}^{n-1}2^t \&amp;= 2^n-1<br>     \end{aligned}<br>$$<br>故n盘汉诺塔共需移盘2<sup>n</sup>-1次。那么，如果梵天规定的是64个金盘的话，总移动次数则为2<sup>64</sup>-1 = 18446744073709551615。如果婆罗门僧侣是个熟练工，1秒挪一个盘，那么1小时可以移3600个盘，1年可移3600 x 24 x 365 = 31536000个盘(忽略闰年误差）。那么，解64盘汉诺塔问题共需要(2<sup>64</sup>-1)/31536000年，即大约5949亿年。看起来，按照当前的人类知识，印度的古老智慧好像高估了地球的预期寿命。</p>
+<p>读者不要去尝试计算hanoi(64,’A’,’B’,’C’)，显然，在你有限的人生里，是无法完成这件接近“无限”的大事的。而且，因为递归所导致的内存消耗，你有限的计算机内存也排除了这种可能性。</p>
+<p>作者是无神论者，上述探讨基于严谨的数学，作者不相信任何人格化的“上帝 ”。</p>
+<p>本书同名免费MOOC<strong>《Python编程基础及应用》</strong>在哔哩哔哩（B站）热播，点击加入，作者带着你学。</p>
+<hr>
+<iframe src="//player.bilibili.com/player.html?aid=34409478&bvid=BV1kt411R7uW" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" height="400" width="100%"> </iframe>
+
+
+
+<p><img src="/images/pybook.png" alt=""></p>
 
           
         </div>
@@ -446,10 +486,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-11-08T21:27:41+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-11-22T15:03:31+08:00">
   <a class='notlink'>
     <i class="fas fa-save" aria-hidden="true"></i>
-    <p>更新于：2020年11月8日</p>
+    <p>更新于：2020年11月22日</p>
   </a>
 </div>
 
@@ -471,7 +511,7 @@
       
         <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer"
           
-          href="http://connect.qq.com/widget/shareqq/index.html?url=http://codelearn.club/2020/11/pyoj/&title=在线OJ答题指南 - Python语言版 | Python,C/C++ Club&pics=https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/avatar/avatar.png&summary=现在很多大学都使用在线OJ给学生布置编程作业，甚至考试。理由有二：1. 教师节省了评阅作业的时间；2. 强迫学生进行编程练习。初学者因为不理解OJ的运作机制，常常遭受”我觉得我对，但OJ老判我错“的困局。本文试图帮助初学者理解OJ的运作机制。"
+          href="http://connect.qq.com/widget/shareqq/index.html?url=http://codelearn.club/2020/11/pyhanoi/&title=汉诺塔递归算法/搬金盘的婆罗门 - Python实现 | Python,C/C++ Club&pics=https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/avatar/avatar.png&summary=汉诺塔递归算法/搬金盘的婆罗门 - Python实现"
           
           >
           
@@ -483,7 +523,7 @@
       
         <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer"
           
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://codelearn.club/2020/11/pyoj/&title=在线OJ答题指南 - Python语言版 | Python,C/C++ Club&pics=https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/avatar/avatar.png&summary=现在很多大学都使用在线OJ给学生布置编程作业，甚至考试。理由有二：1. 教师节省了评阅作业的时间；2. 强迫学生进行编程练习。初学者因为不理解OJ的运作机制，常常遭受”我觉得我对，但OJ老判我错“的困局。本文试图帮助初学者理解OJ的运作机制。"
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://codelearn.club/2020/11/pyhanoi/&title=汉诺塔递归算法/搬金盘的婆罗门 - Python实现 | Python,C/C++ Club&pics=https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/avatar/avatar.png&summary=汉诺塔递归算法/搬金盘的婆罗门 - Python实现"
           
           >
           
@@ -493,7 +533,7 @@
       
     
       
-        <a class='qrcode' rel="external nofollow noopener noreferrer" href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACKklEQVR42u3aQXLCMAwFUO5/abruMJgvy3Rq+2XFQJroeaHakh6P+Hq+uca/vt757v7X7x/fuDAwMLZlJK8fhzUOIgl0boEwMDBuY7wLK/k8F1yeysexYWBgYFTvWfUNBgYGRp+RvKy/ccTAwMCoHmLHIY6D7mwNF5/FMTAwNmTkVfe///yV/gYGBsZWjGfxSp6QNwM6kfx6JgYGxtGM/hE03yzmT5uMBwMD40pGnkyT14wLbXnbYLJqiIGBsTlj7YBFniITZHUhMDAwzmNUD5bVdmbesMxTbWsfioGBsTmjM7w1t8WcW+IPe1sMDIzjGMlNeVm/vxzjt7f+k2BgYGzLyEfB8kNsFZxT30aIgYFxNCMfesiT8lzCHb+rfMTFwMA4jpEn2bnBi35hLjoMY2BgHM2Yy9CtYdNgs5iQMDAwMOZGwaqBdt67rPSGgYHxjxl507GzTnnarXYzMDAw7mFU+5ydBJoPhyXgVrsWAwNjE8b45yTJJm3FuTvzbzAwMG5gtLZlcektCbfTWsDAwLiBUR0hnSuZVbd6+VJiYGDcwMh3kflBNy+u5am2tbfFwMDYkNEZlciLaHOH20LixsDAOJqRX/3xizys1swIBgbGoYxVoxX5auXFuKQtgYGBcQ+jUIKfKuX3D8YfnoaBgYHRoM4NgeWJGAMDA6NaXKuOaCTJN9qMYmBgXMCojlP0E+7idiYGBsbRjPzPqqX/tQfaBU1NDAyM/Rg/ZQ+yUC+XRVwAAAAASUVORK5CYII='>
+        <a class='qrcode' rel="external nofollow noopener noreferrer" href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACJElEQVR42u3aW27DMAxEUe9/0+4CgtjzUAqIuvoK0EbWcQGWInld8rqFddVr7W4wYMCYxFAO97n150+/PV75rrLzy4uDAQPGAYznxyswZU/9uPrZYMCAAcMOfGYu95wawoABA4bL0B/WBHEYMGDAaC6xz6HWeGQEW3YXhwEDxoYMN437z88/6W/AgAFjK8YdLT2kNq0C4zwwYMAYzXCDoJIOuumjvsPLFRcGDBhDGVmi5h6lD83GmAUMGDDGMfpymxKgs330sTMYMGCcwMiSvL4lsDjDhQEDxgGMZjxLCb7uWIbe1IQBA8YJDKVM745NNP1HnWF3G2DAgLEhw022lCJag8mCMgwYMGYzsrRPH4/IXoHeRn1JDWHAgDGC0Q9+ZalkFuLt6TYYMGCMYOgB1z1i0+Z0Qz8MGDBOYKw6YtaAdMHVbRgGDBjjGM3AVngI81QvXQ4YMGCMYLiJWgPIEkRp2AIGDBhHMtxkzm1t6mU+KWTDgAFjNMMNi27YzV7N88jFy98EBgwY4xjuxVUpkGUvompUwIABYzQjGxhVwqs7tKEU44x6IQwYMAYxbnO51Kxh4BbgYMCAMZvhthL75K8v0l3NggEDxrYM94KaYZr2gzS+BgMGjAMYSoOz//3+f4JxF4cBA8aRjKbQphf67VALAwYMGPJFNCuELSu3wYAB4wBGNkihP0ZvMOg7VHdxGDBgbMVowqIeprOd+4AOAwaMzRl/qcRvhRuD86MAAAAASUVORK5CYII='>
         
           <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/wechat.png">
         
@@ -503,7 +543,7 @@
       
         <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer"
           
-          href="http://service.weibo.com/share/share.php?url=http://codelearn.club/2020/11/pyoj/&title=在线OJ答题指南 - Python语言版 | Python,C/C++ Club&pics=https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/avatar/avatar.png&summary=现在很多大学都使用在线OJ给学生布置编程作业，甚至考试。理由有二：1. 教师节省了评阅作业的时间；2. 强迫学生进行编程练习。初学者因为不理解OJ的运作机制，常常遭受”我觉得我对，但OJ老判我错“的困局。本文试图帮助初学者理解OJ的运作机制。"
+          href="http://service.weibo.com/share/share.php?url=http://codelearn.club/2020/11/pyhanoi/&title=汉诺塔递归算法/搬金盘的婆罗门 - Python实现 | Python,C/C++ Club&pics=https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/avatar/avatar.png&summary=汉诺塔递归算法/搬金盘的婆罗门 - Python实现"
           
           >
           
@@ -527,32 +567,13 @@
         
           <div class="prev-next">
             
-              <section class="prev">
-                <span class="art-item-left">
-                  <h4>
-                    <a href="/2020/11/pyhanoi/" rel="prev" title="汉诺塔递归算法/搬金盘的婆罗门 - Python实现">
-                      <i class="fas fa-chevron-left" aria-hidden="true"></i>
-                      
-                        汉诺塔递归算法/搬金盘的婆罗门 - Python实现
-                      
-                    </a>
-                  </h4>
-                  
-                    
-                    <h6 class="tags">
-                      &nbsp;<a class="tag" href="/tags/Python/"><i class="fas fa-tag" aria-hidden="true"></i> Python</a>
-                    </h6>
-                  
-                </span>
-              </section>
-            
             
               <section class="next">
                 <span class="art-item-right" aria-hidden="true">
                   <h4>
-                    <a href="/2020/11/usepta/" rel="prev" title="如何在PTA上使用《Python编程基础及应用》一书的习题？">
+                    <a href="/2020/11/pyoj/" rel="prev" title="在线OJ答题指南 - Python语言版">
                       
-                        如何在PTA上使用《Python编程基础及应用》一书的习题？
+                        在线OJ答题指南 - Python语言版
                       
                       <i class="fas fa-chevron-right" aria-hidden="true"></i>
                     </a>
@@ -629,7 +650,7 @@
 
   <script>
     window.subData = {
-      title: '在线OJ答题指南 - Python语言版',
+      title: '汉诺塔递归算法/搬金盘的婆罗门 - Python实现',
       tools: true
     }
   </script>
@@ -793,7 +814,7 @@
 
 
     <div class='content'>
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-什么是OJ"><span class="toc-text">1. 什么是OJ</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-OJ如何判题"><span class="toc-text">2. OJ如何判题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-新手常犯的错"><span class="toc-text">3. 新手常犯的错</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-固定输入内容"><span class="toc-text">3.1 固定输入内容</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-input-函数内提供提示字符串"><span class="toc-text">3.2 input()函数内提供提示字符串</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-输出格式不符合要求"><span class="toc-text">3.3 输出格式不符合要求</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-答题的正确姿势"><span class="toc-text">4. 答题的正确姿势</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-非零返回"><span class="toc-text">5. 非零返回</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-说说函数题"><span class="toc-text">6. 说说函数题</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#17-1-汉诺塔问题"><span class="toc-text">17.1 汉诺塔问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#17-1-1-求解"><span class="toc-text">17.1.1 求解</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#17-1-2-递归算法"><span class="toc-text">17.1.2 递归算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#17-1-3-计算复杂性"><span class="toc-text">17.1.3 计算复杂性</span></a></li></ol></li></ol>
     </div>
   </section>
 
