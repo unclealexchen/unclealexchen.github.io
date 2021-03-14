@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Qt Creator中如何以标准方式新建类文件？</title>
+      <link href="/2021/03/qtnewclass/"/>
+      <url>/2021/03/qtnewclass/</url>
+      
+        <content type="html"><![CDATA[<p>为了帮助读者理解如何在项目如何创建新类型所对应的“一对.h及.cpp文件”，我们以Qt Creator为例，进行演示说明。</p><a id="more"></a><p>①. 在Qt Creator中创建一个Non-Qt Project/Plain C++ Application，项目名称为HeaderCpp。</p><p><img src="/images/image-20200314154453537.png" alt="image-20200314154453537"></p><p>②. 鼠标右击项目名称HeaderCpp，在弹出菜单中选择“Add New…”。</p><p><img src="/images/image-20200314154536284.png" alt="image-20200314154536284"></p><p>③. 选择C++, C++ Class，然后再选“Choose…”。</p><p><img src="/images/image-20200314154602264.png" alt="image-20200314154602264"></p><p>④. 类名（Class name）栏中输入Person，然后选“下一步”，接下来选“完成”。</p><p><img src="/images/image-20200314154655035.png" alt="image-20200314154655035"></p><p>⑤. 随会可以看到项目树形列表中Headers文件夹下多了一个名为person.h的文件，Sources文件夹下多了一个名为person.cpp的文件。同时，原有的main.cpp还在。</p><p><img src="/images/image-20200314154801749.png" alt="image-20200314154801749"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> C/C++ </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>《Python编程基础及应用》习题讲解 - www.pintia.cn在线练习本书习题</title>
       <link href="/2021/03/pyex/"/>
       <url>/2021/03/pyex/</url>
