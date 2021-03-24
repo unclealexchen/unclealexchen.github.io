@@ -16,16 +16,13 @@
 
   <!-- 页面元数据 -->
   
-    <title>说说程序中的命名规则 - Python,C/C++ Club</title>
+    <title>教之以事，喻之以德 —— Python代码里的课堂思政 - Python,C/C++ Club</title>
   
-    <meta name="keywords" content="Python,语法">
+    <meta name="keywords" content="Python">
   
   
-    <meta name="description" content="程序里有很多东西需要命名，
-​        良好的命名习惯可以提高编程效率； 减少出错； 
-​        良好命名的程序清晰易读。
-​        好的名称可以提供很多有价值的信息。
-本文解释作者在《Python编程基础及应用》一书中所使用的命名规则。">
+    <meta name="description" content="无论是哪一代的年轻人，都不喜欢听大道理。思政教育，讲究个如盐在水，润物细无声。笔者在重庆大学讲授程序设计课程有些年头了，在课堂内外，除了跟学生聊语法、讲算法、说技术之外，也会悄悄加点作料，“不经意”地做点思政教育。
+————重庆大学计算机学院  陈波">
   
 
   <!-- feed -->
@@ -285,8 +282,8 @@
         
   
     <h1 class="title">
-      <a href="/2019/06/namemethod/">
-        说说程序中的命名规则
+      <a href="/2019/06/pypl/">
+        教之以事，喻之以德 —— Python代码里的课堂思政
       </a>
     </h1>
   
@@ -360,174 +357,56 @@
       <section class="article typo">
         <div class="article-entry" itemprop="articleBody">
           
-          <p>程序里有很多东西需要命名，</p>
-<p>​        良好的命名习惯可以提高编程效率； 减少出错； </p>
-<p>​        良好命名的程序清晰易读。</p>
-<p>​        好的名称可以提供很多有价值的信息。</p>
-<p>本文解释作者在《Python编程基础及应用》一书中所使用的命名规则。</p>
+          <p>无论是哪一代的年轻人，都不喜欢听大道理。思政教育，讲究个如盐在水，润物细无声。笔者在重庆大学讲授程序设计课程有些年头了，在课堂内外，除了跟学生聊语法、讲算法、说技术之外，也会悄悄加点作料，“不经意”地做点思政教育。</p>
+<p>————重庆大学计算机学院  陈波</p>
 <a id="more"></a>
 
-<h2 id="命名示例"><a href="#命名示例" class="headerlink" title="命名示例"></a>命名示例</h2><table>
-<thead>
-<tr>
-<th>变量、类的数据成员</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>iSum      sName    fPrice</td>
-</tr>
-<tr>
-<td></td>
-</tr>
-<tr>
-<td>函数名称</td>
-</tr>
-<tr>
-<td>add()     convert()     del()    empty()    push_back()    pop()</td>
-</tr>
-<tr>
-<td>getPrice()    setPrice()    draw()   render()    repaint()</td>
-</tr>
-<tr>
-<td></td>
-</tr>
-<tr>
-<td>类型名称</td>
-</tr>
-<tr>
-<td>Student      GraphDrawer     Campus    Engine</td>
-</tr>
-<tr>
-<td>FloatBuffer       Lesson    Monitor   Printer   EMailPacket</td>
-</tr>
-</tbody></table>
+<h4 id="1-唯一不变的就是变化本身"><a href="#1-唯一不变的就是变化本身" class="headerlink" title="1. 唯一不变的就是变化本身"></a>1. 唯一不变的就是变化本身</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#ufunc.py</span></span><br><span class="line"><span class="comment">#电费计算：(期末读数 - 期初读数)*单价</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">costCompute</span><span class="params">(iStart, iEnd)</span>:</span></span><br><span class="line">    iConsume = iEnd - iStart</span><br><span class="line">    <span class="keyword">return</span> iConsume*<span class="number">0.85</span></span><br><span class="line"></span><br><span class="line">fElecFee1 = costCompute(<span class="number">1201</span>,<span class="number">1786</span>)</span><br><span class="line">fElecFee2 = costCompute(<span class="number">1322</span>,<span class="number">1423</span>)</span><br><span class="line">print(<span class="string">"Electronic Power Cost of Mr Zhang："</span>,fElecFee1)</span><br><span class="line">print(<span class="string">"Electronic Power Cost of Mr Lee: "</span>,fElecFee2)</span><br></pre></td></tr></table></figure>
+
+<p>在自定义函数那一节， 我们设计了一个“过于简单”的costCompute( )函数，该函数接受电表的期末读数和期初读数作为参数，计算并返回当期应缴电费。</p>
+<p>作为自定义函数的示例，这个函数足够“简单”，适合初学者，bala…bala…  在讲授完形参、实参、跳转、返回，再借助于程序调试向学生演示完函数调用过程后，我们问了学生一个问题：</p>
 <blockquote>
-<p>版权声明</p>
-<p>本文<strong>可以</strong>在互联网上自由转载，但必须：注明出处(作者：海洋饼干叔叔)并包含指向本页面的链接。</p>
-<p>本文<strong>不可以</strong>以纸质出版为目的进行改编、摘抄。</p>
+<p>​    为什么要定义这么一个简单的函数 ？   张家的电费直接用 (1786-1201) * 0.85 难道不香吗？</p>
 </blockquote>
-<h2 id="正确，-错误-vs-好，相对不好，-坏"><a href="#正确，-错误-vs-好，相对不好，-坏" class="headerlink" title="正确， 错误   vs  好，相对不好， 坏"></a>正确， 错误   vs  好，相对不好， 坏</h2><p>只要符合所用语言的命名规则的命名原则上都是“正确”的。</p>
-<p>不同的人有不同的命名习惯。</p>
-<p>没有标准答案，只有主观的好或者相对不好的判断。</p>
-<p>但真的很重要：</p>
-<p>​        良好的命名习惯可以提高编程效率； 减少出错； </p>
-<p>​        良好命名的程序清晰易读。</p>
-<p>​        好的名称可以提供很多有价值的信息。             </p>
-<h2 id="规则1-全程使用英文，不准用拼音"><a href="#规则1-全程使用英文，不准用拼音" class="headerlink" title="规则1    全程使用英文，不准用拼音"></a>规则1    全程使用英文，不准用拼音</h2><table>
-<thead>
-<tr>
-<th>▪KHBH    XH    ZHYE     DQJG - 猜得出这些名称是什么意思吗？</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-</tr>
-<tr>
-<td>sCustomerNo,    sStudentNo    fAccountBalance   fCurrentPrice</td>
-</tr>
-<tr>
-<td></td>
-</tr>
-<tr>
-<td>Too long for you ?</td>
-</tr>
-<tr>
-<td>sCusNo,    sStuNo,  fAccBalance ,   fCurPrice</td>
-</tr>
-</tbody></table>
-<h2 id="规则2-变量-类的数据成员的命名"><a href="#规则2-变量-类的数据成员的命名" class="headerlink" title="规则2    变量/类的数据成员的命名"></a>规则2    变量/类的数据成员的命名</h2><p>类型名缩写(小写）  +   英文单词或其缩写（首字母大写）</p>
-<table>
-<thead>
-<tr>
-<th><strong>类型</strong></th>
-<th><strong>解释</strong></th>
-<th><strong>缩写</strong></th>
-<th><strong>举例</strong></th>
-</tr>
-</thead>
-<tbody><tr>
-<td>float</td>
-<td>浮点数</td>
-<td>f</td>
-<td>fPrice       fSum      fAmount    fScore      fHeight   fWeight</td>
-</tr>
-<tr>
-<td>int</td>
-<td>整数</td>
-<td>i</td>
-<td>iCount /   iCnt       iStudentCount       iWidth   iHeight   iCapacity</td>
-</tr>
-<tr>
-<td>string</td>
-<td>字符串</td>
-<td>s</td>
-<td>sStudentNo         sMemo      sHint     sDiagnostics     sContent       sName</td>
-</tr>
-<tr>
-<td>bool</td>
-<td>布尔型</td>
-<td>b</td>
-<td>bFound       bCaptured       bFull     bHungry      bDied       bMarried         bAvailable</td>
-</tr>
-</tbody></table>
-<p>如果变量表达的是一个集合（数组或者list),  用小写的英文单词的复数形式：</p>
-<p>​    students        members      prices      wheels   teachers   universities     shoes    arms       </p>
-<h2 id="规则3-函数的命名"><a href="#规则3-函数的命名" class="headerlink" title="规则3   函数的命名"></a>规则3   函数的命名</h2><p>一个英文单词：   小写</p>
-<p>add()     convert()      del()      empty()      try()     pop()    push()</p>
-<p>两个英文单词：  第二个单词首字母大写      动+名</p>
-<p>addAmount()        setPrice()        getPrice()</p>
-<p>setEmpty()             pushDown()         riseUp() </p>
-<p>toString()                toDouble()              </p>
-<h2 id="规则4-类型的命名"><a href="#规则4-类型的命名" class="headerlink" title="规则4   类型的命名"></a>规则4   类型的命名</h2><p>由一个或者两个英文单词构成，每个单词的首字母均大写  </p>
-<p>FloatBuffer       PrinterQueue       Student       Lesson</p>
-<p>Movie                  Song                        Employee    </p>
-<p>Team                   Board                      Company </p>
-<p>Supplier             GoldFish                 CellPhone    </p>
-<p>GraphDrawer</p>
-<p>在面向对象程序设计当中，一个文件通常只包括一个类型，通常文件名由类型名 + .  + 扩展名构成:</p>
-<p>Student.py      Company.h   Company.cpp    PrinterQueue.java   </p>
-<h2 id="规则5-例外"><a href="#规则5-例外" class="headerlink" title="规则5   例外"></a>规则5   例外</h2><p>如果有一个临时变量，仅在上下几行局部代码中被使用，用完即弃，可以用小写单字母：(代码阅读者容易通过上下文确定变量的类型和用途)</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">s  = s  + “, Done”</span><br><span class="line">print(s)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">100</span>):</span><br><span class="line">       print(i)</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="当心中文目录及中文文件名"><a href="#当心中文目录及中文文件名" class="headerlink" title="当心中文目录及中文文件名"></a>当心中文目录及中文文件名</h2><p>很多开发环境及软件对中文的支持并不好，永远不要使用任何包含中文的目录或文件名：</p>
-<table>
-<thead>
-<tr>
-<th>示例</th>
-<th>正/误</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>d:/学习资料/python/实验1</td>
-<td>X</td>
-</tr>
-<tr>
-<td>d:/Learing/python/Test1</td>
-<td>√</td>
-</tr>
-</tbody></table>
-<h2 id="忠告"><a href="#忠告" class="headerlink" title="忠告"></a>忠告</h2><p>命名这件事不同的人有不同的看法。</p>
-<p>认真命好每个名， 尽量遵守规则。</p>
-<p>表面上花时间，实际上省时间。</p>
-<p>程序如果需要交给教师检查或者请求教师协助，两件事情先做好：</p>
+<p>在学生完成简单的思索后，开始思政教育：</p>
 <ul>
-<li>确认命名符合要求；</li>
+<li><p>相对于(1786-1201)*0.85，costCompute( )函数的可读性更好，有利于团队协作。</p>
+</li>
+<li><p><strong>世界唯一不变的就是变</strong>，电费的计费规则，包括但不限于价格的变化是可以预期的大概率事件。当计费规则发生变化后，比如实行阶梯电费，如果软件中全部的电费计算均依赖此函数进行，那么，我们仅需要修改该函数即可快速地响应变化。否则：软件需要做多处修改，遗漏一处就意味着软件缺陷。</p>
+<p>作为未来的社会中坚，应该富有远见，着眼未来，时时刻刻做好应对变局的准备。</p>
+</li>
 </ul>
-<ul>
-<li>把程序排列整齐，检查缩进，分行。 </li>
-</ul>
-<hr>
+<h4 id="2-理性消费，远离套路贷"><a href="#2-理性消费，远离套路贷" class="headerlink" title="2. 理性消费，远离套路贷"></a>2. 理性消费，远离套路贷</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#loan.py</span></span><br><span class="line">fBalance = <span class="number">10000</span>                              <span class="comment">#贷款初始余额</span></span><br><span class="line">fRate = <span class="number">0.0005</span>                                <span class="comment">#日利万分之五</span></span><br><span class="line">balances = []                                 <span class="comment">#贷款余额列表</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">365</span>*<span class="number">30</span>):</span><br><span class="line">    fBalance = fBalance + fBalance*fRate      <span class="comment">#贷款余额 = 本金 + 本金*利率</span></span><br><span class="line">    balances.append(fBalance)                 <span class="comment">#把贷款余额存入列表绘图用</span></span><br><span class="line">print(<span class="string">"30年后连本带利欠款总额: %.2f"</span> % fBalance)</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> pyplot <span class="keyword">as</span> plt          <span class="comment">#贷款余额 vs 天数增长曲线</span></span><br><span class="line">plt.plot(list(range(<span class="number">365</span>*<span class="number">30</span>)),balances)</span><br><span class="line">plt.title(<span class="string">"Loan balance grow by days"</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<p>在讲循环一节时，我们设计了一个微实践案例，名为”滚雪球的复利“。这个案例设想了一位小A同学为了买最新款的折叠屏手机，跟小额贷款公司借了10000元，小额贷公司的条件看起来很诱人，日息万分之五，一天5元，也就是一杯奶茶的钱。小A同学经常喝奶茶，觉得一杯奶茶钱无足挂齿，开开心心地就签下了合同。不幸的是，小A同学涉世不深，忽略了合同中隐藏的复利条款。</p>
+<p><img src="/images/1561791925167.png" alt="1561791925167"></p>
+<p>通过循环程序，同学们亲自见证了万分之五的复利所导致的贷额余额随时间的指数增长。</p>
+<p>总结陈词：<strong>理性消费，远离套路贷</strong>。</p>
+<h4 id="3-团结合作才是人间正道"><a href="#3-团结合作才是人间正道" class="headerlink" title="3. 团结合作才是人间正道"></a>3. 团结合作才是人间正道</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> scipy <span class="keyword">as</span> sp</span><br><span class="line"><span class="comment">#Visual Studio Code</span></span><br><span class="line"><span class="comment">#Python License,  MIT License,  GPL License</span></span><br></pre></td></tr></table></figure>
+
 <blockquote>
-<p>本文内容节选自作者编著的《Python编程基础及应用》（高等教育出版社）一书。</p>
+<p>“团结合作才是人间正道” ——习近平总书记在全国抗击新冠肺炎疫情表彰大会的讲话。</p>
 </blockquote>
-<p><img src="/images/pybook.jpg" alt="Python编程基础及应用"></p>
-<p>免费随书B站MOOC:  </p>
-<iframe src="//player.bilibili.com/player.html?aid=34409478&bvid=BV1kt411R7uW&cid=124551481&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="100%" height="600"> </iframe>
+<p>在软件开发领域，团结合作的最佳途径就是开源。在Python里，我们使用：由Microsoft研发并开源的Visual Studio Code作为IDE环境；由Python Software Foundation开源的Python解释器；由众多开源开发者贡献的各种开发包，包括matplotlib, numpy, scipy，tensorflow等等。</p>
+<p>人人为我，我为人人。软件开源运动的发展，极大地提高了整个人类的工作效率，促进了全社会文明的进步。当前，一些不太愿意看到我们发展状大的势力，试图对我们进行科技封锁，这是逆势而为，注定会失败的。我们的软件工作者，应该具备宽广的胸怀，乐于奉献，团结和服务于世界人民的大多数，决不能走主动脱勾，闭门建设的错误道路。</p>
+<h4 id="4-相信科学，远离怪力乱神"><a href="#4-相信科学，远离怪力乱神" class="headerlink" title="4. 相信科学，远离怪力乱神"></a>4. 相信科学，远离怪力乱神</h4><p><img src="/images/image-20210324164652014.png" alt="image-20210324164652014"></p>
+<p>在微实践-哈利波特之心灵感应魔法示例中，我们通过二进制编码及Python程序揭示了所谓”心灵感应魔法”的背后的数学原理。除了帮助学生理解二进制编码，这个示例还可用于课堂思政：所谓的特异功能、神迹，全是骗术，其事实上依赖于科学。作为受过高等教育的大学生，我们可能会因为知识局限性的影响而对某些现象产生疑惑，但务必坚信，现象背后的科学解释，终会出现。</p>
+<ul>
+<li><h4 id="5-九层之台，起于累土"><a href="#5-九层之台，起于累土" class="headerlink" title="5. 九层之台，起于累土"></a>5. 九层之台，起于累土</h4></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#everest.py</span></span><br><span class="line">iCounter = <span class="number">0</span>                    <span class="comment">#对折次数</span></span><br><span class="line">fThickness = <span class="number">0.0001</span>             <span class="comment">#纸厚，单位米</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    <span class="keyword">if</span> fThickness &gt; <span class="number">8844.43</span>:    <span class="comment">#超过珠峰高度就停止循环</span></span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        fThickness *= <span class="number">2</span>         <span class="comment">#对折一次厚度翻倍</span></span><br><span class="line">        iCounter += <span class="number">1</span>           <span class="comment">#对折次数加1</span></span><br><span class="line"></span><br><span class="line">print(<span class="string">"纸对折%d次后的厚度为%.2f米,超过了珠穆朗玛峰."</span> % (iCounter,fThickness))</span><br></pre></td></tr></table></figure>
 
-
-
+<p>＂九层之台，起于累土＂出自春秋·楚·李耳《老子》第64章：＂合抱之木，生于毫末；九层之台，起于累土；千里之行，始于足下＂。在这个示例中，我们研究了下述问题：一张厚度为0.1毫米的足够大的纸，对折多少次以后才能达到珠穆朗玛峰的高度？</p>
+<p>通过这个示例，在知识层面上，我们可达到下述目的：</p>
+<ul>
+<li>进一步学习while循环；</li>
+<li>帮助一些学生建立起指数增长的概念，消除错误的“直觉和经验”；</li>
+</ul>
+<p>在思政层面上，帮助学生体会：<strong>起点低没关系，怕的是不努力和不坚持</strong>。不论起点有多低，只要不断成长，假以时日，终有所成。</p>
+<blockquote>
+<p>硬广，上述思政案例均来源作者主编的《Python编程基础及应用》一书。</p>
+</blockquote>
+<p><img src="/images/pybook.png" alt="pybook"></p>
 
           
         </div>
@@ -540,10 +419,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-09-11T14:21:58+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-03-24T17:09:39+08:00">
   <a class='notlink'>
     <i class="fas fa-save" aria-hidden="true"></i>
-    <p>更新于：2020年9月11日</p>
+    <p>更新于：2021年3月24日</p>
   </a>
 </div>
 
@@ -552,7 +431,7 @@
         
           
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Python/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;<p>Python</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E8%AF%AD%E6%B3%95/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;<p>语法</p></a></div>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Python/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;<p>Python</p></a></div>
 
 
         
@@ -565,11 +444,8 @@
       
         <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer"
           
-          href="http://connect.qq.com/widget/shareqq/index.html?url=http://codelearn.club/2019/06/namemethod/&title=说说程序中的命名规则 | Python,C/C++ Club&pics=https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/avatar/avatar.png&summary=程序里有很多东西需要命名，
-​        良好的命名习惯可以提高编程效率； 减少出错； 
-​        良好命名的程序清晰易读。
-​        好的名称可以提供很多有价值的信息。
-本文解释作者在《Python编程基础及应用》一书中所使用的命名规则。"
+          href="http://connect.qq.com/widget/shareqq/index.html?url=http://codelearn.club/2019/06/pypl/&title=教之以事，喻之以德 —— Python代码里的课堂思政 | Python,C/C++ Club&pics=https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/avatar/avatar.png&summary=无论是哪一代的年轻人，都不喜欢听大道理。思政教育，讲究个如盐在水，润物细无声。笔者在重庆大学讲授程序设计课程有些年头了，在课堂内外，除了跟学生聊语法、讲算法、说技术之外，也会悄悄加点作料，“不经意”地做点思政教育。
+————重庆大学计算机学院  陈波"
           
           >
           
@@ -581,11 +457,8 @@
       
         <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer"
           
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://codelearn.club/2019/06/namemethod/&title=说说程序中的命名规则 | Python,C/C++ Club&pics=https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/avatar/avatar.png&summary=程序里有很多东西需要命名，
-​        良好的命名习惯可以提高编程效率； 减少出错； 
-​        良好命名的程序清晰易读。
-​        好的名称可以提供很多有价值的信息。
-本文解释作者在《Python编程基础及应用》一书中所使用的命名规则。"
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://codelearn.club/2019/06/pypl/&title=教之以事，喻之以德 —— Python代码里的课堂思政 | Python,C/C++ Club&pics=https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/avatar/avatar.png&summary=无论是哪一代的年轻人，都不喜欢听大道理。思政教育，讲究个如盐在水，润物细无声。笔者在重庆大学讲授程序设计课程有些年头了，在课堂内外，除了跟学生聊语法、讲算法、说技术之外，也会悄悄加点作料，“不经意”地做点思政教育。
+————重庆大学计算机学院  陈波"
           
           >
           
@@ -595,7 +468,7 @@
       
     
       
-        <a class='qrcode' rel="external nofollow noopener noreferrer" href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACJUlEQVR42u3aQY6DMAwF0N7/0sx2pA7026Ej4bysKkobHgvLjv16xev4tc6uX6/3X519fr//toWBgfFYRrL99ZXer66fId8FAwNjH8ZZBEvuOdv+GlP9nw/PjIGBgVEk5WF6ZS8MDAyMlQCal8HJi8DAwMDIy9E8cayG1OTb22pxDAyMBzLyU/f///yV/gYGBsajGEdxJQGx15g8FhYGBsZsRq8EzVuSvWK1WRJjYGBsychLx2oIrpa+0WvCwMDYhlF9iB4vbxgUXgQGBsZQRvJw1e1XgmwvxcTAwNiHUW0rVsNutRnZnBbBwMAYx7jriK13Z/76lnqzGBgYIxh5ArceCvMWaXlHDAyMoYzq0XyS0uWtypWBsD9mRjAwMEYz8mbAvSs6SksO5jAwMEYzkr+oDm+ttBby9gAGBsaejN75XC/5Wz+Y+9DrwMDAGMTIi9XqWEbe5uw1ODEwMHZjrKRoeWqYh+nq6AYGBsZsxnrgq95TLWLL4xcYGBhDGb3BryRpSwJrHmSjmREMDIxtGL3GYa+d0AvW5ZYABgbGCEbvoauHa82xiSToY2BgDGUcxZWPc+UNyPxFnP4bBgbGaMY3hip6h27VFLOJwcDAeCyjF2R7V6plbSHgYmBgbMBYOT7rNRV6qd6HHiwGBgbGTWMWX8xeMTAwMFqNhJX7CwUzBgbGBowkdcsTwah3elM7EwMDYwfGUulYvLP30HlCiYGBMY7xAxkvIuB2zJHRAAAAAElFTkSuQmCC'>
+        <a class='qrcode' rel="external nofollow noopener noreferrer" href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACH0lEQVR42u3aQXKDMAwF0Nz/0u0BOsCXBJliP1adJAW/LBR9y59PfP2Mr/O7/X3988SFgYHxWkby+PMH5P81gZ1/NRgYGDswjhZ39JlkudV3zz95sWYMDAyMgNQruAkSAwMD466Cm2fMXuHGwMDAqLZoeQlOyvdXszgGBsYLGfmu+/f/fmS+gYGB8SpGbwzZK6/nixsNRzEwMJZmTCJosqxqoB1FYgwMjEUZ59F0/koeg3uHMx5ZNAYGxj9j5OWyehiid+Ri/kVgYGCszUgWWi2F+cBycmQWAwNjbUavdatW8d7osXA3DAyMpRnVrbH5SOCJBhEDA2MHRrW8Jg+rxtoq/iLEYmBgLMeopt5eTE1eqW7zYWBg7Ma4q7BWRwW9AefFLwYGBsZCjGSbvhdBLw6bxgW6HFwxMDAWZcwjaLKVn7eG5aKMgYGxNKM6LJxvllWfVWhDMTAwNmMkAbJ6TVrSKEhjYGAszajeutogJm1fb5CAgYGxDyMJovkmWvUz0YZasloMDIwNGNXy2htVVlu9cojFwMDYgNEreZMgWn3uRW+LgYGxHOPeLbNJZO3dAQMDYwdGfo0268eHM/IBBgYGxqqMPL4mS88Xmm/YJcfLMDAwdmBMtsx6zWLvF+DwbhgYGBitpjAJqEnhjr4ODAwMjJuKaTXEFhpTDAyMDRi9YxZ51Jwf4MDAwNiZUT1gMZk2TALtDUNNDAyM9zF+AelciYe4a3nlAAAAAElFTkSuQmCC'>
         
           <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/wechat.png">
         
@@ -605,11 +478,8 @@
       
         <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer"
           
-          href="http://service.weibo.com/share/share.php?url=http://codelearn.club/2019/06/namemethod/&title=说说程序中的命名规则 | Python,C/C++ Club&pics=https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/avatar/avatar.png&summary=程序里有很多东西需要命名，
-​        良好的命名习惯可以提高编程效率； 减少出错； 
-​        良好命名的程序清晰易读。
-​        好的名称可以提供很多有价值的信息。
-本文解释作者在《Python编程基础及应用》一书中所使用的命名规则。"
+          href="http://service.weibo.com/share/share.php?url=http://codelearn.club/2019/06/pypl/&title=教之以事，喻之以德 —— Python代码里的课堂思政 | Python,C/C++ Club&pics=https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/avatar/avatar.png&summary=无论是哪一代的年轻人，都不喜欢听大道理。思政教育，讲究个如盐在水，润物细无声。笔者在重庆大学讲授程序设计课程有些年头了，在课堂内外，除了跟学生聊语法、讲算法、说技术之外，也会悄悄加点作料，“不经意”地做点思政教育。
+————重庆大学计算机学院  陈波"
           
           >
           
@@ -636,10 +506,10 @@
               <section class="prev">
                 <span class="art-item-left">
                   <h4>
-                    <a href="/2019/06/pypl/" rel="prev" title="教之以事，喻之以德 —— Python代码里的课堂思政">
+                    <a href="/2019/06/pipinstall/" rel="prev" title="使用pip安装Python扩展库的方法">
                       <i class="fas fa-chevron-left" aria-hidden="true"></i>
                       
-                        教之以事，喻之以德 —— Python代码里的课堂思政
+                        使用pip安装Python扩展库的方法
                       
                     </a>
                   </h4>
@@ -656,9 +526,9 @@
               <section class="next">
                 <span class="art-item-right" aria-hidden="true">
                   <h4>
-                    <a href="/2019/06/pythoninstall/" rel="prev" title="Python解释器的安装">
+                    <a href="/2019/06/namemethod/" rel="prev" title="说说程序中的命名规则">
                       
-                        Python解释器的安装
+                        说说程序中的命名规则
                       
                       <i class="fas fa-chevron-right" aria-hidden="true"></i>
                     </a>
@@ -666,7 +536,7 @@
                   
                     
                     <h6 class="tags">
-                      <a class="tag" href="/tags/Python/"><i class="fas fa-tag" aria-hidden="true"></i> Python</a>&nbsp;
+                      <a class="tag" href="/tags/Python/"><i class="fas fa-tag" aria-hidden="true"></i> Python</a> <a class="tag" href="/tags/%E8%AF%AD%E6%B3%95/"><i class="fas fa-tag" aria-hidden="true"></i> 语法</a>&nbsp;
                     </h6>
                   
                 </span>
@@ -735,7 +605,7 @@
 
   <script>
     window.subData = {
-      title: '说说程序中的命名规则',
+      title: '教之以事，喻之以德 —— Python代码里的课堂思政',
       tools: true
     }
   </script>
@@ -899,7 +769,7 @@
 
 
     <div class='content'>
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#命名示例"><span class="toc-text">命名示例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#正确，-错误-vs-好，相对不好，-坏"><span class="toc-text">正确， 错误   vs  好，相对不好， 坏</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#规则1-全程使用英文，不准用拼音"><span class="toc-text">规则1    全程使用英文，不准用拼音</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#规则2-变量-类的数据成员的命名"><span class="toc-text">规则2    变量&#x2F;类的数据成员的命名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#规则3-函数的命名"><span class="toc-text">规则3   函数的命名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#规则4-类型的命名"><span class="toc-text">规则4   类型的命名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#规则5-例外"><span class="toc-text">规则5   例外</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#当心中文目录及中文文件名"><span class="toc-text">当心中文目录及中文文件名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#忠告"><span class="toc-text">忠告</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-唯一不变的就是变化本身"><span class="toc-text">1. 唯一不变的就是变化本身</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-理性消费，远离套路贷"><span class="toc-text">2. 理性消费，远离套路贷</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-团结合作才是人间正道"><span class="toc-text">3. 团结合作才是人间正道</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-相信科学，远离怪力乱神"><span class="toc-text">4. 相信科学，远离怪力乱神</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-九层之台，起于累土"><span class="toc-text">5. 九层之台，起于累土</span></a></li></ol>
     </div>
   </section>
 
